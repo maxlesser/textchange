@@ -1,5 +1,5 @@
 # Django settings for Textchange project.
-
+#test
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
