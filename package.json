@@ -1,0 +1,23 @@
+{
+  "name": "textchange",
+  "version": "0.0.0",
+  "description": "132 project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxlesser/textchange.git"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "any-db": "0.4.x",
+    "hogan.js": "2.0.x",
+    "consolidate": "0.7.x",
+    "sqlite3": "2.1.x"
+  },
+  "author": "",
+  "license": "BSD",
+  "gitHead": "8e207d06c41c506c72129c9f8302101d4ee03ce2"
+}
