@@ -4,6 +4,9 @@ var express = require('express');
 
 var engines = require('consolidate');
 
+//passport setup
+var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+
 //var conn = anyDB.createConnection('sqlite3://chatrooms.db');
 var app = express();
 
@@ -18,8 +21,6 @@ app.engine('html', engines.hogan); // tell Express to run .html files through Ho
 app.set('views', __dirname + '/templates'); // tell Express where to find templates
 
 
-//passport setup
-var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
