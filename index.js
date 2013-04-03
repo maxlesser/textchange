@@ -43,6 +43,11 @@ app.get('/', function(request, response){
 	response.render('home.html');
 });
 
+//home page response
+app.get('/login', function(request, response){
+	response.render('login.html');
+});
+
 //login page
 app.post('/login',
   passport.authenticate('local', 
