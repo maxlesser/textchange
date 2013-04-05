@@ -1,6 +1,6 @@
 var express = require('express');
 
-//var anyDB = require('any-db');
+var anyDB = require('any-db');
 
 var engines = require('consolidate');
 
@@ -66,7 +66,7 @@ passport.use(new LocalStrategy(
 
 
 
-//var conn = anyDB.createConnection('sqlite3://chatrooms.db');
+var conn = anyDB.createConnection('sqlite3://books.db');
 var app = express();
 
 app.configure(function() {
@@ -97,5 +97,14 @@ app.get('/login', function(request, response){
 app.post('/login',
   passport.authenticate('local', 
   	{ successRedirect: '/', failureRedirect: '/login' }));
+
+//search json response
+app.get('/search/:query/books.json', function(request,response) {
+
+	var sql = 'SELECT * FROM books';
+	conn.query(sql, function(error, result){
+		response.json(result);
+	});
+});
 
 app.listen(8080);
