@@ -2,14 +2,17 @@
 
 
  window.addEventListener('load', function(){
- 	getText('/latestEntries');
+ 	//getText('/latestEntries');
+    /*document.getElementById('search').addEventListener('onsubmit', function(){
+        console.log("kappi you're a genius");
+        //getText('/'+ document.getElementById("search").value);
+     }, false);*/
  }, false);
 
-document.getElementById("search").addEventListener('onsubmit', function(){
-	console.log("kappi you're a genius");
- 	getText('/'+ document.getElementById("search").value);
- }, false);
 
+function search(text){
+    getText('/search/' + document.getElementById("search").value + '/books.json');
+}
 
  function getText(url){
     console.log("in get text");
@@ -45,6 +48,7 @@ document.getElementById("search").addEventListener('onsubmit', function(){
 
 function refresh (data) {
     console.log("in refresh");
+    console.log(data)
     var displaykeeper = 0;
     var ul = document.getElementById('list');
     ul.innerHTML = " ";
