@@ -101,8 +101,11 @@ app.post('/login',
 //search json response
 app.get('/search/:query/books.json', function(request,response) {
 
-	var sql = 'SELECT * FROM books';
-	conn.query(sql, function(error, result){
+  var query = request.params.query;
+  query = '%' + query + '%';
+	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+	conn.query(sql, query, function(error, result){
+    console.log(result);
 		response.json(result);
 	});
 });
