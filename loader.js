@@ -11,11 +11,13 @@ var conn = anyDB.createConnection('sqlite3://books.db');
    probably cause an error! You should delete it first.)*/
 
 
-conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, time INTEGER);');
+conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, time INTEGER)');
 
-conn.query('INSERT INTO books (title, author, class, time) VALUES (\'Test1\', \'Johan\', \'CSCI019\', 100)');
 
-conn.query('INSERT INTO books (title, author, class, time) VALUES (\'Test2\', \'Johan\', \'CSCI019\', 100)')
-conn.query('INSERT INTO books (title, author, class, time) VALUES (\'Test3\', \'Johan\', \'CSCI019\', 100)')
-conn.query('INSERT INTO books (title, author, class, time) VALUES (\'Test4\', \'Johan\', \'CSCI019\', 100)')
-conn.query('INSERT INTO books (title, author, class, time) VALUES (\'Test5\', \'Johan\', \'CSCI019\', 100)')
+for (var i = 0; i < 100; i++)
+{
+
+conn.query('INSERT INTO books (title, author, class, seller, image, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'path\', 100)');
+
+
+}
