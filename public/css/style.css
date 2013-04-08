@@ -7,3 +7,78 @@
 .navbar-search{
 	margin-right: 20px;
 }
+
+#list_container{
+	width: 100%;
+	padding: 20px;
+}
+
+.buy_btn {
+	position: relative;
+	top: -60px;
+	float: right;
+	margin-right: 20px;
+}
+
+#book_search{
+	margin-top: 40px;
+	display: block;
+	padding: 10px;
+	padding-left: 20px;
+}
+
+#list_thumbnails {
+	width: 100%;
+  margin-left: -20px;
+  list-style: none;
+  *zoom: 1;
+}
+
+.list_thumbnails:before,
+.list_thumbnails:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+
+.list_thumbnail {
+	margin: 20px;
+	min-height: 100px;
+  display: block;
+  padding: 4px;
+  line-height: 20px;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -webkit-transition: all 0.2s ease-in-out;
+     -moz-transition: all 0.2s ease-in-out;
+       -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+
+a.list_thumbnail:hover,
+a.list_thumbnail:focus {
+  border-color: #0088cc;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+     -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+          box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.list_thumbnail > img {
+	float: left;
+  display: block;
+  max-width: 100%;
+  margin-right: 20px;
+  margin-left: auto;
+}
+
+.list_thumbnail .caption {
+  padding: 9px;
+  color: #555555;
+}
+

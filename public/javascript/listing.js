@@ -31,11 +31,7 @@ function search(text){
                 var data = JSON.parse(content);
                 refresh(data);
             } else {
-                var ul = document.getElementById('list');
-                // create a new li element for the Tweet, and append it
-                var li = document.createElement('li');
-                li.innerHTML = 'Something went wrong :(';
-                ul.insertBefore(li);
+                console.log("YOU SHOULD NOT BE HERE");
                 // something went wrong, check the request status
                 // hint: 403 means Forbidden, maybe you forgot your username?
             }
@@ -49,22 +45,32 @@ function search(text){
 function refresh (data) {
     console.log("in refresh");
     console.log(data)
-    var displaykeeper = 0;
-    var ul = document.getElementById('list');
+    var ul = document.getElementById('list_thumbnails');
     ul.innerHTML = " ";
 
     for (var i =0; i < data.length; i ++){
 
-            displaykeeper ++;
 
             var li = document.createElement('li');
-            li.innerHTML = '<strong>' + data[i].title + '</strong> ' + 'by' + data[i].author + '<br>Used for:' +  '<small>' + data[i].class + '</small>';
+
+            var newitem = '<div class="list_thumbnail">' +
+              '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
+              '<h3>'+ data[i].title + '<small> by ' + data[i].author + '</small></h3>
+              <p>Class: <strong>' + data[i].class + '</strong> &emsp; Seller: <strong>' + data[i].Seller +'</strong></p>
+              <div class= "buy_btn">
+                <p>
+                <button class="btn btn-large btn-primary" type="button">Buy</button><br><br>
+                
+                </p>
+              </div>
+            </div>' ;
+
+            li.innerHTML = newitem;
+
+
+
             ul.insertBefore(li, ul.getElementsByTagName("li")[0]);
 
-              if (displaykeeper >= 30){
-                var ul = document.getElementById('messages');
-                var li = ul.getElementsByTagName('li')[29];
-      
         }    
     }   
 }
