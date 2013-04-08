@@ -2,11 +2,7 @@
 
 
  window.addEventListener('load', function(){
- 	//getText('/latestEntries');
-    /*document.getElementById('search').addEventListener('onsubmit', function(){
-        console.log("kappi you're a genius");
-        //getText('/'+ document.getElementById("search").value);
-     }, false);*/
+    getText('/search/recent.json');
  }, false);
 
 
@@ -47,23 +43,24 @@ function refresh (data) {
     console.log(data)
     var ul = document.getElementById('list_thumbnails');
     ul.innerHTML = " ";
+    console.log("noah"+data.rowCount);
 
-    for (var i =0; i < data.length; i ++){
-
+    for (var i =0; i < data.rowCount; i ++){
+        console.log("kappi");
 
             var li = document.createElement('li');
 
             var newitem = '<div class="list_thumbnail">' +
               '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
-              '<h3>'+ data[i].title + '<small> by ' + data[i].author + '</small></h3>
-              <p>Class: <strong>' + data[i].class + '</strong> &emsp; Seller: <strong>' + data[i].Seller +'</strong></p>
-              <div class= "buy_btn">
-                <p>
-                <button class="btn btn-large btn-primary" type="button">Buy</button><br><br>
+              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong></p>'+
+              '<div class= "buy_btn">'+
+                '<p>'+
+                '<button class="btn btn-large btn-primary" type="button">Buy</button><br><br>'+
                 
-                </p>
-              </div>
-            </div>' ;
+                '</p>'+
+              '</div>' +
+            '</div>' ;
 
             li.innerHTML = newitem;
 
@@ -73,6 +70,6 @@ function refresh (data) {
 
         }    
     }   
-}
+
 
 
