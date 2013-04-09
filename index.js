@@ -129,4 +129,35 @@ app.get('/users.json', function(request,response) {
   });
 });
 
+//search json response
+app.get('/user_posts/:username/book_posts.json', function(request,response) {
+
+  var username = request.params.username;
+  console.log(username);
+  var sql = 'SELECT * FROM books WHERE seller = $1 ORDER BY time ASC';
+  conn.query(sql, username, function(error, result){
+    console.log(result);
+    response.json(result);
+  });
+});
+
+//adds a new message, and returns a response containing all messages
+app.post('/addbook', function(request, response){
+    var username = request.body.username;   
+    var title = request.body.title_name; 
+    var author = request.body.author;   
+    var class_name = request.body.class_name;   
+    var description = request.body.description;   
+    var d = new Date();
+    var sql = 'INSERT INTO books (seller, title, author, class, description, time) VALUES ($1, $2, $3, $4, $5, $6)';
+    conn.query(sql, [username, title, author, class_name, description, d.getTime()/1000], function (error, result) {
+        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY time ASC';
+
+        conn.query(sql, username, function (error, result) {
+
+            response.json(result);
+        });
+    });
+});
+
 app.listen(8080);
