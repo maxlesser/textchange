@@ -14,14 +14,16 @@
     var fd = new FormData(document.getElementById('newBookForm'));
 
     var req = new XMLHttpRequest();
-    req.open('POST', '/addbook');
+    req.open('POST', '/addbook', true);
     console.log("attempting to add book");
 
     req.addEventListener('load', function(e){
+        console.log("in here");
         var content1 = req.responseText;
         var data1= JSON.parse(content1);
         console.log(data1);
-    });
+    }, false);
+    req.send(fd);
  }
 
 

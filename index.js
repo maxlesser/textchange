@@ -82,6 +82,26 @@ app.configure(function() {
 });
 
 
+app.post('/addbook', function(request, response){
+      console.log('hi');   
+
+    var username = request.body.username;   
+    var title = request.body.title_name; 
+    var author = request.body.author;   
+    var class_name = request.body.class_name;   
+    var description = request.body.description;
+    console.log(username);   
+    var d = new Date();
+    var sql = 'INSERT INTO books (seller, title, author, class, description, time) VALUES ($1, $2, $3, $4, $5, $6)';
+    conn.query(sql, [username, title, author, class_name, description, d.getTime()/1000], function (error, result) {
+        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY time ASC';
+        conn.query(sql, username, function (error, result) {
+          console.log(result);
+          console.log("MAXAMILION");
+            response.json(result);
+        });
+    });
+});
 
 //home page response
 app.get('/', function(request, response){
@@ -100,9 +120,8 @@ app.post('/login',
 
 app.get('/search/recent.json', function(request,response) {
 console.log("MADE IT HERE OK");
-    var sql = "SELECT * FROM books ORDER BY time ASC LIMIT 100";
+    var sql = "SELECT * FROM books ORDER BY time DESC LIMIT 100";
     conn.query(sql, function (error, result) {
-      console.log(result);
         response.json(result);
     });
 });
@@ -143,22 +162,6 @@ app.get('/user_posts/:username/book_posts.json', function(request,response) {
 });
 
 //adds a new message, and returns a response containing all messages
-app.post('/addbook', function(request, response){
-    var username = request.body.username;   
-    var title = request.body.title_name; 
-    var author = request.body.author;   
-    var class_name = request.body.class_name;   
-    var description = request.body.description;   
-    var d = new Date();
-    var sql = 'INSERT INTO books (seller, title, author, class, description, time) VALUES ($1, $2, $3, $4, $5, $6)';
-    conn.query(sql, [username, title, author, class_name, description, d.getTime()/1000], function (error, result) {
-        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY time ASC';
 
-        conn.query(sql, username, function (error, result) {
-
-            response.json(result);
-        });
-    });
-});
 
 app.listen(8080);
