@@ -110,4 +110,14 @@ app.get('/search/:query/books.json', function(request,response) {
 	});
 });
 
+//search json response
+app.get('/users.json', function(request,response) {
+
+  var sql = 'SELECT * FROM users';
+  conn.query(sql, function(error, result){
+    console.log(result);
+    response.json(result);
+  });
+});
+
 app.listen(8080);
