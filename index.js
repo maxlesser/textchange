@@ -98,6 +98,15 @@ app.post('/login',
   passport.authenticate('local', 
   	{ successRedirect: '/', failureRedirect: '/login' }));
 
+app.get('/search/recent.json', function(request,response) {
+
+    var sql = "SELECT * FROM books ORDER BY time DESC LIMIT 100";
+    conn.query(sql, function (error, result) {
+        response.json(result);
+    });
+});
+
+
 //search json response
 app.get('/search/:query/books.json', function(request,response) {
 

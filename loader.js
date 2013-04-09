@@ -13,11 +13,11 @@ var conn = anyDB.createConnection('sqlite3://books.db');
 
 conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, time INTEGER)');
 
-
+var d = new Date();
 for (var i = 0; i < 100; i++)
 {
 
-conn.query('INSERT INTO books (title, author, class, seller, image, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'path\', 100)');
+conn.query('INSERT INTO books (title, author, class, seller, image, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'path\', '+ d.getTime()/1000 + ')');
 
 
 }
