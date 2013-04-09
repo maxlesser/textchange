@@ -49,15 +49,16 @@ function refresh (data) {
         console.log("kappi");
 
             var li = document.createElement('li');
+            var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
               '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong></p>'+
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong><small> at '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small></p>'+
               '<div class= "buy_btn">'+
-                '<p>'+
-                '<button class="btn btn-large btn-primary" type="button">Buy</button><br><br>'+
-                
+                '<p>'+ 
+                '<button class="btn btn-large btn-primary pull-right" type="button">Buy</button>'+
+                'where will this text show? <br>'+
                 '</p>'+
               '</div>' +
             '</div>' ;
