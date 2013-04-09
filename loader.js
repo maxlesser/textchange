@@ -11,7 +11,7 @@ var conn = anyDB.createConnection('sqlite3://books.db');
    probably cause an error! You should delete it first.)*/
 
 
-conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, description TEXT, time INTEGER)');
+conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, price INTEGER, description TEXT, time INTEGER)');
 
 conn.query('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT,password TEXT,name TEXT)');
 
@@ -19,7 +19,7 @@ var d = new Date();
 
 for (var i = 0; i < 100; i++)
 {
-conn.query('INSERT INTO books (title, author, class, seller, image,description, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'path\', \'I am a book hi\', '+ d.getTime()/1000 + ')');
+conn.query('INSERT INTO books (title, author, class, seller, image,price,description, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'path\',' + i + ',\'I am a book hi\', '+ d.getTime()/1000 + ')');
 
 
 }
