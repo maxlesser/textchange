@@ -20,8 +20,8 @@
 			<div class="navbar-inner">
 			    <a class="brand" id = "navbar_brand" >Sextchange</a>
 				    <ul class="nav">
-				      <li class="active"><a href="#">Buy</a></li>
-				      <li><a href="#">Sell</a></li>
+				      <li id = "buyTab" class="active"><a href="#" onClick= "return buy()">Buy</a></li>
+				      <li id = "sellTab"><a href ="#" onClick="return sell()" >Sell</a></li>
 				    </ul>
 
 			</div>
@@ -29,6 +29,8 @@
     </div> 
 
 		</div>
+
+<div id = "buy">
 
     <div id = "book_search">
 
@@ -44,21 +46,41 @@
       
 
         <ul id="list_thumbnails">
+     
+    </ul>
+  </div>
+
+</div>
+
+
+<div id = "sell">
+    
+
+        <ul id="list_thumbnails">
           <li>
             <div class="list_thumbnail">
+              <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
               <img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">
-              <h3>Book Title <small> by Author Lastname</small></h3>
+              <input name = "title" type="text" class="input-small" placeholder="Book Title">
+              <input name = "author" type="text" class="input-small" placeholder="Author">
+              <input name = "class_name" type="text" class="input-mini" placeholder="Class">
+              <input name = "username" type="text" class="input-small" placeholder="Username">
+              <input name = "description" type="text" class="input-mini" placeholder="Description">
               <p>Class: <strong> CS1320 </strong> &emsp; Seller: <strong>Kappi</strong></p>
               <div class= "buy_btn">
                 <p>
-                <button class="btn btn-large btn-primary" type="button">Buy</button><br><br>
-                
+                <button class="btn btn-large btn-primary" type="Submit">Post</button><br><br>
+            
                 </p>
               </div>
+              </form>
             </div>
           </li>
      
     </ul>
+
+
+</div>
 
   </body>
 </html>

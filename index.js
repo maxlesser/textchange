@@ -99,9 +99,10 @@ app.post('/login',
   	{ successRedirect: '/', failureRedirect: '/login' }));
 
 app.get('/search/recent.json', function(request,response) {
-
+console.log("MADE IT HERE OK");
     var sql = "SELECT * FROM books ORDER BY time ASC LIMIT 100";
     conn.query(sql, function (error, result) {
+      console.log(result);
         response.json(result);
     });
 });
