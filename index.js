@@ -100,7 +100,7 @@ app.post('/login',
 
 app.get('/search/recent.json', function(request,response) {
 
-    var sql = "SELECT * FROM books ORDER BY time DESC LIMIT 100";
+    var sql = "SELECT * FROM books ORDER BY time ASC LIMIT 100";
     conn.query(sql, function (error, result) {
         response.json(result);
     });
@@ -112,7 +112,7 @@ app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time ASC';
 	conn.query(sql, query, function(error, result){
     console.log(result);
 		response.json(result);
