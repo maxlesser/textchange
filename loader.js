@@ -13,6 +13,8 @@ var conn = anyDB.createConnection('sqlite3://books.db');
 
 conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, description TEXT, time INTEGER)');
 
+conn.query('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT,password TEXT,name TEXT)');
+
 var d = new Date();
 
 for (var i = 0; i < 100; i++)
