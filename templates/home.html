@@ -41,11 +41,11 @@
     </div>
 
 
-    <div id="list_container">
+    <div class="list_container">
 
       
 
-        <ul id="list_thumbnails">
+        <ul id="list_thumbnails_buy">
      
     </ul>
   </div>
@@ -54,9 +54,10 @@
 
 
 <div id = "sell">
-    
 
-        <ul id="list_thumbnails">
+
+  <div class="list_container">
+        <ul id="list_thumbnails_input">
           <li>
             <div class="list_thumbnail">
               <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
@@ -66,7 +67,7 @@
               <input name = "class_name" type="text" class="input-mini" placeholder="Class">
               <input name = "username" type="text" class="input-small" placeholder="Username">
               <input name = "description" type="text" class="input-mini" placeholder="Description">
-              <input name = "price" type="text" class="input-mini" placeholder="Price">
+              <input name = "price" type="number" class="input-mini" placeholder="Price">
               <p>Class: <strong> CS1320 </strong> &emsp; Seller: <strong>Kappi</strong></p>
               <div class= "buy_btn">
                 <p>
@@ -79,6 +80,17 @@
           </li>
      
     </ul>
+
+    <ul id="list_thumbnails_sell">
+     
+    </ul>
+
+
+
+  </div>
+    
+
+       
 
 
 </div>

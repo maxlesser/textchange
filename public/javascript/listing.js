@@ -21,7 +21,7 @@
         console.log("in here");
         var content1 = req.responseText;
         var data1= JSON.parse(content1);
-        console.log(data1);
+        refreshSell(data1);
     }, false);
     req.send(fd);
  }
@@ -34,6 +34,24 @@ function sell(){
     var Buyli = document.getElementById("buyTab");
     Sellli.className = "active";
     Buyli.className = "";
+    console.log("where i should be");
+    var request = new XMLHttpRequest();
+
+        request.open('GET', '/user_posts/Kappi/book_posts.json', true);
+
+        request.addEventListener('load', function(e){
+            if (request.status == 200) {
+                console.log("got that content");
+                var content2 = request.responseText;
+                var data2 = JSON.parse(content2);
+                refreshSell(data2);
+            } else {
+                console.log("YOU SHOULD NOT BE HERE");
+            }
+        }, false);
+
+        request.send(null);
+
     return false;
 }
 
@@ -69,7 +87,7 @@ function search(text){
                 console.log("ajdhkjfhkjdshf");
                 console.log(content);
                 var data = JSON.parse(content);
-                refresh(data);
+                refreshBuy(data);
             } else {
                 console.log("YOU SHOULD NOT BE HERE");
                 // something went wrong, check the request status
@@ -82,10 +100,10 @@ function search(text){
 }
 
 
-function refresh (data) {
-    console.log("in refresh");
+function refreshBuy (data) {
+    console.log("in refreshBuy");
     console.log(data)
-    var ul = document.getElementById('list_thumbnails');
+    var ul = document.getElementById('list_thumbnails_buy');
     ul.innerHTML = " ";
 
     for (var i =0; i < data.rowCount; i ++){
@@ -96,10 +114,19 @@ function refresh (data) {
             var newitem = '<div class="list_thumbnail">' +
               '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong></p>'+
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              
+                '<span data-toggle="collapse" data-target="#demo">'+
+                '<i class="icon-info-sign"></i>'+
+                '</span></p>'+
+     
+                '<div id="demo" class="collapse"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. '+
+                'Donec at massa sed nisl sodales auctor at id nunc. Praesent tristique metus quis nulla hendrerit luctus. Aliquam imperdiet blandit'+ 
+                'leo, non placerat dolor cursus ut. </div>'+
+
               '<div class= "buy_btn">'+
                 '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-primary pull-right" type="button">Buy</button>'+
+                '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
                 
                 '</p>'+
               '</div>' +
@@ -107,12 +134,48 @@ function refresh (data) {
 
             li.innerHTML = newitem;
 
-
-
-            ul.insertBefore(li, ul.getElementsByTagName("li")[0]);
+            ul.appendChild(li);
 
         }    
     }   
 
+function refreshSell (data) {
+    console.log("in refreshSell");
+    console.log(data)
+    var ul = document.getElementById('list_thumbnails_sell');
+    ul.innerHTML = " ";
+
+    for (var i =0; i < data.rowCount; i ++){
+
+            var li = document.createElement('li');
+            var d = new Date(data.rows[i].time*1000);
+
+            var newitem = '<div class="list_thumbnail">' +
+              '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
+              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              
+                '<span data-toggle="collapse" data-target="#demo">'+
+                '<i class="icon-info-sign"></i>'+
+                '</span></p>'+
+     
+                '<div id="demo" class="collapse"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. '+
+                'Donec at massa sed nisl sodales auctor at id nunc. Praesent tristique metus quis nulla hendrerit luctus. Aliquam imperdiet blandit'+ 
+                'leo, non placerat dolor cursus ut. </div>'+
+
+              '<div class= "buy_btn">'+
+                '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-danger pull-right" type="button">Delete</button>'+
+                
+                '</p>'+
+              '</div>' +
+            '</div>' ;
+
+            li.innerHTML = newitem;
+
+            ul.appendChild(li);
+
+        }    
+    } 
 
 
