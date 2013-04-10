@@ -10,28 +10,36 @@ var fs = require('fs');
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
 
-var users = [
-    { id: 1, username: 'max', password: 'lesser', email: 'max@example.com' }
-  , { id: 2, username: 'andy', password: 'chen', email: 'andy@example.com' }
-];
-
 function findById(id, fn) {
-  var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
-  } else {
-    fn(new Error('User ' + id + ' does not exist'));
-  }
+  sql = 'SELECT * FROM users WHERE id = $1';
+  conn.query(sql, id, function(error, result) {
+    var idx = id - 1;
+
+    if(result.rowCount === 1)
+    {
+      fn(null, result.rows[0]);
+    }
+    else
+    {
+      fn(new Error('User ' + id + ' does not exist'));
+    }
+  });  
 }
 
-function findByUsername(username, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
-    if (user.username === username) {
-      return fn(null, user);
+function findByUsername(username, password, fn) {
+  sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
+
+  conn.query(sql, [username, password], function(error, result){
+
+    if(result.rowCount === 1)
+    {
+      return fn(null, result.rows[0]);
     }
-  }
-  return fn(null, null);
+    else
+    {
+      return fn(null, null);
+    }
+  });
 }
 
 
@@ -57,10 +65,10 @@ passport.use(new LocalStrategy(
     // username, or the password is not correct, set the user to `false` to
     // indicate failure and set a flash message.  Otherwise, return the
     // authenticated `user`.
-    findByUsername(username, function(err, user) {
+    findByUsername(username, password, function(err, user) {
       if (err) { return done(err); }
-      if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-      if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+      if (!user) { console.log("unknown user"); }
+      else if (user.password != password) { console.log("wrong password"); }
       return done(null, user);
     });
   }
@@ -74,7 +82,10 @@ var app = express();
 app.configure(function() {
   app.engine('html', engines.hogan); // tell Express to run .html files through Hogan
   app.set('views', __dirname + '/templates'); // tell Express where to find templates
+
+  app.use(express.static('public'));
   app.use(express.cookieParser());
+  app.use(express.session({ secret: 'this is a secret' }));
   app.use(express.bodyParser({keepExtensions: true, uploadDir: './public/assets'})); // definitely use this feature
   app.use(passport.initialize());
   app.use(passport.session());
@@ -91,15 +102,35 @@ app.get('/', function(request, response){
 	response.render('home.html');
 });
 
+
 //home page response
 app.get('/login', function(request, response){
 	response.render('login.html');
 });
 
-//login page
+//login page post
 app.post('/login',
   passport.authenticate('local', 
   	{ successRedirect: '/', failureRedirect: '/login' }));
+
+
+//User creation response
+app.get('/signup', function(request, response){
+  console.log(request.user);
+  if(typeof request.user !== 'undefined') 
+    response.render('create_user.html', {username: request.user.email});
+  else
+    response.render('create_user.html');
+});
+
+//user creation post
+app.post('/signup', function(request, response){
+  var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
+  conn.query(sql, [request.body.username, request.body.password, request.body.name], function(error, result){
+    response.redirect('/');
+  });
+});
+
 
 app.get('/search/recent.json', function(request,response) {
     var sql = "SELECT * FROM books WHERE sold=0 ORDER BY time DESC LIMIT 100";
