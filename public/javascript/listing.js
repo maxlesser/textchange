@@ -153,7 +153,7 @@ function refreshBuy (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width="80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
               
@@ -190,7 +190,7 @@ function refreshSell (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">' +
+              '<img src="../'+ data.rows[i].image +'" alt="" width="80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
               

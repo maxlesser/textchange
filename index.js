@@ -197,7 +197,7 @@ app.post('/addbook', function(request, response){
     console.log(request.files.photo.path);
     console.log(request.files.photo.type);
     console.log(request.files.photo.name);
-    var sql = 'INSERT INTO books (seller, title, author, class,price, description,path, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+    var sql = 'INSERT INTO books (seller, title, author, class,price, description,image, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     conn.query(sql, [username, title, author, class_name, price, description,path, d.getTime()/1000], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 AND sold=0 ORDER BY time DESC';
         conn.query(sql, username, function (error, result) {
@@ -229,6 +229,7 @@ app.post('/mark_as_sold', function(request, response){
 
     var username = request.body.username;   
     var post_id = request.body.post_id;
+    console.log(username + " " + post_id);
 
     var sql = 'UPDATE books SET sold=1 WHERE id=$1 AND seller=$2';
     conn.query(sql, [post_id, username], function (error, result) {
