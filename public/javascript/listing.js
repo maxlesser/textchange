@@ -30,7 +30,6 @@
 
     var fd = new FormData();
     fd.append("post_id", clicked);
-    fd.append("username", "Kappi");
 
 
     var req = new XMLHttpRequest();
@@ -51,7 +50,6 @@
 
     var fd = new FormData();
     fd.append("post_id", clicked);
-    fd.append("username", "Kappi");
 
 
     var req = new XMLHttpRequest();
@@ -78,7 +76,7 @@ function sell(){
     console.log("where i should be");
     var request = new XMLHttpRequest();
 
-        request.open('GET', '/user_posts/Kappi/book_posts.json', true);
+        request.open('GET', '/book_posts.json', true);
 
         request.addEventListener('load', function(e){
             if (request.status == 200) {

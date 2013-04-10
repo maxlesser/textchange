@@ -198,9 +198,9 @@ app.get('/users.json', function(request,response) {
 });
 
 //search json response
-app.get('/user_posts/:username/book_posts.json', function(request,response) {
+app.get('/book_posts.json', function(request,response) {
 
-  var username = request.params.username;
+  var username = request.user.email;
   console.log(username);
   var sql = 'SELECT * FROM books WHERE seller = $1 ORDER BY sold, time DESC';
   conn.query(sql, username, function(error, result){
@@ -213,7 +213,7 @@ app.get('/user_posts/:username/book_posts.json', function(request,response) {
 app.post('/addbook', function(request, response){
       console.log('hi');   
 
-    var username = request.body.username;   
+    var username = request.user.email;   
     var title = request.body.title_name; 
     var author = request.body.author;   
     var class_name = request.body.class_name;   
@@ -242,7 +242,7 @@ app.post('/addbook', function(request, response){
 //adds a new message, and returns a response containing all messages
 app.post('/remove_post', function(request, response){
 
-    var username = request.body.username;   
+    var username = request.user.email;   
     var post_id = request.body.post_id;
     var sql = 'DELETE FROM books where id=$1 and seller=$2';
     conn.query(sql, [post_id, username], function (error, result) {
@@ -258,7 +258,7 @@ app.post('/remove_post', function(request, response){
 //adds a new message, and returns a response containing all messages
 app.post('/mark_as_sold', function(request, response){
 
-    var username = request.body.username;   
+    var username = request.user.email;   
     var post_id = request.body.post_id;
     console.log(username + " " + post_id);
 
