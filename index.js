@@ -100,9 +100,10 @@ app.post('/login',
   	{ successRedirect: '/', failureRedirect: '/login' }));
 
 app.get('/search/recent.json', function(request,response) {
-console.log("MADE IT HERE OK");
-    var sql = "SELECT * FROM books ORDER BY time DESC LIMIT 100";
+    var sql = "SELECT * FROM books WHERE sold=0 ORDER BY time DESC LIMIT 100";
+
     conn.query(sql, function (error, result) {
+        console.log(result);
         response.json(result);
     });
 });
@@ -113,7 +114,7 @@ app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 AND sold=0 ORDER BY time DESC';
 	conn.query(sql, query, function(error, result){
     console.log(result);
 		response.json(result);
@@ -125,7 +126,7 @@ app.get('/searchtitle/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE title LIKE $1 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE title LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     console.log(result);
     response.json(result);
@@ -135,7 +136,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE author LIKE $1 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     console.log(result);
     response.json(result);
@@ -145,7 +146,7 @@ app.get('/searchclass/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE class LIKE $1 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     console.log(result);
     response.json(result);
@@ -168,7 +169,7 @@ app.get('/user_posts/:username/book_posts.json', function(request,response) {
 
   var username = request.params.username;
   console.log(username);
-  var sql = 'SELECT * FROM books WHERE seller = $1 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE seller = $1 ORDER BY sold, time DESC';
   conn.query(sql, username, function(error, result){
     console.log(result);
     response.json(result);
@@ -189,7 +190,40 @@ app.post('/addbook', function(request, response){
     var d = new Date();
     var sql = 'INSERT INTO books (seller, title, author, class,price, description, time) VALUES ($1, $2, $3, $4, $5, $6, $7)';
     conn.query(sql, [username, title, author, class_name, price, description, d.getTime()/1000], function (error, result) {
-        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY time DESC';
+        var sql = 'SELECT * FROM books WHERE seller=$1 AND sold=0 ORDER BY time DESC';
+        conn.query(sql, username, function (error, result) {
+          console.log(result);
+          console.log("MAXAMILION");
+            response.json(result);
+        });
+    });
+});
+
+//adds a new message, and returns a response containing all messages
+app.post('/remove_post', function(request, response){
+
+    var username = request.body.username;   
+    var post_id = request.body.post_id;
+    var sql = 'DELETE FROM books where id=$1 and seller=$2';
+    conn.query(sql, [post_id, username], function (error, result) {
+        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold, time DESC';
+        conn.query(sql, username, function (error, result) {
+          console.log(result);
+          console.log("MAXAMILION");
+            response.json(result);
+        });
+    });
+});
+
+//adds a new message, and returns a response containing all messages
+app.post('/mark_as_sold', function(request, response){
+
+    var username = request.body.username;   
+    var post_id = request.body.post_id;
+
+    var sql = 'UPDATE books SET sold=true WHERE id=$1 AND seller=$2';
+    conn.query(sql, [post_id, username], function (error, result) {
+        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold, time DESC';
         conn.query(sql, username, function (error, result) {
           console.log(result);
           console.log("MAXAMILION");
