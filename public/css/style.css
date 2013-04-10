@@ -20,6 +20,13 @@
 	margin-right: 20px;
 }
 
+.post_btn {
+	position: relative;
+	top: -110px;
+	float: right;
+	margin-right: 20px;
+}
+
 #sell{
 	display: none;
 }
@@ -69,6 +76,14 @@
 
 .right_text{
 	text-align: right;
+}
+
+.input_buffer{
+	margin: 8px;
+}
+
+.input_price_buffer{
+	margin-right: 16px;
 }
 
 .list_thumbnail {
