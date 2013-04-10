@@ -221,7 +221,7 @@ app.post('/mark_as_sold', function(request, response){
     var username = request.body.username;   
     var post_id = request.body.post_id;
 
-    var sql = 'UPDATE books SET sold=true WHERE id=$1 AND seller=$2';
+    var sql = 'UPDATE books SET sold=1 WHERE id=$1 AND seller=$2';
     conn.query(sql, [post_id, username], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold, time DESC';
         conn.query(sql, username, function (error, result) {
