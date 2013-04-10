@@ -4,6 +4,8 @@ var anyDB = require('any-db');
 
 var engines = require('consolidate');
 
+var fs = require('fs');
+
 //passport setup
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
@@ -73,7 +75,7 @@ app.configure(function() {
   app.engine('html', engines.hogan); // tell Express to run .html files through Hogan
   app.set('views', __dirname + '/templates'); // tell Express where to find templates
   app.use(express.cookieParser());
-  app.use(express.bodyParser()); // definitely use this feature
+  app.use(express.bodyParser({keepExtensions: true})); // definitely use this feature
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -188,6 +190,19 @@ app.post('/addbook', function(request, response){
     var price = request.body.price;
     console.log(username);   
     var d = new Date();
+
+    var tmp_path = req.files.photo.path;
+    // set where the file should actually exists - in this case it is in the "images" directory
+    var target_path = './public/assets/' + req.files.thumbnail.name;
+    // move the file from the temporary location to the intended location
+    fs.rename(tmp_path, target_path, function(err) {
+        if (err) throw err;
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+            if (err) throw err;
+            res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
+        });
+    });
     var sql = 'INSERT INTO books (seller, title, author, class,price, description, time) VALUES ($1, $2, $3, $4, $5, $6, $7)';
     conn.query(sql, [username, title, author, class_name, price, description, d.getTime()/1000], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 AND sold=0 ORDER BY time DESC';
