@@ -153,7 +153,7 @@ function refreshBuy (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" width="80" height="100">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
               
@@ -190,7 +190,7 @@ function refreshSell (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../'+ data.rows[i].image +'" alt="" width="80" height="100">' +
+              '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
               
@@ -202,7 +202,7 @@ function refreshSell (data) {
 
             if (data.rows[i].sold == 0){
                 newitem += '<div class= "buy_btn">'+
-                '<p id ='+data.rows[i].id +'class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
                 '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
                 '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
                 

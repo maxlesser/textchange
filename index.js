@@ -230,7 +230,7 @@ app.post('/addbook', function(request, response){
     console.log(request.files.photo.name);
     var sql = 'INSERT INTO books (seller, title, author, class,price, description,image, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     conn.query(sql, [username, title, author, class_name, price, description,path, d.getTime()/1000], function (error, result) {
-        var sql = 'SELECT * FROM books WHERE seller=$1 AND sold=0 ORDER BY time DESC';
+        var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold,time DESC';
         conn.query(sql, username, function (error, result) {
           console.log(result);
           console.log("MAXAMILION");
