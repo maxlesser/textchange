@@ -26,6 +26,47 @@
     req.send(fd);
  }
 
+ function deletePost(clicked){
+
+    var fd = new FormData();
+    fd.append("post_id", clicked);
+    fd.append("username", "Kappi");
+
+
+    var req = new XMLHttpRequest();
+    req.open('POST', '/remove_post', true);
+    console.log("attempting to delete post");
+
+    req.addEventListener('load', function(e){
+        console.log("back from deleting");
+        var content = req.responseText;
+        var data= JSON.parse(content);
+        refreshSell(data);
+    }, false);
+    req.send(fd);
+ 
+ }
+
+ function markSold(clicked){
+
+    var fd = new FormData();
+    fd.append("post_id", clicked);
+    fd.append("username", "Kappi");
+
+
+    var req = new XMLHttpRequest();
+    req.open('POST', '/mark_as_sold', true);
+    console.log("attempting to mark post sold");
+
+    req.addEventListener('load', function(e){
+        console.log("back from marking");
+        var content = req.responseText;
+        var data= JSON.parse(content);
+        refreshSell(data);
+    }, false);
+    req.send(fd);
+ 
+ }
 
 function sell(){
     document.getElementById("buy").style.display = 'none';
@@ -120,9 +161,7 @@ function refreshBuy (data) {
                 '<i class="icon-info-sign"></i>'+
                 '</span></p>'+
      
-                '<div id="demo" class="collapse"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. '+
-                'Donec at massa sed nisl sodales auctor at id nunc. Praesent tristique metus quis nulla hendrerit luctus. Aliquam imperdiet blandit'+ 
-                'leo, non placerat dolor cursus ut. </div>'+
+                '<div id="demo" class="collapse">'+ data.rows[i].description +'</div>'+
 
               '<div class= "buy_btn">'+
                 '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
@@ -159,17 +198,28 @@ function refreshSell (data) {
                 '<i class="icon-info-sign"></i>'+
                 '</span></p>'+
      
-                '<div id="demo" class="collapse"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. '+
-                'Donec at massa sed nisl sodales auctor at id nunc. Praesent tristique metus quis nulla hendrerit luctus. Aliquam imperdiet blandit'+ 
-                'leo, non placerat dolor cursus ut. </div>'+
+                '<div id="demo" class="collapse">' + data.rows[i].description +'</div>';
 
-              '<div class= "buy_btn">'+
-                '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-danger pull-right" type="button">Delete</button>'+
-                
-                '</p>'+
-              '</div>' +
-            '</div>' ;
+            if (data.rows[i].sold == 0){
+                newitem += '<div class= "buy_btn">'+
+                '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                '<button class="btn btn-large btn-success" onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
+                    '</p>'+
+                      '</div>' +
+                    '</div>' ;
+            }
+
+            else{
+                newitem += '<div class= "buy_btn">'+
+                '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                    '</p>'+
+                      '</div>' +
+                    '</div>' ;
+            }
+
+              
 
             li.innerHTML = newitem;
 
