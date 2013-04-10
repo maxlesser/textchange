@@ -202,9 +202,10 @@ function refreshSell (data) {
 
             if (data.rows[i].sold == 0){
                 newitem += '<div class= "buy_btn">'+
-                '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
-                '<button class="btn btn-large btn-success" onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
+                '<p id ='+data.rows[i].id +'class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
+                '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                
                     '</p>'+
                       '</div>' +
                     '</div>' ;

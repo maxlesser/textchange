@@ -43,8 +43,6 @@
 
     <div class="list_container">
 
-      
-
         <ul id="list_thumbnails_buy">
      
     </ul>
@@ -59,15 +57,29 @@
   <div class="list_container">
         <ul id="list_thumbnails_input">
           <li>
-            <div class="list_thumbnail">
+            <div class="list_thumbnail post_container">
               <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
-              <img src="../public/assets/testbook.jpeg" alt="" width="80" height="100">
-              <input name = "title_name" type="text" class="input-small" placeholder="Book Title">
-              <input name = "author" type="text" class="input-small" placeholder="Author">
-              <input name = "class_name" type="text" class="input-mini" placeholder="Class">
-              <input name = "username" type="text" class="input-small" placeholder="Username">
-              <input name = "description" type="text" class="input-mini" placeholder="Description">
-              <input name = "price" type="number" class="input-mini" placeholder="Price">
+
+                <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+                <div class="fileupload-new thumbnail" style="width: 80px; height: 100px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
+                <div class="fileupload-preview fileupload-exists thumbnail" style="height: 100px; line-height: 20px;"></div>
+                <div>
+                  <span class="btn btn-file"><span class="fileupload-new">Upload</span><span class="fileupload-exists">Change</span><input name = "photo" type="file" /></span>
+                  <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                </div>
+              </div>
+
+              <div id = "input_form">
+
+                <input name = "title_name" type="text" class="input-medium" placeholder="Book Title">
+                <input name = "author" type="text" class="input-medium" placeholder="Author">
+                <input name = "class_name" type="text" class="input-mini" placeholder="Class">
+                <input name = "username" type="text" class="input-small" placeholder="Username"><br>
+                <textarea name = "description" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
+                <input name = "price" type="number" class="input-mini" placeholder="Price">
+
+              </div>
+
               <div class= "buy_btn">
                 <p>
                   <br><br><br><br>

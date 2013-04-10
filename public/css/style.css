@@ -63,6 +63,13 @@
   content: "";
 }
 
+.left_buffer{
+	margin-left: 10px;
+}
+
+.right_text{
+	text-align: right;
+}
 
 .list_thumbnail {
 	margin: 20px;
@@ -81,6 +88,12 @@
      -moz-transition: all 0.2s ease-in-out;
        -o-transition: all 0.2s ease-in-out;
           transition: all 0.2s ease-in-out;
+}
+
+.post_container{
+	min-height: 160px;
+	position: relative;
+	top: 10px;
 }
 
 a.list_thumbnail:hover,
