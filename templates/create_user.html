@@ -5,36 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/public/css/style.css" rel="stylesheet">
+
   </head>
   <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="/public/bootstrap/js/bootstrap.min.js"></script>
-    
-    Create New Account {{username}}
-    <form class="form-horizontal" action="/signup" method="post">
+
+  <div class="list_thumbnail" id="newuser_box">
+  <p class="lead" id="login_brand">Textchange</p>
+  <p class="lead" id="newuser_brand">Create New Account</p>
+    <form class="form-horizontal" action="/signup" method="post" id="newuser_form">
       <div class="control-group">
-        <label class="control-label" for="inputEmail">Username</label>
-        <div class="controls">
-          <input type="text" name = "username" id="inputEmail" placeholder="@brown.edu addresses only!">
-        </div>
+          <input type="text" name = "username" id="inputEmail" placeholder="Your_Name@Brown.edu">
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputPassword">Password</label>
-        <div class="controls">
           <input type="password" name = "password" id="inputPassword" placeholder="Password">
-        </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputName">Name</label>
-        <div class="controls">
           <input type="text" name = "name" id="inputName" placeholder="Name">
-        </div>
       </div>
       <div class="control-group">
-        <div class="controls">
           <button type="submit" value = "Create" class="btn">Create Account</button>
-        </div>
       </div>
+    </div>
     </form>
   </body>
 </html>

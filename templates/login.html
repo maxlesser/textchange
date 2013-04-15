@@ -5,33 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/public/css/style.css" rel="stylesheet">
+    
   </head>
   <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="/public/bootstrap/js/bootstrap.min.js"></script>
-    
-
-    <form class="form-horizontal" action="/login" method="post">
+    <div class="list_thumbnail" id="login_box">
+    <p class="lead" id="login_brand">Textchange</p>
+    <form class="form-horizontal" action="/login" method="post" id="login_form">
       <div class="control-group">
-        <label class="control-label" for="inputEmail">Username</label>
-        <div class="controls">
-          <input type="text" name = "username" id="inputEmail" placeholder="Username">
-        </div>
+          <input type="text" name = "username" id="inputEmail" placeholder="Your_Name@Brown.edu">
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputPassword">Password</label>
-        <div class="controls">
           <input type="password" name = "password" id="inputPassword" placeholder="Password">
-        </div>
       </div>
       <div class="control-group">
-        <div class="controls">
-          <label class="checkbox">
-            <input type="checkbox"> Remember me
+          <button type="submit" value = "Log In" class="btn" id="sign_in_button">Sign in</button>
+          <label class="checkbox" id="remember_checkbox">
+          <input type="checkbox"><small> Remember me </small>
           </label>
-          <button type="submit" value = "Log In" class="btn">Sign in</button>
-        </div>
       </div>
+    </div>
     </form>
   </body>
 </html>

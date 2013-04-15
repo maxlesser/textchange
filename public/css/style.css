@@ -132,3 +132,69 @@ a.list_thumbnail:focus {
   color: #555555;
 }
 
+#checkbox {
+  color: #FF0000;
+  background-color: #FF0000;
+}
+
+/*Login page*/
+
+#login_box {
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   margin: auto;
+   width: 300px;
+   height: 250px; 
+}
+
+#login_brand {
+  font-size: 35px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#signin_button { 
+}
+
+#remember_checkbox{
+  float: right;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+div.control-group {
+  margin: 0 auto;
+  width: 220px;
+}
+
+#login_form { 
+  position: relative;
+  top: 20px;
+  }
+
+/*Create an account*/
+
+#newuser_brand {
+  position: relative;
+  text-align: center;
+  top: -15px;
+}
+
+#newuser_form {
+  position: relative;
+  top: -20px;
+}
+
+#newuser_box { 
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   margin: auto;
+   width: 300px;
+   height: 280spx; 
+  }
