@@ -134,7 +134,6 @@ app.post('/signup', function(request, response){
 
 app.get('/search/recent.json', function(request,response) {
     var sql = "SELECT * FROM books WHERE sold=0 ORDER BY time DESC LIMIT 100";
-
     conn.query(sql, function (error, result) {
         console.log(result);
         response.json(result);
@@ -144,10 +143,11 @@ app.get('/search/recent.json', function(request,response) {
 
 //search json response, can also use for autocomplete
 app.get('/search/:query/books.json', function(request,response) {
+    console.log('herr');
 
   var query = request.params.query;
   query = '%' + query + '%';
-	var sql = 'SELECT * FROM books WHERE title LIKE $1 OR author LIKE $1 OR class LIKE $1 AND sold=0 ORDER BY time DESC';
+	var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
 	conn.query(sql, query, function(error, result){
     console.log(result);
 		response.json(result);

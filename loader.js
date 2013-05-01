@@ -2,16 +2,11 @@ var anyDB = require('any-db');
 
 var conn = anyDB.createConnection('sqlite3://books.db');
 
-// Your implementation here!
-
-
-/*
-
-1. Create a table in zipcodes.db (NOTE: if it's already been created this will
-   probably cause an error! You should delete it first.)*/
 
 
 conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, price INTEGER, description TEXT, time INTEGER, sold BOOLEAN DEFAULT 0 NOT NULL)');
+
+conn.query('CREATE TABLE messages (id INTEGER PRIMARY KEY AUTOINCREMENT,sender TEXT,reciever TEXT,time INTEGER, post_id INTEGER, content TEXT)');
 
 conn.query('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT,password TEXT,name TEXT)');
 

@@ -5,6 +5,7 @@
     getText('/search/recent.json');
 
         document.getElementById("newBookForm").addEventListener('submit', addBook, false);
+    lookUpISBN('http://isbndb.com/api/books.xml?access_key=5LNGRQ4H&results=details&index1=isbn&value1=','0596007736');
 
  }, false);
 
@@ -130,7 +131,7 @@ function search(text){
             } else {
                 console.log("YOU SHOULD NOT BE HERE");
                 // something went wrong, check the request status
-                // hint: 403 means Forbidden, maybe you forgot your username?
+                // hint: 403 means Forbidden, maybe you forgot your     name?
             }
         }, false);
         
@@ -226,5 +227,31 @@ function refreshSell (data) {
 
         }    
     } 
+
+    function lookUpISBN(url, number){
+    console.log("in get text");
+
+        // create a request object
+        var request = new XMLHttpRequest();
+
+        // specify the HTTP method, URL, and asynchronous flag
+        request.open('GET', url + number, true);
+
+        // add an event handler
+        request.addEventListener('load', function(e){
+            if (request.status == 200) {
+                // do something with the loaded content
+                var content = request.responseText;
+                console.log(content);               
+            } else {
+                console.log("YOU SHOULD NOT BE HERE");
+                // something went wrong, check the request status
+                // hint: 403 means Forbidden, maybe you forgot your     name?
+            }
+        }, false);
+        
+        // start the request, optionally with a request body for POST requests
+        request.send(null);
+}
 
 
