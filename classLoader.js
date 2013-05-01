@@ -12,5 +12,8 @@ for (var key in parsed)
 }
 
 conn.query('SELECT * FROM classes', function (error, result) {
-        console.log(result);
+        for (var i = 0; i < result.rowCount; i++)
+        {
+        	console.log("\"" + result.rows[i].name + "\", ")
+        }
     });
