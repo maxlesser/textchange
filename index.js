@@ -130,9 +130,22 @@ app.get('/signup', function(request, response){
 
 //user creation post
 app.post('/signup', function(request, response){
-  var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
-  conn.query(sql, [request.body.username, request.body.password, request.body.name], function(error, result){
-    response.redirect('/');
+  var checkEmailUsed = 'SELECT * FROM users WHERE email = $1';
+  var email = request.body.username.toLowerCase();
+  conn.query(checkEmailUsed, [email], function (error, result) {
+    console.log(result);
+    if(result.rowCount  != 0)
+    {
+      response.redirect('/signup');
+    }
+    else
+    {
+      console.log(email);
+      var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
+      conn.query(sql, [email, request.body.password, request.body.name], function(error, result){
+        response.redirect('/');
+      });
+    }
   });
 });
 
@@ -140,7 +153,7 @@ app.post('/signup', function(request, response){
 app.get('/search/recent.json', function(request,response) {
     var sql = "SELECT * FROM books WHERE sold=0 ORDER BY time DESC LIMIT 100";
     conn.query(sql, function (error, result) {
-        console.log(result);
+        //console.log(result);
         response.json(result);
     });
 });
@@ -154,7 +167,7 @@ app.get('/search/:query/books.json', function(request,response) {
   query = '%' + query + '%';
 	var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
 	conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
 		response.json(result);
 	});
 });
@@ -166,7 +179,7 @@ app.get('/searchtitle/:query/books.json', function(request,response) {
   query = '%' + query + '%';
   var sql = 'SELECT * FROM books WHERE title LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });//search json response, can also use for autocomplete
@@ -176,7 +189,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
   query = '%' + query + '%';
   var sql = 'SELECT * FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });//search json response, can also use for autocomplete
@@ -186,7 +199,7 @@ app.get('/searchclass/:query/books.json', function(request,response) {
   query = '%' + query + '%';
   var sql = 'SELECT * FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });
@@ -197,7 +210,7 @@ app.get('/users.json', function(request,response) {
 
   var sql = 'SELECT * FROM users';
   conn.query(sql, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });
@@ -206,17 +219,17 @@ app.get('/users.json', function(request,response) {
 app.get('/book_posts.json', function(request,response) {
 
   var username = request.user.email;
-  console.log(username);
+  //console.log(username);
   var sql = 'SELECT * FROM books WHERE seller = $1 ORDER BY sold, time DESC';
   conn.query(sql, username, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });
 
 //adds a new message, and returns a response containing all messages
 app.post('/addbook', function(request, response){
-      console.log('hi');   
+      //console.log('hi');   
 
     var username = request.user.email;   
     var title = request.body.title_name; 
@@ -226,19 +239,19 @@ app.post('/addbook', function(request, response){
     var price = request.body.price;
     var path = request.files.photo.path;
 
-    console.log(username);   
+    //console.log(username);   
     var d = new Date();
 
 
-    console.log(request.files.photo.path);
-    console.log(request.files.photo.type);
-    console.log(request.files.photo.name);
+    //console.log(request.files.photo.path);
+    //console.log(request.files.photo.type);
+    //console.log(request.files.photo.name);
     var sql = 'INSERT INTO books (seller, title, author, class,price, description,image, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
     conn.query(sql, [username, title, author, class_name, price, description,path, d.getTime()/1000], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold,time DESC';
         conn.query(sql, username, function (error, result) {
-          console.log(result);
-          console.log("MAXAMILION");
+          //console.log(result);
+          //console.log("MAXAMILION");
             response.json(result);
         });
     });
@@ -253,8 +266,8 @@ app.post('/remove_post', function(request, response){
     conn.query(sql, [post_id, username], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold, time DESC';
         conn.query(sql, username, function (error, result) {
-          console.log(result);
-          console.log("MAXAMILION");
+          //console.log(result);
+          //console.log("MAXAMILION");
             response.json(result);
         });
     });
@@ -265,14 +278,14 @@ app.post('/mark_as_sold', function(request, response){
 
     var username = request.user.email;   
     var post_id = request.body.post_id;
-    console.log(username + " " + post_id);
+    //console.log(username + " " + post_id);
 
     var sql = 'UPDATE books SET sold=1 WHERE id=$1 AND seller=$2';
     conn.query(sql, [post_id, username], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold, time DESC';
         conn.query(sql, username, function (error, result) {
-          console.log(result);
-          console.log("MAXAMILION");
+          //console.log(result);
+          //console.log("MAXAMILION");
             response.json(result);
         });
     });
