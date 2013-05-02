@@ -6,6 +6,12 @@ var engines = require('consolidate');
 
 var fs = require('fs');
 
+var parseString = require('xml2js').parseString;
+  var xml = "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
+  parseString(xml, function (err, result) {
+    console.dir(result);
+  });
+
 //passport setup
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
