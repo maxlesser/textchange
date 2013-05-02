@@ -113,6 +113,11 @@ app.post('/login',
   passport.authenticate('local', 
   	{ successRedirect: '/', failureRedirect: '/login' }));
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 
 //User creation response
 app.get('/signup', function(request, response){
