@@ -273,9 +273,9 @@ app.post('/addbook', function(request, response){
     var description = request.body.description;
     var price = request.body.price;
     var path = request.files.photo.path;
-    var writing = request.files.writing;
-    var highlighter = request.files.highlighter;
-    var condition = request.files.condition;
+    var writing = request.body.writing;
+    var highlighter = request.body.highlighter;
+    var condition = request.body.condition;
 
     //console.log(username);   
     var d = new Date();

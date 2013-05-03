@@ -14,7 +14,7 @@ var d = new Date();
 
 for (var i = 0; i < 100; i++)
 {
-conn.query('INSERT INTO books (title, author, class, seller, image,price,description, time, writing, highlighter, condition) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'public/assets/testbook.jpeg\',' + i + ',\'I am a book hi\', 0, 1, 2, '+ d.getTime()/1000 +')');
+conn.query('INSERT INTO books (title, author, class, seller, image,price,description, writing, highlighter, condition, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'public/assets/testbook.jpeg\',' + i + ',\'I am a book hi\', 0, 1, 2, '+ d.getTime()/1000 +')');
 
 
 }
