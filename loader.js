@@ -4,7 +4,7 @@ var conn = anyDB.createConnection('sqlite3://books.db');
 
 
 
-conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, price INTEGER, description TEXT, time INTEGER, sold BOOLEAN DEFAULT 0 NOT NULL)');
+conn.query('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,author TEXT,class TEXT, seller TEXT, image TEXT, price INTEGER, description TEXT, writing BOOLEAN, highlighter BOOLEAN, condition INTEGER, time INTEGER, sold BOOLEAN DEFAULT 0 NOT NULL)');
 
 conn.query('CREATE TABLE messages (id INTEGER PRIMARY KEY AUTOINCREMENT,sender TEXT,reciever TEXT,time INTEGER, post_id INTEGER, content TEXT)');
 
@@ -14,7 +14,7 @@ var d = new Date();
 
 for (var i = 0; i < 100; i++)
 {
-conn.query('INSERT INTO books (title, author, class, seller, image,price,description, time) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'public/assets/testbook.jpeg\',' + i + ',\'I am a book hi\', '+ d.getTime()/1000 +')');
+conn.query('INSERT INTO books (title, author, class, seller, image,price,description, time, writing, highlighter, condition) VALUES (\'Test' + i + '\', \'Johan\', \'CSCI019\', \'Bob\', \'public/assets/testbook.jpeg\',' + i + ',\'I am a book hi\', 0, 1, 2, '+ d.getTime()/1000 +')');
 
 
 }
