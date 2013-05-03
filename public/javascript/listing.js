@@ -14,6 +14,33 @@
 
  }, false);
 
+ // function searchISBN(num)
+ // {
+ //    // create a request object
+ //    var request = new XMLHttpRequest();
+
+ //    // specify the HTTP method, URL, and asynchronous flag
+ //    request.open('GET', '/isbn/' + num, true);
+
+ //    // add an event handler
+ //    request.addEventListener('load', function(e){
+ //        if (request.status == 200) {
+ //            // do something with the loaded content
+ //            var content = request.responseText;
+ //            var data = JSON.parse(content);
+ //            console.log(data);
+ //            // this is where you put that shit in
+ //        } else {
+ //            console.log("YOU SHOULD NOT BE HERE");
+ //            // something went wrong, check the request status
+ //            // hint: 403 means Forbidden, maybe you forgot your     name?
+ //        }
+ //    }, false);
+    
+ //    // start the request, optionally with a request body for POST requests
+ //    request.send(null);
+ // }
+
  function addBook(e){
     e.preventDefault();
     //Make sure to VERFIFY SHIZZ HERE
