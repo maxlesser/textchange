@@ -7,6 +7,11 @@
     document.getElementById("newBookForm").addEventListener('submit', addBook, false);
     
 
+    $('#condition_slider').slider().on('slideStop', function(ev){
+        $('#slider_display').html(ev.value);
+    });
+
+
  }, false);
 
  function addBook(e){
