@@ -127,13 +127,13 @@ app.configure(function() {
 
 //home page response
 app.get('/', function(request, response){
-  smtpTransport.sendMail(mailOptions, function(error, response){
-    if(error){
-        console.log(error);
-    }else{
-        console.log("Message sent: " + response.message);
-    }
-  });
+  // smtpTransport.sendMail(mailOptions, function(error, response){
+  //   if(error){
+  //       console.log(error);
+  //   }else{
+  //       console.log("Message sent: " + response.message);
+  //   }
+  // });
 	response.render('home.html');
 });
 
@@ -200,7 +200,7 @@ app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-	var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+	var sql = 'SELECT title FROM books WHERE sold=0 AND title LIKE $1 UNION SELECT author FROM books WHERE sold=0 AND author LIKE $1 UNION SELECT class FROM books WHERE sold=0 AND class LIKE $1';
 	conn.query(sql, query, function(error, result){
     //console.log(result);
 		response.json(result);
@@ -212,7 +212,7 @@ app.get('/searchtitle/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE title LIKE $1 AND sold=0 ORDER BY time DESC';
+  var sql = 'SELECT DISTINCT title FROM books WHERE title LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     //console.log(result);
     response.json(result);
@@ -227,17 +227,18 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
     console.log(result);
     response.json(result);
   });
-});//search json response, can also use for autocomplete
-app.get('/searchclass/:query/books.json', function(request,response) {
-
-  var query = request.params.query;
-  query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
-  conn.query(sql, query, function(error, result){
-    //console.log(result);
-    response.json(result);
-  });
 });
+// //search json response, can also use for autocomplete
+// app.get('/searchclass/:query/books.json', function(request,response) {
+
+//   var query = request.params.query;
+//   query = '%' + query + '%';
+//   var sql = 'SELECT class FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
+//   conn.query(sql, query, function(error, result){
+//     //console.log(result);
+//     response.json(result);
+//   });
+// });
 
 
 //search json response
