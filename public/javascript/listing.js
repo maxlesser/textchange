@@ -155,6 +155,7 @@ function refreshBuy (data) {
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
               
                 '<span data-toggle="collapse" data-target="#demo">'+
                 '<i class="icon-info-sign"></i>'+
@@ -192,6 +193,7 @@ function refreshSell (data) {
               '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
               
                 '<span data-toggle="collapse" data-target="#demo">'+
                 '<i class="icon-info-sign"></i>'+
