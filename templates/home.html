@@ -16,7 +16,10 @@
     <script src="/public/bootstrap/js/bootstrap.min.js"></script>
     <script src="/public/bootstrap/js/bootstrap-slider.js"></script>
     <script src="/public/javascript/listing.js"></script>
-    
+    <script src="/public/javascript/typeahead.js"></script>
+    <script src="/public/javascript/classStringList.js"></script>
+
+
     
     <div class="container">
    		<div class="navbar navbar-fixed-top">
@@ -74,10 +77,9 @@
 
               <div id = "input_form">
 
-                <input name = "title_name" type="text" class="input-medium input_buffer" placeholder="Book Title">
-                <input name = "author" type="text" class="input-medium input_buffer" placeholder="Author">
+                <input name = "title_name" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title">
+                <input name = "author" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author">
                 <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off"><br>
-                <script src="/public/javascript/classStringList.js"></script>
                 <textarea name = "description" class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
               </div>
 

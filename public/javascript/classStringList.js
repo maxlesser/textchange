@@ -7930,4 +7930,19 @@ var classList = [
 "BIOL 4240"
 ];
 
-$('#classSearch').typeahead({source: classList}) 
+function processBooks(data)
+{
+	console.log(data);
+	return data;
+}
+
+ window.addEventListener('load', function(){
+	$('#classSearch').typeahead({source: classList});
+	/*$('#authorSearch').typeahead({
+    // note that "value" is the default setting for the property option
+    source: [{value: 'Charlie'}, {value: 'Gudbergur'}],
+    onselect: function(obj) { console.log(obj) }
+  })*/
+ }, false);
+
+
