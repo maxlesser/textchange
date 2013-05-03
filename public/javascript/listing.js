@@ -11,6 +11,17 @@
         $('#slider_display').html(ev.value);
     });
 
+    if ("user is not logged in"){
+        document.getElementById("usernameDropdown").style.display = 'none';
+        document.getElementById("topRightLogin").style.display = 'block';
+    }
+
+    else{
+        document.getElementById("usernameDropdown").style.display = 'block';
+        document.getElementById("topRightLogin").style.display = 'none';
+    }
+    
+
 
  }, false);
 
