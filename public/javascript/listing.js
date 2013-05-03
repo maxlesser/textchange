@@ -153,7 +153,6 @@ function refreshBuy (data) {
 
             var newitem = '<div class="list_thumbnail">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' +
-              '<a href="#" class="btn btn-large btn-danger" data-toggle="popover" title="A Title" data-content="And heres some amazing content. Its very engaging. right?">Click to toggle popover</a>' + 
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
               
