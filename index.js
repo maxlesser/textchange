@@ -277,6 +277,7 @@ app.post('/addbook', function(request, response){
     var writing = request.body.writing;
     var highlighter = request.body.highlighter;
     var condition = request.body.condition;
+    console.log(request.body);
 
     //console.log(username);   
     var d = new Date();

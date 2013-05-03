@@ -18,6 +18,27 @@
     e.preventDefault();
     //Make sure to VERFIFY SHIZZ HERE
     var fd = new FormData(document.getElementById('newBookForm'));
+    
+    if ($('#highlighter_check').is(":checked"))
+    {
+        fd.append("highlighter", 1);
+    }
+    else
+    {
+        fd.append("highlighter", 0);
+
+    }
+
+    if ($('#writing_check').is(":checked"))
+    {
+        fd.append("writing", 1);
+
+    }
+    else
+    {
+        fd.append("writing", 0);
+   
+    }
 
     var req = new XMLHttpRequest();
     req.open('POST', '/addbook', true);
