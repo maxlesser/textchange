@@ -6,6 +6,9 @@ var engines = require('consolidate');
 
 var fs = require('fs');
 
+var request = require('request');
+
+
 var parseString = require('xml2js').parseString;
   var xml = "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
   parseString(xml, function (err, result) {
@@ -297,4 +300,29 @@ app.post('/mark_as_sold', function(request, response){
     });
 });
 
+
+
+
+
+app.get('/isbn/:number', function(req, res){
+
+  var number = req.params.number;
+  request({
+    uri: "http://isbndb.com/api/books.xml?access_key=5LNGRQ4H&amp;index1=isbn&amp;value1="+number,
+    method: "GET",
+    timeout: 10000,
+    followRedirect: true,
+    maxRedirects: 10
+  }, function(error, response, body) {
+    console.log(body);
+  });
+});
+
+
+
+
 app.listen(8080);
+
+
+
+
