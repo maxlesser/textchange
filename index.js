@@ -4,6 +4,9 @@ var anyDB = require('any-db');
 
 var engines = require('consolidate');
 
+var flash = require('connect-flash');
+
+
 var nodemailer = require("nodemailer");
 var smtpTransport = nodemailer.createTransport("SMTP",{
     service: "Gmail",
@@ -113,6 +116,7 @@ app.configure(function() {
   app.use(express.bodyParser({keepExtensions: true, uploadDir: './public/assets'})); // definitely use this feature
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(flash());
 
   //public files like pictures are in public
   app.use('/public', express.static(__dirname + '/public'));
@@ -136,13 +140,13 @@ app.get('/', function(request, response){
 
 //home page response
 app.get('/login', function(request, response){
-	response.render('login.html');
+	response.render('login.html', {message: request.flash('error')});
 });
 
 //login page post
 app.post('/login',
   passport.authenticate('local', 
-  	{ successRedirect: '/', failureRedirect: '/login' }));
+  	{ successRedirect: '/', failureRedirect: '/login', failureFlash: 'Invalid username or password.' }));
 
 app.get('/logout', function(req, res){
   req.logout();
