@@ -7936,7 +7936,7 @@ function processTitle(query, callback)
     var request = new XMLHttpRequest();
 
     // specify the HTTP method, URL, and asynchronous flag
-    request.open('GET', '/searchtitle/' + query + '/books.json', true);
+    request.open('GET', '/searchtitleTypeAhead/' + query + '/books.json', true);
 
     // add an event handler
     request.addEventListener('load', function(e){
@@ -7968,7 +7968,7 @@ function processAuthor(query, callback)
     var request = new XMLHttpRequest();
 
     // specify the HTTP method, URL, and asynchronous flag
-    request.open('GET', '/searchauthor/' + query + '/books.json', true);
+    request.open('GET', '/searchauthorTypeAhead/' + query + '/books.json', true);
 
     // add an event handler
     request.addEventListener('load', function(e){
@@ -8000,7 +8000,7 @@ function processAll(query, callback)
     var request = new XMLHttpRequest();
 
     // specify the HTTP method, URL, and asynchronous flag
-    request.open('GET', '/search/' + query + '/books.json', true);
+    request.open('GET', '/searchTypeAhead/' + query + '/books.json', true);
 
     // add an event handler
     request.addEventListener('load', function(e){
@@ -8032,36 +8032,11 @@ function processClasses(query, callback)
 	callback(classList);
 }
 
-window.addEventListener('load', function(){
-	$('#classSearch').typeahead({source: processClasses});
-	/*$('#authorSearch').typeahead({
-	// note that "value" is the default setting for the property option
-	source: [{value: 'Charlie'}, {value: 'Gudbergur'}],
-	onselect: function(obj) { console.log(obj) }
-	})*/
-}, false);
-window.addEventListener('load', function(){
-	$('#authorSearch').typeahead({source: processAuthor});
-	/*$('#authorSearch').typeahead({
-	// note that "value" is the default setting for the property option
-	source: [{value: 'Charlie'}, {value: 'Gudbergur'}],
-	onselect: function(obj) { console.log(obj) }
-	})*/
-}, false);
+
 window.addEventListener('load', function(){
 	$('#titleSearch').typeahead({source: processTitle});
-	/*$('#authorSearch').typeahead({
-	// note that "value" is the default setting for the property option
-	source: [{value: 'Charlie'}, {value: 'Gudbergur'}],
-	onselect: function(obj) { console.log(obj) }
-	})*/
-}, false);
-window.addEventListener('load', function(){
+	$('#authorSearch').typeahead({source: processAuthor});
 	$('#search').typeahead({source: processAll});
-	/*$('#authorSearch').typeahead({
-	// note that "value" is the default setting for the property option
-	source: [{value: 'Charlie'}, {value: 'Gudbergur'}],
-	onselect: function(obj) { console.log(obj) }
-	})*/
+	$('#classSearch').typeahead({source: processClasses});
 }, false);
 
