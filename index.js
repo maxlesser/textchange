@@ -4,6 +4,22 @@ var anyDB = require('any-db');
 
 var engines = require('consolidate');
 
+var nodemailer = require("nodemailer");
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "textchangeemail@gmail.com",
+        pass: "thisistextchange"
+    }
+});
+var mailOptions = {
+    from: "Max Lesser", // sender address
+    to: "andy_chen@brown.edu", // list of receivers
+    subject: "suck me", // Subject line
+    text: "Hello world", // plaintext body
+    html: "<b>Hello world </b>" // html body
+}
+
 var fs = require('fs');
 
 var request = require('request');
@@ -107,6 +123,13 @@ app.configure(function() {
 
 //home page response
 app.get('/', function(request, response){
+  smtpTransport.sendMail(mailOptions, function(error, response){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("Message sent: " + response.message);
+    }
+  });
 	response.render('home.html');
 });
 
