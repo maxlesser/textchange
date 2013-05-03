@@ -7930,4 +7930,4 @@ var classList = [
 "BIOL 4240"
 ];
 
-$('#classSearch').typeahead({source: classList});
+$('#classSearch').typeahead({source: classList}) 
