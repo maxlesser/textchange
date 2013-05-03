@@ -10,10 +10,9 @@ var request = require('request');
 
 
 var parseString = require('xml2js').parseString;
-  var xml = "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
-  parseString(xml, function (err, result) {
-    console.dir(result);
-  });
+
+
+  
 
 //passport setup
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
@@ -300,10 +299,6 @@ app.post('/mark_as_sold', function(request, response){
     });
 });
 
-
-
-
-
 app.get('/isbn/:number', function(req, res){
 
   var number = req.params.number;
@@ -314,7 +309,10 @@ app.get('/isbn/:number', function(req, res){
     followRedirect: true,
     maxRedirects: 10
   }, function(error, response, body) {
-    console.log(body);
+
+      parseString(body, function (err, result) {
+        res.json(result);
+      });
   });
 });
 
