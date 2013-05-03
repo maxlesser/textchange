@@ -222,7 +222,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
+  var sql = 'SELECT DISTINCT author FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     console.log(result);
     response.json(result);
