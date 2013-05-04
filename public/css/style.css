@@ -1,4 +1,16 @@
+#bookPic{
+  float: left;
+}
 
+#info1{
+  margin-left: 10px;
+  display: inline-block;
+}
+
+#conditionList{
+  margin-left: 10px;
+  display: inline-block;
+}
 
 #navbar_brand{
 	margin-left: 0;

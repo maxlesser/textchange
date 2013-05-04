@@ -214,24 +214,64 @@ function refreshBuy (data) {
     console.log(data)
     var ul = document.getElementById('list_thumbnails_buy');
     ul.innerHTML = " ";
+    var keeper = 0;
 
     for (var i =0; i < data.rowCount; i ++){
 
             var li = document.createElement('li');
             var d = new Date(data.rows[i].time*1000);
 
+            var c;
+
+            if (data.rows[i].condition == 1){
+                c = "Poor";
+            }
+
+            else if  (data.rows[i].condition == 2){
+                c = "OK";
+            }
+
+            else{
+                c = "Good";
+            }
+
+            var h;
+
+            if (data.rows[i].highlighter == 0){
+                h = "No";
+            }
+
+            else {
+                h = "Yes";
+            }
+
+            var w;
+
+            if (data.rows[i].writing == 0){
+                w = "No";
+            }
+
+            else{
+                w = "Yes";
+            }
+
             var newitem = '<div class="list_thumbnail">' +
                 '<div id=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div id=\"info1\">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+ '</div>' +
-              '<div id = \"conditionList\">'
-              '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
-                '<span data-toggle="collapse" data-target="#demo">'+
-                '<i class="icon-info-sign"></i>'+
+
+              '<div id = \"conditionList\">' +
+              '<p>Condition: <strong>' + c + 
+              '<br></strong>Highlighter Used: <strong>' + h +
+              '<br></strong>Written In: <strong>' + w +'</strong> &emsp;'+
+              '</div><br>' +
+
+                '<span data-toggle="collapse" data-target="#'+ keeper +'">'+
+                'More info <i class="icon-info-sign"></i>'+
                 '</span></p>'+
      
-                '<div id="demo" class="collapse">'+ data.rows[i].description +'</div>'+
+                '<div id="'+keeper+'" class="collapse">'+ data.rows[i].description +'</div>'+
 
               '<div class= "buy_btn">'+
                 '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
@@ -244,6 +284,8 @@ function refreshBuy (data) {
             li.innerHTML = newitem;
 
             ul.appendChild(li);
+
+            keeper +=1;
 
         }    
     }   
