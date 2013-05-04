@@ -267,25 +267,26 @@ function refreshBuy (data) {
             var newitem = '<div class="list_thumbnail">' +
                 '<div id=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div id=\"info1\">' +
+
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
-              '<div id= "buy_btn">'+
-
+              
+              '<div class= "buy_btn">'+
                 '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
                 '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
                 '</p>'+
               '</div>' +
 
-              '<div id = \"conditionList\">' +
+              '<div class = \"conditionList\">' +
               '<p>Condition: <strong>' + c + 
               '<br></strong>Highlighter Used: <strong>' + h +
               '<br></strong>Written In: <strong>' + w +'</strong> &emsp;'+
-              '<br><span data-toggle="collapse" data-target="#'+ keeper +'">'+
+              '<br><span data-toggle="collapse" data-target="#b'+ keeper +'">'+
               'More info <i class="icon-info-sign"></i>'+
               '</span></p>'+
               '</div>' +
               
-              '<div id="'+keeper+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+              '<div id="b'+keeper+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
             li.innerHTML = newitem;
@@ -316,33 +317,70 @@ function refreshSell (data) {
     console.log(data)
     var ul = document.getElementById('list_thumbnails_sell');
     ul.innerHTML = " ";
+    var keeper2 = 0;
 
     for (var i =0; i < data.rowCount; i ++){
 
-            var li = document.createElement('li');
+        var li = document.createElement('li');
             var d = new Date(data.rows[i].time*1000);
 
-            var newitem = '<div class="list_thumbnail">' +
-              '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px" class="list_image">' +
-              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+
-              '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
-              
-                '<span data-toggle="collapse" data-target="#demo">'+
-                '<i class="icon-info-sign"></i>'+
-                '</span></p>'+
-     
-                '<div id="demo" class="collapse">' + data.rows[i].description +'</div>';
+            var c;
 
-            if (data.rows[i].sold == 0){
+            if (data.rows[i].condition == 1){
+                c = "Poor";
+            }
+
+            else if  (data.rows[i].condition == 2){
+                c = "OK";
+            }
+
+            else{
+                c = "Good";
+            }
+
+            var h;
+
+            if (data.rows[i].highlighter == 0){
+                h = "No";
+            }
+
+            else {
+                h = "Yes";
+            }
+
+            var w;
+
+            if (data.rows[i].writing == 0){
+                w = "No";
+            }
+
+            else{
+                w = "Yes";
+            }
+
+            var newitem = '<div class="list_thumbnail">' +
+                '<div class=\"bookPic\">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div class=\"info1\">' +
+              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>';
+              
+              //'<div id= "buy_btn">'+
+
+              //   '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+              //   '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
+              //   '</p>'+
+              // '</div>' +
+
+
+               if (data.rows[i].sold == 0){
                 newitem += '<div class= "buy_btn">'+
-                '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
                 '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
                 '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
                 
                     '</p>'+
-                      '</div>' +
-                    '</div>' ;
+                      '</div>'; //+
+                    //'</div>' ;
             }
 
             else{
@@ -350,11 +388,58 @@ function refreshSell (data) {
                 '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
                 '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
                     '</p>'+
-                      '</div>' +
-                    '</div>' ;
+                      '</div>'; //+
+                    //'</div>' ;
             }
 
+              newitem += '<div class = \"conditionListSell\">' +
+              '<p>Condition: <strong>' + c + 
+              '<br></strong>Highlighter Used: <strong>' + h +
+              '<br></strong>Written In: <strong>' + w +'</strong> &emsp;'+
+              '<br><span data-toggle="collapse" data-target="#'+ keeper2 +'">'+
+              'More info <i class="icon-info-sign"></i>'+
+              '</span></p>'+
+              '</div>' +
               
+              '<div id="'+keeper2+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+            '</div>' ;
+
+            // var li = document.createElement('li');
+            // var d = new Date(data.rows[i].time*1000);
+
+            // var newitem = '<div class="list_thumbnail">' +
+            //   '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
+            //   '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+            //   '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+
+            //   '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
+              
+            //     '<span data-toggle="collapse" data-target="#demo">'+
+            //     '<i class="icon-info-sign"></i>'+
+            //     '</span></p>'+
+     
+            //     '<div id="demo" class="collapse">' + data.rows[i].description +'</div>';
+
+            // if (data.rows[i].sold == 0){
+            //     newitem += '<div class= "buy_btn">'+
+            //     '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+            //     '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
+            //     '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                
+            //         '</p>'+
+            //           '</div>' +
+            //         '</div>' ;
+            // }
+
+            // else{
+            //     newitem += '<div class= "buy_btn">'+
+            //     '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+            //     '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+            //         '</p>'+
+            //           '</div>' +
+            //         '</div>' ;
+            // }
+
+              keeper2 +=1;
 
             li.innerHTML = newitem;
 

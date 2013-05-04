@@ -81,8 +81,6 @@
         <ul id="list_thumbnails_input">
           <li>
             <div class="list_thumbnail post_container">
-              <input name = "isbn_number" id="isbnSearch" type="number" class="input-mini input_buffer" placeholder="ISBN_NUMBER" autocomplete="off">
-              <button class="btn" onClick="return autofill()">autofill</button>
 
               <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
 
@@ -97,32 +95,45 @@
 
               <div id = "input_form">
 
+                <div id="isbnForm">
+
+                  <div class="input-append">
+                  <input name = "isbn_number" id="isbnSearch" class="input-medium input_buffer span2" placeholder="ISBN_NUMBER" type="number" autocomplete="off">
+                  <button class="btn" onClick="return autofill()" type="button">autofill using ISBN</button>
+                  </div>
+
+               <!--  <input name = "isbn_number" id="isbnSearch" type="number" class="input-medium input_buffer" placeholder="ISBN_NUMBER" autocomplete="off">
+                <button class="btn" onClick="return autofill()">autofill</button> -->
+                </div>
+
+                <div id = "infoInput">
                 <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off">
                 <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" >
                 <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off">
                 
-                <textarea name = "description" class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
+                <textarea name = "description" style= "margin-top:-30px;"class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
+                </div>
 
-                <label class="checkbox">
-                <input id="highlighter_check" type="checkbox" value="">
-                Highlighter
-                </label>
-                <label class="checkbox">
-                <input id="writing_check" type="checkbox" value="">
-                Writing
-                </label>
-                <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="3" data-slider-orientation="horizontal" data-slider-selection="before"data-slider-tooltip="show" id="condition_slider">
-                <p type="number" class="span2" id="slider_display">1<p>
-
-
-              </div>
-
-              <div class= "post_btn">
+                 <div class= "post_btn">
                 <p>
                   <input name = "price" type="number" class="input-mini input_price_buffer" placeholder="Price"><br><br>
                 <button class="btn btn-large btn-primary" type="Submit">Post</button><br><br>
-            
                 </p>
+                </div>
+
+                <div id="conditionReport">
+                <label class="checkbox">
+                <input id="highlighter_check" type="checkbox" value="">
+                Highlighter
+                </label><br>
+                <label class="checkbox">
+                <input id="writing_check" type="checkbox" value="">
+                Writing
+                </label><br><strong>Condition:</strong><br>
+                <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="3" data-slider-orientation="horizontal" data-slider-selection="before"data-slider-tooltip="show" id="condition_slider">
+                <p type="number" class="span2" id="slider_display">1<p>
+                </div>
+
               </div>
               </form>
             </div>

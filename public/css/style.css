@@ -1,24 +1,48 @@
 
 
-#bookPic{
+.bookPic{
   float: left;
 }
 
-#info1{
+.info1{
   margin-left: 10px;
   display: inline-block;
+  max-width: 600px;
 }
 
-#conditionList{
+.conditionList{
   margin-top: 10px;
   margin-right: 150px;
   float: right;
   display: inline-block;
 }
 
-#buy_btn {
+.conditionListSell{
+  margin-top: 10px;
+  margin-right: 200px;
+  float: right;
+  display: inline-block;
+}
+
+.buy_btn {
   float: right;
   margin-right: 10px;
+  display: inline-block;
+}
+#isbnNumber{
+  display: inline-block;
+}
+
+#conditionReport{
+  display: inline-block;
+  float: right;
+  margin-right: 100px;
+  margin-top: -30px;
+  width: 150px;
+
+}
+
+#infoInput{
   display: inline-block;
 }
 
@@ -37,10 +61,10 @@
 }
 
 .post_btn {
-	position: relative;
-	top: -110px;
+  display: inline-block;
 	float: right;
 	margin-right: 20px;
+  margin-top: -10px;
 }
 
 #sell{
@@ -214,3 +238,10 @@ div.control-group {
    width: 300px;
    height: 280spx; 
   }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
