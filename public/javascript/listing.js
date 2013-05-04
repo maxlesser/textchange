@@ -7,8 +7,29 @@
     document.getElementById("newBookForm").addEventListener('submit', addBook, false);
     
 
-    $('#condition_slider').slider().on('slideStop', function(ev){
-        $('#slider_display').html(ev.value);
+    $('#condition_slider').slider({
+          formater: function(value) {
+            if (value == 1)
+                return ("Poor");
+            else if(value == 2)
+                return("OK");
+            else if(value==3)
+                return("Good");
+          }
+        }).on('slideStop', function(ev){
+        if (ev.value == 1)
+        {
+            $('#slider_display').html("Poor");
+        }
+        else if (ev.value == 2)
+        {
+            $('#slider_display').html("OK");
+        }
+        else if (ev.value==3)
+        {
+            $('#slider_display').html("Good");
+
+        }   
     });
 
     var username = document.querySelector('meta[name=nickname]').content;
@@ -27,10 +48,18 @@
         document.getElementById("topRightLogin").style.display = 'none';
     }
 
+    $('#isbn_info').popover({
+
+                placement: 'bottom',
+                content : 'An ISBN number is a 10 or 13 digit number that identifies a book. Enter an ISBN number here and we\'ll autofill part of the form!'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
     
 
 
  }, false);
+
 
  // function searchISBN(num)
  // {
