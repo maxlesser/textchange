@@ -416,8 +416,8 @@ function refreshSell (data) {
                if (data.rows[i].sold == 0){
                 newitem += '<div class= "buy_btn">'+
                 '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
-                '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                '<button class="btn btn-large btn-success markAsSold"  type="button">Mark as Sold</button>'+
+                '<button class="btn btn-large btn-danger pull-right left_buffer deleteBtn" type="button">Delete</button>'+
                 
                     '</p>'+
                       '</div>'; //+
@@ -427,7 +427,7 @@ function refreshSell (data) {
             else{
                 newitem += '<div class= "buy_btn">'+
                 '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
+                '<button class="btn btn-large btn-danger pull-right deleteBtn" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
                     '</p>'+
                       '</div>'; //+
                     //'</div>' ;
@@ -479,6 +479,28 @@ function refreshSell (data) {
             //           '</div>' +
             //         '</div>' ;
             // }
+
+            $('.deleteBtn').popover({
+
+                html: 'true',
+                placement: 'left',
+                trigger: 'clcik',
+                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title">Are you Sure?</h3><div class="popover-content"><p></p></div></div></div>',
+                content : '<div id="popOverBox"><button class="btn-danger" onClick="deletePost($(this).parent().attr(\'id\'))" >Delete</button></div>'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
+
+            $('.markAsSold').popover({
+
+                html: 'true',
+                placement: 'left',
+                trigger: 'click',
+                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title">Are you sure?</h3><div class="popover-content"><p></p></div></div></div>',
+                content : '<div id="popOverBox"><botton class = "btn-danger" onClick="markSold($(this).parent().attr(\'id\'))">Mark as sold</button></div>'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
 
               keeper2 +=1;
 

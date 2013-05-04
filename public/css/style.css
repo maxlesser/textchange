@@ -40,8 +40,13 @@
 }
 #isbnForm{
   margin-left: 7px;
-  margin-top: 5px;
+  margin-top: 20px;
   display: inline-block;
+}
+
+.shoveOver{
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #conditionReport{
