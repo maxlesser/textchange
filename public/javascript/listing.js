@@ -123,9 +123,11 @@
         var content1 = req.responseText;
         var data1= JSON.parse(content1);
         refreshSell(data1);
+        getText('/search/recent.json');
 
     }, false);
     req.send(fd);
+
  }
 
  function deletePost(clicked){
@@ -298,7 +300,7 @@ function refreshBuy (data) {
                 '<div class="bookPic">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div class=\"info1\">' +
 
-              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+              '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
               
               '<div class= "buy_btn">'+
@@ -316,7 +318,7 @@ function refreshBuy (data) {
               '</span></p>'+
               '</div>' +
               
-              '<div id="b'+keeper+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+              '<div id="b'+keeper+'" class="collapse" style="margin-left:5px; margin-bottom:2px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
             li.innerHTML = newitem;
@@ -391,7 +393,7 @@ function refreshSell (data) {
             var newitem = '<div class="list_thumbnail">' +
                 '<div class=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" >' + '</div>' + '<div class="info1">' +
-              '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
+              '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>';
               
               //'<div id= "buy_btn">'+
@@ -431,7 +433,7 @@ function refreshSell (data) {
               '</span></p>'+
               '</div>' +
               
-              '<div id="'+keeper2+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+              '<div id="'+keeper2+'" class="collapse" style="margin-left:5px; margin-bottom:2px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
             // var li = document.createElement('li');

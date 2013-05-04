@@ -1,4 +1,6 @@
-
+.title{
+  line-height: 24px;
+}
 
 .bookPic{
   float: left;
@@ -26,7 +28,7 @@
 
 .conditionListSell{
   margin-top: 10px;
-  margin-right: 200px;
+  margin-right: 40px;
   float: right;
   display: inline-block;
 }
