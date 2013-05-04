@@ -30,7 +30,7 @@
     <div class="container">
    		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
-    <a class="brand" id = "navbar_brand" >Textchange</a>
+    <a href="#" class="brand" id = "navbar_brand" >Textchange</a>
 				    <ul class="nav">
 				      <li id = "buyTab" class="active"><a href="#" onClick= "return buy()">Buy</a></li>
 				      <li id = "sellTab"><a href ="#" onClick="return sell()" >Sell</a></li>
@@ -88,8 +88,7 @@
                 <div class="fileupload-new thumbnail" style="width: 80px; height: 100px;"><img src="../public/assets/noimage.gif" /></div>
                 <div class="fileupload-preview fileupload-exists thumbnail" id="thumbnail_preview" style="height: 100px; line-height: 20px;"></div>
                 <div>
-
-                  <span class="btn btn-file"><span class="fileupload-new shoveOver">Upload</span><span class="fileupload-exists">Change</span><input name = "photo" id="uploadBox" type="file" /></span>
+                  <span class="btn btn-file"><span class="fileupload-new shoveOver">Upload</span><span class="fileupload-exists">Change</span><input name = "photo" type="file" /></span>
                   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                 </div>
               </div>
@@ -106,16 +105,16 @@
                 </div>
 <br>
                 <div id = "infoInput">
-                <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off" required>
-                <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" required>
-                <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off" required>
+                <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off">
+                <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" >
+                <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off">
                 
                 <textarea name = "description" style= "margin-top:-30px;"class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
                 </div>
 
                  <div class= "post_btn">
                 <p>
-                  <input name = "price" type="number" class="input-mini input_price_buffer" placeholder="Price" required><br><br>
+                  <input name = "price" type="number" class="input-mini input_price_buffer" placeholder="Price"><br><br>
                 <button class="btn btn-large btn-primary" type="Submit">Post</button><br><br>
                 </p>
                 </div>
