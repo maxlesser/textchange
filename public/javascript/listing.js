@@ -264,6 +264,7 @@ function refreshBuy (data) {
                 w = "Yes";
             }
 
+
             var newitem = '<div class="list_thumbnail">' +
                 '<div class="bookPic">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div class=\"info1\">' +
