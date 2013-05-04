@@ -22,7 +22,7 @@
 
     else{
         document.getElementById("usernameDropdown").style.display = 'block';
-        $('#usernameDropdown').html(username);
+        $('#usernameDropdown').html(username + " "+"<b class=\"caret\"></b>");
 
         document.getElementById("topRightLogin").style.display = 'none';
     }
@@ -221,11 +221,12 @@ function refreshBuy (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' +
+                '<div id=\"bookPic\">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div id=\"info1\">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+ '</div>' +
+              '<div id = \"conditionList\">'
               '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
-              
                 '<span data-toggle="collapse" data-target="#demo">'+
                 '<i class="icon-info-sign"></i>'+
                 '</span></p>'+
