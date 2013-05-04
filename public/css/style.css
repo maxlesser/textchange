@@ -4,23 +4,61 @@ body {
 
 #bookPic{
   float: left;
+  width: 80px;
+  height: 100px;
 }
 
-#info1{
+.info1{
   margin-left: 10px;
   display: inline-block;
 }
 
-#conditionList{
+.bookPic img{
+  max-width:100%;
+  max-height: 100%;
+}
+
+.conditionListSell{
+  margin-top: 10px;
+  margin-right: 40px;
+  float: right;
+  display: inline-block;
+}
+
+.conditionList{
   margin-top: 10px;
   margin-right: 150px;
   float: right;
   display: inline-block;
 }
 
-#buy_btn {
+.buy_btn {
   float: right;
   margin-right: 10px;
+  display: inline-block;
+}
+
+#isbnForm{
+  margin-left: 7px;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.shoveOver{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#conditionReport{
+  display: inline-block;
+  float: right;
+  margin-right: 100px;
+  margin-top: -30px;
+  width: 150px;
+
+}
+
+#infoInput{
   display: inline-block;
 }
 
@@ -35,11 +73,11 @@ body {
 .list_container{
 	width: 100%;
 	padding: 20px;
+  margin-bottom: 100px;
 }
 
 .post_btn {
-	position: relative;
-	top: -110px;
+  margin-top: -10px;
 	float: right;
 	margin-right: 20px;
 }
@@ -208,6 +246,25 @@ div.control-group {
   top: 20px;
   right: 20px;
 }
+
+#newuser_box { 
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   margin: auto;
+   width: 300px;
+   height: 280spx; 
+  }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+   -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+
+
 
 /*Create an account*/
 
