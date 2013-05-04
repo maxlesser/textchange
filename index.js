@@ -135,9 +135,9 @@ app.get('/', function(request, response){
   //   }
   // });
   if(request.user == undefined)
-	   response.render('home.html', {username: "null"});
+	   response.render('home.html', {username: "null", nickname: "null"});
   else
-    response.render('home.html', {username: request.user.email});
+    response.render('home.html', {username: request.user.email, nickname: request.user.name});
 });
 
 
@@ -309,6 +309,8 @@ app.post('/addbook', function(request, response){
       //console.log('hi');   
 
     var username = request.user.email;   
+    var nickname = request.user.name;   
+
     var title = request.body.title_name; 
     var author = request.body.author;   
     var class_name = request.body.class_name;   
@@ -327,8 +329,8 @@ app.post('/addbook', function(request, response){
     //console.log(request.files.photo.path);
     //console.log(request.files.photo.type);
     //console.log(request.files.photo.name);
-    var sql = 'INSERT INTO books (seller, title, author, class,price, description, image, time, writing, highlighter, condition) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
-    conn.query(sql, [username, title, author, class_name, price, description,path, d.getTime()/1000, writing, highlighter, condition], function (error, result) {
+    var sql = 'INSERT INTO books (seller, seller_nickname, title, author, class,price, description, image, time, writing, highlighter, condition) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
+    conn.query(sql, [username, nickname, title, author, class_name, price, description,path, d.getTime()/1000, writing, highlighter, condition], function (error, result) {
         var sql = 'SELECT * FROM books WHERE seller=$1 ORDER BY sold,time DESC';
         conn.query(sql, username, function (error, result) {
           //console.log(result);

@@ -11,7 +11,7 @@
         $('#slider_display').html(ev.value);
     });
 
-    var username = document.querySelector('meta[name=username]').content;
+    var username = document.querySelector('meta[name=nickname]').content;
 
     console.log(username);
 
@@ -138,6 +138,11 @@
  }
 
 function sell(){
+    if (document.querySelector('meta[name=username]').content == "null")
+    {
+        alert("you must be logged in to sell books");
+    }
+    else{
     document.getElementById("buy").style.display = 'none';
     document.getElementById("sell").style.display = 'block';
     var Sellli = document.getElementById("sellTab");
@@ -161,8 +166,10 @@ function sell(){
         }, false);
 
         request.send(null);
+    }
 
     return false;
+
 }
 
 function buy(){
@@ -259,7 +266,7 @@ function refreshBuy (data) {
                 '<div id=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div id=\"info1\">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+ '</div>' +
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
 
               '<div id = \"conditionList\">' +
               '<p>Condition: <strong>' + c + 
@@ -269,6 +276,7 @@ function refreshBuy (data) {
 
                 '<span data-toggle="collapse" data-target="#'+ keeper +'">'+
                 'More info <i class="icon-info-sign"></i>'+
+
                 '</span></p>'+
      
                 '<div id="'+keeper+'" class="collapse">'+ data.rows[i].description +'</div>'+
@@ -304,7 +312,7 @@ function refreshSell (data) {
             var newitem = '<div class="list_thumbnail">' +
               '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller +'</strong> &emsp;'+
+              '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+
               '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
               
                 '<span data-toggle="collapse" data-target="#demo">'+
