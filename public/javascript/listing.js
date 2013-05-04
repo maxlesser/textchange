@@ -26,6 +26,7 @@
 
         document.getElementById("topRightLogin").style.display = 'none';
     }
+
     
 
 
@@ -93,6 +94,7 @@
         var content1 = req.responseText;
         var data1= JSON.parse(content1);
         refreshSell(data1);
+
     }, false);
     req.send(fd);
  }
@@ -264,7 +266,7 @@ function refreshBuy (data) {
 
             var newitem = '<div class="list_thumbnail">' +
                 '<div id=\"bookPic\">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div id=\"info1\">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div id=\"info1\">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
               '<div id= "buy_btn">'+
@@ -289,6 +291,20 @@ function refreshBuy (data) {
             li.innerHTML = newitem;
 
             ul.appendChild(li);
+            $('.list_image').popover({
+
+                title : 'FBG$',
+                html: 'true',
+                placement: 'bottom',
+                content : '<div id="popOverBox"><img src="'+data.rows[i].image+'"  /></div>'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
+
+
+
+
+
 
             keeper +=1;
 
@@ -307,7 +323,7 @@ function refreshSell (data) {
             var d = new Date(data.rows[i].time*1000);
 
             var newitem = '<div class="list_thumbnail">' +
-              '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
+              '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px" class="list_image">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+
               '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
@@ -368,7 +384,12 @@ function refreshSell (data) {
                 {
                     var author = data.ISBNdb.BookList[0].BookData[0].AuthorsText[0];
                     var title = data.ISBNdb.BookList[0].BookData[0].Title[0];
-                    $('#title_input').val(title);
+                    var longtitle = data.ISBNdb.BookList[0].BookData[0].TitleLong[0];
+
+                    if(typeof(longtitle) == "string")
+                        $('#title_input').val(longtitle);
+                    else
+                        $('#title_input').val(title);
                     $('#author_input').val(author);
                 }
             } else {

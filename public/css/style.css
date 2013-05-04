@@ -1,3 +1,5 @@
+
+
 #bookPic{
   float: left;
 }
@@ -31,6 +33,7 @@
 .list_container{
 	width: 100%;
 	padding: 20px;
+  margin-bottom: 100px;
 }
 
 .post_btn {
