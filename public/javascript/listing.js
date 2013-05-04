@@ -263,11 +263,10 @@ function refreshBuy (data) {
             else{
                 w = "Yes";
             }
-           //class="list_image"
 
             var newitem = '<div class="list_thumbnail">' +
                 '<div class="bookPic">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" >' + '</div>' + '<div class=\"info1\">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div class=\"info1\">' +
 
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
