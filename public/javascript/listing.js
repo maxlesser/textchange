@@ -267,26 +267,23 @@ function refreshBuy (data) {
               '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100">' + '</div>' + '<div id=\"info1\">' +
               '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
+              '<div id= "buy_btn">'+
+
+                '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
+                '</p>'+
+              '</div>' +
 
               '<div id = \"conditionList\">' +
               '<p>Condition: <strong>' + c + 
               '<br></strong>Highlighter Used: <strong>' + h +
               '<br></strong>Written In: <strong>' + w +'</strong> &emsp;'+
-              '</div><br>' +
-
-                '<span data-toggle="collapse" data-target="#'+ keeper +'">'+
-                'More info <i class="icon-info-sign"></i>'+
-
-                '</span></p>'+
-     
-                '<div id="'+keeper+'" class="collapse">'+ data.rows[i].description +'</div>'+
-
-              '<div class= "buy_btn">'+
-                '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
-                
-                '</p>'+
+              '<br><span data-toggle="collapse" data-target="#'+ keeper +'">'+
+              'More info <i class="icon-info-sign"></i>'+
+              '</span></p>'+
               '</div>' +
+              
+              '<div id="'+keeper+'" class="collapse" style="margin-left:5px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
             li.innerHTML = newitem;
