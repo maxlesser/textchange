@@ -85,8 +85,8 @@
               <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
 
                 <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
-                <div class="fileupload-new thumbnail" style="width: 80px; height: 100px;"><img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&text=no+image" /></div>
-                <div class="fileupload-preview fileupload-exists thumbnail" style="height: 100px; line-height: 20px;"></div>
+                <div class="fileupload-new thumbnail" style="width: 80px; height: 100px;"><img src="../public/assets/noimage.gif" /></div>
+                <div class="fileupload-preview fileupload-exists thumbnail" id="thumbnail_preview" style="height: 100px; line-height: 20px;"></div>
                 <div>
                   <span class="btn btn-file"><span class="fileupload-new">Upload</span><span class="fileupload-exists">Change</span><input name = "photo" type="file" /></span>
                   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
@@ -128,7 +128,7 @@
                 <input id="writing_check" type="checkbox" value="">
                 Writing
                 </label><br><strong>Condition:</strong><br>
-                <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="show" id="condition_slider">
+                <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="show" data-slider-id="condition_color" id="condition_slider">
                 <p type="number" class="span2" id="slider_display">OK<p>
                 </div>
 

@@ -5,7 +5,7 @@
     getText('/search/recent.json');
 
     document.getElementById("newBookForm").addEventListener('submit', addBook, false);
-    
+
 
     $('#condition_slider').slider({
           formater: function(value) {
@@ -16,18 +16,24 @@
             else if(value==3)
                 return("Good");
           }
-        }).on('slideStop', function(ev){
+        }).on('slide', function(ev){
         if (ev.value == 1)
         {
             $('#slider_display').html("Poor");
+            $('#condition_color .slider-handle').css('background', 'red');
+            
         }
         else if (ev.value == 2)
         {
             $('#slider_display').html("OK");
+            $('#condition_color .slider-handle').css('background', 'yellow');
+
         }
         else if (ev.value==3)
         {
             $('#slider_display').html("Good");
+            $('#condition_color .slider-handle').css('background', 'green');
+
 
         }   
     });
@@ -56,6 +62,7 @@
 
             });
     
+    $('#condition_color .slider-handle').css('background', 'yellow');
 
 
  }, false);
@@ -111,8 +118,9 @@
     else
     {
         fd.append("writing", 0);
-   
     }
+
+
 
     var req = new XMLHttpRequest();
     req.open('POST', '/addbook', true);
@@ -124,6 +132,7 @@
         var data1= JSON.parse(content1);
         refreshSell(data1);
         getText('/search/recent.json');
+        document.getElementById("newBookForm").reset();
 
     }, false);
     req.send(fd);
