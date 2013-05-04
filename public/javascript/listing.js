@@ -61,6 +61,15 @@
                 //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
 
             });
+
+    $('#uploadBox').popover({
+
+                placement: 'right',
+                trigger: 'manual',
+                content : 'Please upload an image, how else will we know how pretty it is?'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
     
     $('#condition_color .slider-handle').css('background', 'yellow');
 
@@ -120,6 +129,13 @@
         fd.append("writing", 0);
     }
 
+
+    if (document.getElementById("uploadBox").value == "")
+    {
+        $('#uploadBox').popover('show');
+        return;
+
+    }
 
 
     var req = new XMLHttpRequest();
