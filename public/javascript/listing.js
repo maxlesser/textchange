@@ -295,9 +295,9 @@ function refreshBuy (data) {
             ul.appendChild(li);
             $('.list_image').popover({
 
-                title : 'FBG$',
                 html: 'true',
-                placement: 'bottom',
+                placement: 'right',
+                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
                 content : '<div id="popOverBox"><img src="'+data.rows[i].image+'"  /></div>'
                 //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
 
