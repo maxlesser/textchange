@@ -348,5 +348,37 @@ function refreshSell (data) {
     } 
 
 
+    function autofill(){
+    var input = $('#isbnSearch').val();
+
+    
+    var request = new XMLHttpRequest();
+
+        request.open('GET', '/isbn/'+input, true);
+
+        request.addEventListener('load', function(e){
+            if (request.status == 200) {
+                console.log("got that content");
+                var content = request.responseText;
+                var data = JSON.parse(content);
+                console.log(data);
+                if (data.ISBNdb.BookList[0].BookData == undefined)
+                    alert("invalid isbn");
+                else
+                {
+                    var author = data.ISBNdb.BookList[0].BookData[0].AuthorsText[0];
+                    var title = data.ISBNdb.BookList[0].BookData[0].Title[0];
+                    $('#title_input').val(title);
+                    $('#author_input').val(author);
+                }
+            } else {
+                console.log("YOU SHOULD NOT BE HERE");
+            }
+        }, false);
+
+        request.send(null);
+
+    }
+
 
 

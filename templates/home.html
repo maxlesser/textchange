@@ -78,6 +78,9 @@
         <ul id="list_thumbnails_input">
           <li>
             <div class="list_thumbnail post_container">
+              <input name = "isbn_number" id="isbnSearch" type="number" class="input-mini input_buffer" placeholder="ISBN_NUMBER" autocomplete="off">
+              <button class="btn" onClick="return autofill()">autofill</button>
+
               <form id = "newBookForm" class="form-inline" action = "/addbook" method = "post">
 
                 <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
@@ -91,10 +94,10 @@
 
               <div id = "input_form">
 
-                <input name = "title_name" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off">
-                <input name = "author" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" >
+                <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off">
+                <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" >
                 <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off">
-                <input name = "isbn_number" id="isbnSearc" type="number" class="input-mini input_buffer" placeholder="ISBN_NUMBER" autocomplete="off">
+                
                 <textarea name = "description" class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
 
                 <label class="checkbox">
