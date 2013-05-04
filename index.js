@@ -135,7 +135,7 @@ app.get('/', function(request, response){
   //   }
   // });
   if(request.user == undefined)
-	   response.render('home.html', {username: null});
+	   response.render('home.html', {username: "null"});
   else
     response.render('home.html', {username: request.user.email});
 });

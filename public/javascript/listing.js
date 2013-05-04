@@ -11,13 +11,19 @@
         $('#slider_display').html(ev.value);
     });
 
-    if ("user is not logged in"){
+    var username = document.querySelector('meta[name=username]').content;
+
+    console.log(username);
+
+    if (username == "null"){
         document.getElementById("usernameDropdown").style.display = 'none';
         document.getElementById("topRightLogin").style.display = 'block';
     }
 
     else{
         document.getElementById("usernameDropdown").style.display = 'block';
+        $('#usernameDropdown').html(username);
+
         document.getElementById("topRightLogin").style.display = 'none';
     }
     
@@ -189,7 +195,6 @@ function search(text){
                 // do something with the loaded content
                 var content = request.responseText;
                 console.log("ajdhkjfhkjdshf");
-                console.log(content);
                 var data = JSON.parse(content);
                 refreshBuy(data);
             } else {
