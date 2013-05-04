@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html class="lander">
   <head>
-    <title>Textchange Login</title>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/public/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/font-awesome.min.css">
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/public/bootstrap/js/bootstrap.min.js"></script>
     
   </head>
   <body>
-    {{message}}
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="/public/bootstrap/js/bootstrap.min.js"></script>
+    <div id="button_tab">
+      <a href="/" class="btn btn-large" type="button">Browse without logging in</a>
+      <button id="signup_button" class="btn btn-large" type="button" data-toggle="collapse" data-target="#name_tab"><span id="signup_text">Sign up</span></button>
+    </div>
     <div class="list_thumbnail" id="login_box">
-    <p class="lead" id="login_brand">Textchange</p>
+    <p class="lead" id="login_brand"><i class="icon-book"></i>  Textchange</p>
     <form class="form-horizontal" action="/login" method="post" id="login_form">
       <div class="control-group">
           <input type="text" name = "username" id="inputEmail" placeholder="Your_Name@Brown.edu">
@@ -21,13 +26,39 @@
       <div class="control-group">
           <input type="password" name = "password" id="inputPassword" placeholder="Password">
       </div>
+      <div id="name_tab" class="collapse">
+          <div class="control-group">
+              <input type="text" name = "name" id="inputName" placeholder="Name">
+          </div>
+        </div>
       <div class="control-group">
-          <button type="submit" value = "Log In" class="btn" id="sign_in_button">Sign in</button>
+          <button type="submit" value = "Log In" class="btn" id="sign_in_button"><span id="button_text">Log in</span></button>
           <label class="checkbox" id="remember_checkbox">
           <input type="checkbox"><small> Remember me </small>
           </label>
+                <div id="password-error">{{message}}</div>
       </div>
     </div>
     </form>
   </body>
 </html>
+
+<script type="text/javascript">
+
+var login = true; 
+
+$("#signup_button").click(function(event) {
+  console.log("Pressed button");
+  if(login) {
+    $("#button_text").text("Register");
+    $("#signup_text").text("Cancel");
+    login = false; 
+  }
+
+  else {
+    $("#button_text").text("Log in");
+    $("#signup_text").text("Sign up");
+    login = true; 
+  }
+});
+</script>
