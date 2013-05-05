@@ -175,20 +175,21 @@ app.get('/logout', function(req, res){
 
 
 //user creation post
-app.post('/signup', function(request, response){
+app.post('/signup', function(req, res, next){
+  console.log("in email");
   var checkEmailUsed = 'SELECT * FROM users WHERE email = $1';
-  var email = request.body.username.toLowerCase();
+  var email = req.body.username.toLowerCase();
   conn.query(checkEmailUsed, [email], function (error, result) {
     if(result.rowCount  != 0)
     {
-      response.json('unauthorized');
+      res.json('unauthorized');
       return;
     }
     else
     {
       console.log(email);
       var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
-      conn.query(sql, [email, request.body.password, request.body.name], function(error, result){
+      conn.query(sql, [email, req.body.password, req.body.name], function(error, result){
         passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) { 

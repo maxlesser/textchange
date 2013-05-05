@@ -97,7 +97,15 @@ $("#signup_button").click(function(event) {
 
 
     var req = new XMLHttpRequest();
-    req.open('POST', '/login', true);
+
+    if (login == false)
+    {
+      req.open('POST', '/signup', true);
+    }
+    else
+    {
+      req.open('POST', '/login', true);
+    }
     console.log("attempting to add book");
 
     req.addEventListener('load', function(e){
