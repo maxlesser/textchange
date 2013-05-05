@@ -37,6 +37,38 @@
 
         }   
     });
+    $('#condition_filter').slider({
+          formater: function(value) {
+            if (value == 1)
+                return ("Poor");
+            else if(value == 2)
+                return("OK");
+            else if(value==3)
+                return("Good");
+          }
+        }).on('slide', function(ev){
+        if (ev.value == 1)
+        {
+            $('#slider_display').html("Poor");
+            $('#condition_color .slider-handle').css('background', 'red');
+            
+        }
+        else if (ev.value == 2)
+        {
+            $('#slider_display').html("OK");
+            $('#condition_color .slider-handle').css('background', 'yellow');
+
+        }
+        else if (ev.value==3)
+        {
+            $('#slider_display').html("Good");
+            $('#condition_color .slider-handle').css('background', 'green');
+
+
+        }   
+    });
+
+
 
     var username = document.querySelector('meta[name=nickname]').content;
 

@@ -8001,9 +8001,11 @@ function processAll(query, callback)
 
     if($('#is_filtered').is(':checked'))
     {
+    	console.log($('#condition_filter').val());
     	query = query + ($('#highlighter_filter').is(':checked') ? 1 : 0);
 	    query = query + ($('#writing_filter').is(':checked') ? 1 : 0);
 	    query = query + $('#condition_filter').val();
+	    console.log(query);
 
 	    // specify the HTTP method, URL, and asynchronous flag
 	    request.open('GET', '/searchTypeAheadFiltered/' + query + '/books.json', true);
@@ -8068,7 +8070,7 @@ function processClasses(query, callback)
 
 function setFilter()
 {
-	$('#is_filtered').is(':checked') ? $('#is_filtered').attr('checked',false) : $('#is_filtered').attr('checked',true);
+	$('#is_filtered').is(':checked') ? $('#is_filtered').prop("checked", false) : $('#is_filtered').prop("checked", true);
 }
 
 

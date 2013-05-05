@@ -263,9 +263,9 @@ console.log("filtered");
   var query = request.params.query;
   if(query.length >=3)
   {
-    var highlighter = query.charAt(query.length-1);
+    var condition = query.charAt(query.length-1);
     var writing = query.charAt(query.length-2);
-    var condition = query.charAt(query.length-3);
+    var highlighter = query.charAt(query.length-3);
     query = query.substring(0, query.length-3);
   }
   else
@@ -274,6 +274,7 @@ console.log("filtered");
     writing = 0;
     condition = 0;
   }
+  console.log(query);
   query = '%' + query + '%';
   var sql = 'SELECT DISTINCT title FROM books WHERE sold=0 AND title LIKE $1 AND highlighter=$2 AND writing=$3 AND condition=$4 UNION SELECT DISTINCT author FROM books WHERE sold=0 AND author LIKE $1 UNION SELECT DISTINCT class FROM books WHERE sold=0 AND class LIKE $1';
   conn.query(sql, [query, highlighter, writing, condition], function(error, result){
