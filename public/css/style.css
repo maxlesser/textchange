@@ -120,6 +120,20 @@ textarea {
   resize: none;
 }
 
+#logged-message {
+  max-height: 200px;
+  margin-bottom: 15px;
+  overflow-y: auto;
+}
+
+.reply-message {
+  width: 347px;
+}
+
+#messaging-modal .modal-body {
+  max-height: 700px;
+}
+
 #buy{
 	display: block;
   min-width: 900px;
