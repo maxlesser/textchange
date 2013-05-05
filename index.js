@@ -157,14 +157,7 @@ app.get('/logout', function(req, res){
 });
 
 
-//User creation response
-app.get('/signup', function(request, response){
-  console.log(request.user);
-  if(typeof request.user !== 'undefined') 
-    response.render('create_user.html', {username: request.user.email});
-  else
-    response.render('create_user.html');
-});
+
 
 //user creation post
 app.post('/signup', function(request, response){
@@ -181,7 +174,7 @@ app.post('/signup', function(request, response){
       var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
       conn.query(sql, [email, request.body.password, request.body.name], function(error, result){
         passport.authenticate('local', 
-          { successRedirect: '/', failureRedirect: '/login', failureFlash: 'Invalid username or password.' })(request, response);
+          { successRedirect: '/', failureRedirect: '/login', failureFlash: ' username or password.' })(request, response);
       });
     }
   });
