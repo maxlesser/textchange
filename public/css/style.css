@@ -93,6 +93,11 @@ body {
 
 #sell{
 	display: none;
+  min-width: 1217px;
+}
+
+textarea {
+  resize: none;
 }
 
 #buy{
@@ -200,72 +205,6 @@ a.list_thumbnail:focus {
   color: #FF0000;
   background-color: #FF0000;
 }
-
-/*Login page*/
-
-html.lander {
-  background: url('../img/wriston.jpg') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-#login_box {
-   position: absolute;
-   top: 200px;
-   right: 0;
-   left: 0;
-   margin: auto;
-   width: 300px;
-   padding-bottom: 15px;
-   background-color: white;
-}
-
-#login_brand {
-  font-size: 35px;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 0px;
-}
-
-#signin_button { 
-}
-
-#remember_checkbox{
-  display: inline-block;
-  position: absolute;
-  padding-top: 4px;
-  right: 45px;
-}
-
-div.control-group {
-  margin: 0 auto;
-  width: 220px;
-}
-
-#login_form { 
-  position: relative;
-  top: 20px;
-  }
-
-#button_tab {
-  position: absolute;
-  display: inline;
-  top: 20px;
-  right: 20px;
-}
-
-#newuser_box { 
-   position: absolute;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   margin: auto;
-   width: 300px;
-   height: 280spx; 
-  }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
