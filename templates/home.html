@@ -59,9 +59,24 @@
 
       <form class="navbar-search pull-left" action="javascript:search()">
       <input id="search" type="text" class="search-query" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
+
+      <button onclick="setFilter()" id="filter_button" class="btn" type="button" data-toggle="collapse" data-target="#filter_tab"><span id="signup_text">Filter</span></button>
+
+      <div id="filter_tab" class="collapse">
+        <input id="is_filtered" hidden="true">
+        <input id="highlighter_filter" type="checkbox" value="">
+        Highlighter
+        <input id="writing_filter" type="checkbox" value="">
+        Writing
+        <strong>Condition:</strong>
+        <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="show" data-slider-id="condition_color" id="condition_filter">
+      </div>
+
       </form>
 
     </div>
+      <br>
+      <br>
 
 
     <div class="list_container">
@@ -103,7 +118,7 @@
                   <i class="icon-info-sign" id="isbn_info"></i>
 
                 </div>
-<br>
+                <br>
                 <div id = "infoInput">
                 <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off">
                 <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" >
