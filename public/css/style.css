@@ -2,6 +2,11 @@ body {
   background-color: transparent;
 }
 
+html.main {
+  background: url('../img/gradient.png');
+  background-position: center;
+}
+
 div.navbar-inner {
   min-width: 501px;
 }
@@ -10,7 +15,9 @@ div.navbar-inner {
   line-height: 24px;
 }
  
-
+.nav-tabs > li > a {
+  color: #777777;
+}
 
 .bookPic{
   float: left;
@@ -162,6 +169,7 @@ textarea {
 }
 
 .list_thumbnail {
+  background-color: white;
 	margin: 20px;
 	min-height: 100px;
   display: block;
