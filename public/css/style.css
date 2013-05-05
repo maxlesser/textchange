@@ -120,7 +120,10 @@ div.navbar-inner {
 
 #sell{
 	display: none;
-  min-width: 1300px;
+
+  min-width: 1217px;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
 textarea {
@@ -144,6 +147,8 @@ textarea {
 #buy{
 	display: block;
   min-width: 900px;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
 #book_search{
@@ -155,14 +160,14 @@ textarea {
 
 #list_thumbnails_sell {
 	width: 100%;
-  margin-left: -20px;
+  padding-left: -20px;
   list-style: none;
   *zoom: 1;
 }
 
 #list_thumbnails_buy {
 	width: 100%;
-  margin-left: -20px;
+  padding-left: -20px;
   list-style: none;
   *zoom: 1;
 }
