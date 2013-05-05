@@ -1,4 +1,6 @@
-//Requests and displays a list of books dependent on a search term
+var socket;
+
+
 $.fn.typeahead.Constructor.prototype.render = function (items) {
 
     var that = this;
@@ -101,6 +103,7 @@ $.fn.typeahead.Constructor.prototype.render = function (items) {
         $('#usernameDropdown').html(username + " "+"<b class=\"caret\"></b>");
 
         document.getElementById("topRightLogin").style.display = 'none';
+        socket = io.connect();
     }
 
     $('#isbn_info').popover({
