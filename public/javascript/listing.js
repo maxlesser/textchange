@@ -193,42 +193,58 @@
  }
 
  function deletePost(clicked){
+    var r=confirm("You are about to delete this post!");
+        if (r==true)
+          {
+        var fd = new FormData();
+        fd.append("post_id", clicked);
 
-    var fd = new FormData();
-    fd.append("post_id", clicked);
 
+        var req = new XMLHttpRequest();
+        req.open('POST', '/remove_post', true);
+        console.log("attempting to delete post");
 
-    var req = new XMLHttpRequest();
-    req.open('POST', '/remove_post', true);
-    console.log("attempting to delete post");
+        req.addEventListener('load', function(e){
+            console.log("back from deleting");
+            var content = req.responseText;
+            var data= JSON.parse(content);
+            refreshSell(data);
+        }, false);
+        req.send(fd);
+    }
+    else{
 
-    req.addEventListener('load', function(e){
-        console.log("back from deleting");
-        var content = req.responseText;
-        var data= JSON.parse(content);
-        refreshSell(data);
-    }, false);
-    req.send(fd);
+    }
  
  }
 
  function markSold(clicked){
 
-    var fd = new FormData();
-    fd.append("post_id", clicked);
+    var r=confirm("You are about to mark this book as sold!");
+    if (r==true)
+      {
+           var fd = new FormData();
+        fd.append("post_id", clicked);
 
 
-    var req = new XMLHttpRequest();
-    req.open('POST', '/mark_as_sold', true);
-    console.log("attempting to mark post sold");
+        var req = new XMLHttpRequest();
+        req.open('POST', '/mark_as_sold', true);
+        console.log("attempting to mark post sold");
 
-    req.addEventListener('load', function(e){
-        console.log("back from marking");
-        var content = req.responseText;
-        var data= JSON.parse(content);
-        refreshSell(data);
-    }, false);
-    req.send(fd);
+        req.addEventListener('load', function(e){
+            console.log("back from marking");
+            var content = req.responseText;
+            var data= JSON.parse(content);
+            refreshSell(data);
+        }, false);
+        req.send(fd);
+      }
+    else
+      {
+      
+      }
+
+
  
  }
 
@@ -412,6 +428,12 @@ function refreshSell (data) {
     var ul = document.getElementById('list_thumbnails_sell');
     ul.innerHTML = " ";
     var keeper2 = 0;
+    var endOfUnsold = 0;
+
+    var heading = document.createElement('li');
+    var headingText = '<div class="division">Books you are selling</div>';
+    heading.innerHTML = headingText;
+    ul.appendChild(heading);
 
     for (var i =0; i < data.rowCount; i ++){
 
@@ -457,33 +479,31 @@ function refreshSell (data) {
               '<img src="../'+ data.rows[i].image + '" alt="" >' + '</div>' + '<div class="info1">' +
               '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>';
-              
-              //'<div id= "buy_btn">'+
 
-              //   '<p>'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-              //   '<button class="btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
-              //   '</p>'+
-              // '</div>' +
+              if (data.rows[i].sold == 1){
+                if (endOfUnsold == 0){
+                    var li2 = document.createElement('li');
+                    var division = '<div class="division">Books you have sold</div>';
+                    li2.innerHTML = division;
+                    ul.appendChild(li2);
+                    endOfUnsold = 1;
+                }
 
-
-               if (data.rows[i].sold == 0){
-                newitem += '<div class= "buy_btn">'+
-                '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="btn btn-large btn-success markAsSold"  type="button">Mark as Sold</button>'+
-                '<button class="btn btn-large btn-danger pull-right left_buffer deleteBtn" type="button">Delete</button>'+
-                
-                    '</p>'+
-                      '</div>'; //+
-                    //'</div>' ;
-            }
-
-            else{
-                newitem += '<div class= "buy_btn">'+
+                 newitem += '<div class= "buy_btn">'+
                 '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
                 '<button class="btn btn-large btn-danger pull-right deleteBtn" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
                     '</p>'+
-                      '</div>'; //+
-                    //'</div>' ;
+                      '</div>'; 
+              }
+              
+               else if (data.rows[i].sold == 0){
+                newitem += '<div class= "buy_btn">'+
+                '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
+                '<button class="btn btn-large btn-success markAsSold"  type="button" onClick="markSold($(this).parent().attr(\'id\'))">Mark as Sold</button>'+
+                '<button class="btn btn-large btn-danger pull-right left_buffer deleteBtn" onClick="deletePost($(this).parent().attr(\'id\'))"  type="button">Delete</button>'+
+                
+                    '</p>'+
+                      '</div>'; 
             }
 
               newitem += '<div class = \"conditionListSell\">' +
@@ -498,60 +518,6 @@ function refreshSell (data) {
               '<div id="'+keeper2+'" class="collapse" style="margin-left:5px; margin-bottom:2px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
-            // var li = document.createElement('li');
-            // var d = new Date(data.rows[i].time*1000);
-
-            // var newitem = '<div class="list_thumbnail">' +
-            //   '<img src="../'+ data.rows[i].image +'" alt="" width = "80" height="100px">' +
-            //   '<h3>'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
-            //   '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+
-            //   '<p>Condition: <strong>' + data.rows[i].condition + '</strong> &emsp; Highlighter Used: <strong>' + data.rows[i].highlighter +'</strong> &emsp; Written In: <strong>' + data.rows[i].writing +'</strong> &emsp;'+
-              
-            //     '<span data-toggle="collapse" data-target="#demo">'+
-            //     '<i class="icon-info-sign"></i>'+
-            //     '</span></p>'+
-     
-            //     '<div id="demo" class="collapse">' + data.rows[i].description +'</div>';
-
-            // if (data.rows[i].sold == 0){
-            //     newitem += '<div class= "buy_btn">'+
-            //     '<p id ='+data.rows[i].id +' class = "right_text">'+ '&emsp;&emsp;&emsp;&emsp;&emsp;Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-            //     '<button class="btn btn-large btn-success " onClick="markSold($(this).parent().attr(\'id\'))" type="button">Mark as Sold</button>'+
-            //     '<button class="btn btn-large btn-danger pull-right left_buffer" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
-                
-            //         '</p>'+
-            //           '</div>' +
-            //         '</div>' ;
-            // }
-
-            // else{
-            //     newitem += '<div class= "buy_btn">'+
-            //     '<p id ='+data.rows[i].id +' >'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-            //     '<button class="btn btn-large btn-danger pull-right" onClick="deletePost($(this).parent().attr(\'id\'))" type="button">Delete</button>'+
-            //         '</p>'+
-            //           '</div>' +
-            //         '</div>' ;
-            // }
-
-            $('.deleteBtn').popover({
-
-                html: 'true',
-                placement: 'left',
-                trigger: 'click',
-                content : '<div id="popOverBox"><button class="btn-danger" onClick="deletePost($(this).parent().attr(\'id\'))" >Delete</button></div>'
-                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
-
-            });
-
-            $('.markAsSold').popover({
-
-                html: 'true',
-                placement: 'left',
-                trigger: 'click',
-                content : '<div id="popOverBox"><botton class = "btn-danger" onClick="markSold($(this).parent().attr(\'id\'))">Mark as sold</button></div>'
-                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
-
-            });
 
               keeper2 +=1;
 

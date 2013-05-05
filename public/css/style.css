@@ -1,15 +1,23 @@
 body {
-  background-color: transparent;
-}
-
-html.main {
-  background: url('../img/gradient.png');
-  background-position: center;
+  background-image: url('../img/bg.jpg');
+  background-repeat: repeat-x repeat-y;
 }
 
 div.navbar-inner {
   min-width: 501px;
 }
+
+.division{
+  display: block;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: rgb(233,233,233);
+  padding-top: 5px;
+  font-size: 20px;
+  text-align: center;
+  color: rgb(80,80,80);
+}
+
 
 .title{
   line-height: 24px;
@@ -169,7 +177,7 @@ textarea {
 }
 
 .list_thumbnail {
-  background-color: white;
+  background-color: rgb(246,246,246);
 	margin: 20px;
 	min-height: 100px;
   display: block;
