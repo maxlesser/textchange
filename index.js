@@ -30,6 +30,12 @@ var request = require('request');
 
 var parseString = require('xml2js').parseString;
 
+var http = require('http'); // this is new
+
+var io = require('socket.io').listen(server);
+
+
+
 
   
 
@@ -105,6 +111,8 @@ passport.use(new LocalStrategy(
 
 var conn = anyDB.createConnection('sqlite3://books.db');
 var app = express();
+var server = http.createServer(app); // this is new
+
 
 app.configure(function() {
   app.engine('html', engines.hogan); // tell Express to run .html files through Hogan
@@ -316,7 +324,6 @@ app.get('/searchtitleTypeAhead/:query/books.json', function(request,response) {
 });//search json response, can also use for autocomplete
 app.get('/searchauthorTypeAhead/:query/books.json', function(request,response) {
 
-  console.log("author typ");
   var query = request.params.query;
   query = '%' + query + '%';
   var sql = 'SELECT DISTINCT author FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
@@ -441,7 +448,7 @@ app.get('/isbn/:number', function(req, res){
 
 
 
-app.listen(8080);
+server.listen(8080);
 
 
 
