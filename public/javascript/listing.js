@@ -23,14 +23,7 @@ $.fn.typeahead.Constructor.prototype.render = function (items) {
 
 
     $('#condition_slider').slider({
-          formater: function(value) {
-            if (value == 1)
-                return ("Poor");
-            else if(value == 2)
-                return("OK");
-            else if(value==3)
-                return("Good");
-          }
+
         }).on('slide', function(ev){
         if (ev.value == 1)
         {
@@ -402,7 +395,6 @@ function refreshBuy (data) {
             else{
                 w = "Yes";
             }
-//  alt="" width = "80" height="100"
 
             var newitem = '<div class="list_thumbnail">' +
                 '<div class="bookPic">' +
