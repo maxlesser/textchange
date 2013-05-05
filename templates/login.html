@@ -22,46 +22,109 @@
     <p class="lead" id="login_brand"><i class="icon-book"></i>  Textchange</p>
     <form class="form-horizontal" action="/login" method="post" id="login_form" name="login_form">
       <div class="control-group">
-          <input type="text" name = "username" id="inputEmail" placeholder="Your_Name@Brown.edu">
+          <input type="email" name = "username" id="inputEmail" placeholder="Your_Name@Brown.edu" required>
       </div>
       <div class="control-group">
-          <input type="password" name = "password" id="inputPassword" placeholder="Password">
+          <input type="password" name = "password" id="inputPassword" placeholder="Password" required>
       </div>
       <div id="name_tab" class="collapse">
           <div class="control-group">
-              <input type="text" name = "name" id="inputName" placeholder="Name">
+              <input type="text" name = "name" id="inputName" placeholder="Name" >
           </div>
         </div>
       <div class="control-group">
           <button type="submit" value = "Log In" class="btn" id="sign_in_button"><span id="button_text">Log in</span></button>
-          <label class="checkbox" id="remember_checkbox">
-          <input type="checkbox"><small> Remember me </small>
-          </label>
-                <div id="password-error">{{message}}</div>
+          
       </div>
+      <div class="alert alert-error" id="unauthorized" style="display:none;">
+            Invalid username or password
+          </div>
+      <div class="alert alert-error" id="used_email" style="display:none;">
+            Your email is already in use
+          </div>
     </div>
+    
     </form>
   </body>
 </html>
 
 <script type="text/javascript">
 
+ window.addEventListener('load', function(){
+   document.getElementById("login_form").addEventListener('submit', try_login, false);
+
+});
+
+
+
 var login = true; 
 
 $("#signup_button").click(function(event) {
+  document.getElementById("unauthorized").style.display = 'none';
+  document.getElementById("used_email").style.display = 'none';
+
   console.log("Pressed button");
   if(login) {
-    $("#button_text").text("Register");
-    $("#signup_text").text("Cancel");
-    $("#login_form").attr("action", "/signup");
-    login = false; 
-  }
+        console.log("no wait here");
 
+    $("#button_text").text("Register");
+    $("#signup_text").text("Sign In");
+    $("#login_form").attr("action", "/signup");
+    $("#inputName").attr("required", "");
+
+
+
+    login = false; 
+
+  }
   else {
+    console.log("here");
     $("#button_text").text("Log in");
     $("#signup_text").text("Sign up");
     $("#login_form").attr("action", "/login");
+    console.log("required");
+    $("#inputName").removeAttr("required");
+
     login = true; 
   }
 });
+
+ function try_login(e){
+    console.log("in try login")
+    e.preventDefault();
+
+    var fd = new FormData(document.getElementById('login_form'));
+
+
+    var req = new XMLHttpRequest();
+    req.open('POST', '/login', true);
+    console.log("attempting to add book");
+
+    req.addEventListener('load', function(e){
+        console.log("in here");
+        var content1 = req.responseText;
+        var data1= JSON.parse(content1);
+        document.getElementById("login_form").reset();
+        if (data1=="authorized")
+        {
+          window.location.replace("/");
+        }
+        else 
+        {
+          if (login == true)
+          {
+            document.getElementById("unauthorized").style.display = 'block';
+          }
+          else
+          {
+            document.getElementById("used_email").style.display = 'block';
+
+          }
+
+        }
+
+    }, false);
+    req.send(fd);
+
+ }
 </script>

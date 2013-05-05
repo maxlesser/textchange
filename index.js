@@ -147,9 +147,24 @@ app.get('/login', function(request, response){
 });
 
 //login page post
-app.post('/login',
+/*app.post('/login',
   passport.authenticate('local', 
-  	{ successRedirect: '/', failureRedirect: '/login', failureFlash: 'Invalid username or password.' }));
+  	{ successRedirect: '/', failureRedirect: '/login', failureFlash: 'Invalid username or password.' }));*/
+
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { 
+      res.json("unauthorized");
+      return; }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      res.json("authorized");
+      return
+
+    });
+  })(req, res, next);
+});
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -166,16 +181,27 @@ app.post('/signup', function(request, response){
   conn.query(checkEmailUsed, [email], function (error, result) {
     if(result.rowCount  != 0)
     {
-      response.redirect('/signup');
+      response.json('unauthorized');
+      return;
     }
     else
     {
       console.log(email);
       var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
       conn.query(sql, [email, request.body.password, request.body.name], function(error, result){
-        passport.authenticate('local', 
-          { successRedirect: '/', failureRedirect: '/login', failureFlash: ' username or password.' })(request, response);
-      });
+        passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { 
+          res.json("unauthorized");
+          return; }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          res.json("authorized");
+          return
+
+        });
+      })(req, res, next);
+    });
     }
   });
 });
