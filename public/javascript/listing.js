@@ -516,8 +516,7 @@ function refreshSell (data) {
 
                 html: 'true',
                 placement: 'left',
-                trigger: 'clcik',
-                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title">Are you Sure?</h3><div class="popover-content"><p></p></div></div></div>',
+                trigger: 'click',
                 content : '<div id="popOverBox"><button class="btn-danger" onClick="deletePost($(this).parent().attr(\'id\'))" >Delete</button></div>'
                 //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
 
@@ -528,7 +527,6 @@ function refreshSell (data) {
                 html: 'true',
                 placement: 'left',
                 trigger: 'click',
-                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title">Are you sure?</h3><div class="popover-content"><p></p></div></div></div>',
                 content : '<div id="popOverBox"><botton class = "btn-danger" onClick="markSold($(this).parent().attr(\'id\'))">Mark as sold</button></div>'
                 //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
 
