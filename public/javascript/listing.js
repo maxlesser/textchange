@@ -70,6 +70,8 @@
 
 
 
+
+
     var username = document.querySelector('meta[name=nickname]').content;
 
     console.log(username);
@@ -95,6 +97,14 @@
             });
     
     $('#condition_color .slider-handle').css('background', 'yellow');
+
+    $('#uploadBox').popover({
+
+        placement: 'right',
+        trigger: 'manual',
+        content : 'Please upload an image, how else will we know how pretty it is?'
+
+            });
 
 
  }, false);
@@ -129,6 +139,14 @@
 
  function addBook(e){
     e.preventDefault();
+
+     if (document.getElementById("uploadBox").value == "")
+    {
+        $('#uploadBox').popover('show');
+        return;
+
+    }
+
     //Make sure to VERFIFY SHIZZ HERE
     var fd = new FormData(document.getElementById('newBookForm'));
     
@@ -151,6 +169,7 @@
     {
         fd.append("writing", 0);
     }
+
 
 
 

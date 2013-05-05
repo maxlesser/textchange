@@ -2,7 +2,12 @@ body {
   background-color: transparent;
 }
 
-#bookPic{
+.title{
+  line-height: 24px;
+}
+ 
+
+.bookPic{
   float: left;
   width: 80px;
   height: 100px;
@@ -11,6 +16,7 @@ body {
 .info1{
   margin-left: 10px;
   display: inline-block;
+  max-width: 600px;
 }
 
 .bookPic img{
@@ -77,6 +83,9 @@ body {
 }
 
 .post_btn {
+  /*display: block;
+  position: relative;
+  top: -110px;*/
   margin-top: -10px;
 	float: right;
 	margin-right: 20px;
