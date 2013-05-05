@@ -399,11 +399,11 @@ function refreshBuy (data) {
             else{
                 w = "Yes";
             }
-
+//  alt="" width = "80" height="100"
 
             var newitem = '<div class="list_thumbnail">' +
                 '<div class="bookPic">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" width = "80" height="100" class="list_image">' + '</div>' + '<div class=\"info1\">' +
+              '<img src="../'+ data.rows[i].image + '" alt=""  class="list_image">' + '</div>' + '<div class=\"info1\">' +
 
               '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>' +
@@ -423,7 +423,7 @@ function refreshBuy (data) {
               '</span></p>'+
               '</div>' +
               
-              '<div id="b'+keeper+'" class="collapse" style="margin-left:5px; margin-bottom:2px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+              '<div id="b'+keeper+'" class="collapse" style="padding-left:10px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
             li.innerHTML = newitem;
@@ -502,8 +502,10 @@ function refreshSell (data) {
             }
 
             var newitem = '<div class="list_thumbnail">' +
+
                 '<div class=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" class="list_image" >' + '</div>' + '<div class="info1">' +
+
               '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>';
 
@@ -542,7 +544,7 @@ function refreshSell (data) {
               '</span></p>'+
               '</div>' +
               
-              '<div id="'+keeper2+'" class="collapse" style="margin-left:5px; margin-bottom:2px; margin-top:15px;">'+ data.rows[i].description +'</div>'+
+              '<div id="'+keeper2+'" class="collapse" style="padding-left:`0px;">'+ data.rows[i].description +'</div>'+
             '</div>' ;
 
 

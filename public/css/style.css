@@ -28,9 +28,16 @@ div.navbar-inner {
 }
 
 .bookPic{
+  line-height: 100px;
   float: left;
   width: 80px;
   height: 100px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.bookPic > img{
+  margin: auto;
 }
 
 .info1{
@@ -113,7 +120,7 @@ div.navbar-inner {
 
 #sell{
 	display: none;
-  min-width: 1217px;
+  min-width: 1300px;
 }
 
 textarea {
