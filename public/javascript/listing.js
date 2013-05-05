@@ -78,11 +78,13 @@
 
     if (username == "null"){
         document.getElementById("usernameDropdown").style.display = 'none';
+        document.getElementById("messaging-button").style.display = 'none';
         document.getElementById("topRightLogin").style.display = 'block';
     }
 
     else{
         document.getElementById("usernameDropdown").style.display = 'block';
+        document.getElementById("messaging-button").style.display = 'block';
         $('#usernameDropdown').html(username + " "+"<b class=\"caret\"></b>");
 
         document.getElementById("topRightLogin").style.display = 'none';

@@ -2,10 +2,15 @@ body {
   background-color: transparent;
 }
 
+div.navbar-inner {
+  min-width: 501px;
+}
+
 .title{
   line-height: 24px;
 }
  
+
 
 .bookPic{
   float: left;
@@ -102,6 +107,7 @@ textarea {
 
 #buy{
 	display: block;
+  min-width: 900px;
 }
 
 #book_search{
