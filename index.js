@@ -171,7 +171,6 @@ app.post('/signup', function(request, response){
   var checkEmailUsed = 'SELECT * FROM users WHERE email = $1';
   var email = request.body.username.toLowerCase();
   conn.query(checkEmailUsed, [email], function (error, result) {
-    console.log(result);
     if(result.rowCount  != 0)
     {
       response.redirect('/signup');
@@ -181,7 +180,8 @@ app.post('/signup', function(request, response){
       console.log(email);
       var sql = 'INSERT INTO users (email, password, name) VALUES ($1, $2, $3)';  
       conn.query(sql, [email, request.body.password, request.body.name], function(error, result){
-        response.redirect('/');
+        passport.authenticate('local', 
+          { successRedirect: '/', failureRedirect: '/login', failureFlash: 'Invalid username or password.' })(request, response);
       });
     }
   });
