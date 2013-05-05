@@ -7964,6 +7964,8 @@ function processTitle(query, callback)
 
 function processAuthor(query, callback)
 {
+		console.log("here");
+
 	// create a request object
     var request = new XMLHttpRequest();
 
@@ -7997,6 +7999,7 @@ function processAuthor(query, callback)
 function processAll(query, callback)
 {
 	// create a request object
+
     var request = new XMLHttpRequest();
 
     if($('#is_filtered').is(':checked'))
@@ -8075,9 +8078,11 @@ function setFilter()
 
 
 window.addEventListener('load', function(){
-	$('#titleSearch').typeahead({source: processTitle});
-	$('#authorSearch').typeahead({source: processAuthor});
-	$('#search').typeahead({source: processAll});
+
+	
+	$('#title_input').typeahead({source: processTitle, minLength : 2});
+	$('#author_input').typeahead({source: processAuthor, minLength : 2});
+	$('#search').typeahead({source: processAll, minLength : 2});
 	$('#classSearch').typeahead({source: processClasses});
 }, false);
 

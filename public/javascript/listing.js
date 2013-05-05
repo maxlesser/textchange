@@ -1,4 +1,17 @@
 //Requests and displays a list of books dependent on a search term
+$.fn.typeahead.Constructor.prototype.render = function (items) {
+
+    var that = this;
+
+    items = $(items).map(function (i, item) {
+      i = $(that.options.item).attr('data-value', item);
+      i.find('a').html(that.highlighter(item));
+      return i[0];
+    });
+
+    this.$menu.html(items);
+    return this;
+};
 
 
  window.addEventListener('load', function(){
@@ -139,6 +152,16 @@
  //    request.send(null);
  // }
 
+ function getFileSize() {
+
+
+    input = document.getElementById('uploadBox');
+    
+    file = input.files[0];
+    return file.size;
+    
+}
+
  function addBook(e){
     e.preventDefault();
 
@@ -172,7 +195,11 @@
         fd.append("writing", 0);
     }
 
-
+    if (getFileSize() > 200000)
+    {
+        alert("Please keep your images under 200kb. Thanks!");
+        return;
+    }
 
 
     var req = new XMLHttpRequest();
@@ -476,7 +503,7 @@ function refreshSell (data) {
 
             var newitem = '<div class="list_thumbnail">' +
                 '<div class=\"bookPic\">' +
-              '<img src="../'+ data.rows[i].image + '" alt="" >' + '</div>' + '<div class="info1">' +
+              '<img src="../'+ data.rows[i].image + '" alt="" class="list_image" >' + '</div>' + '<div class="info1">' +
               '<h3 class="title">'+ data.rows[i].title + '<small> by ' + data.rows[i].author + '</small>' +'</h3>' +
               '<p>Class: <strong>' + data.rows[i].class + '</strong> &emsp; Seller: <strong>' + data.rows[i].seller_nickname +'</strong> &emsp;'+ '</div>';
 
@@ -524,6 +551,16 @@ function refreshSell (data) {
             li.innerHTML = newitem;
 
             ul.appendChild(li);
+
+            $('.list_image').popover({
+
+                html: 'true',
+                placement: 'right',
+                template: '<div class="popover"><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
+                content : '<div id="popOverBox"><img src="'+data.rows[i].image+'"  /></div>'
+                //content : '<img  width="100px" height = "100px" src="'+data.rows[i].image+'"/>'
+
+            });
 
         }    
     } 

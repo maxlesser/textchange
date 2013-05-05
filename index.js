@@ -316,6 +316,7 @@ app.get('/searchtitleTypeAhead/:query/books.json', function(request,response) {
 });//search json response, can also use for autocomplete
 app.get('/searchauthorTypeAhead/:query/books.json', function(request,response) {
 
+  console.log("author typ");
   var query = request.params.query;
   query = '%' + query + '%';
   var sql = 'SELECT DISTINCT author FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
