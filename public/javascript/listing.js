@@ -539,10 +539,7 @@ function refreshSell (data) {
     var keeper2 = 0;
     var endOfUnsold = 0;
 
-    var heading = document.createElement('li');
-    var headingText = '<div class="division">Books you are selling</div>';
-    heading.innerHTML = headingText;
-    ul.appendChild(heading);
+    
 
     for (var i =0; i < data.rowCount; i ++){
 
