@@ -544,6 +544,17 @@ io.sockets.on('connection', function(socket){
         });
     });
 
+    socket.on('requestMessagesUNREAD', function(threadID, callback){
+    
+    var update = 'UPDATE messageThreads SET seen=0 WHERE id=$1';
+      conn.query(sql, [threadID], function (error, result) {  
+      var sql = 'SELECT * FROM messages WHERE threadID == $1 ORDER BY time ASC';
+      var con = conn.query(sql, [threadID], function (error, result) { 
+        callback(result);
+     });
+    });
+});
+
     socket.on('buyClick', function(username, nickname, seller, seller_nickname, title, post_id, callback){
         var d = new Date();
         var sql = 'SELECT * FROM messageThreads WHERE buyer = $1 AND seller = $2 AND post_id = $3';
@@ -574,7 +585,26 @@ io.sockets.on('connection', function(socket){
         var d = new Date();
         var sql = 'INSERT INTO messages (threadID, sender, time, nickname, content) VALUES ($1, $2, $3, $4, $5)';
         conn.query(sql, [ threadID, sender, d.getTime()/1000, sender_nickname, message], function (error, result) {
-          
+          var findBuysql = "SELECT buyer, seller FROM messageThreads WHERE id=$1 ";
+          conn.query(findBuysql, [ threadID], function (error, result) {
+            console.log(result);
+            var updateSeen = "UPDATE messageThreads SET seen = $1 WHERE id = $2 ";
+
+            if(result[0].buyer == sender)
+            {
+              conn.query(updateSeen, [1, threadID], function (error, result) {
+                io.sockets.in(roomName).emit('newMessage', threadID);
+              });
+
+            }
+            else
+            {
+              conn.query(updateSeen, [2, threadID], function (error, result) {
+                io.sockets.in(roomName).emit('newMessage', threadID);
+              });
+            }
+          });
+
         });
        
     });
