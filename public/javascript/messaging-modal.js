@@ -193,8 +193,11 @@ function loadThreads(data){
 
     if (data.rowCount == 0)
     {
+    	document.getElementById('messageForm').style.visibility='hidden' ;
     	return;
     }
+
+	document.getElementById('messageForm').style.visibility='visible' ; 
 
     var topThreadID = data.rows[0].id;
 
