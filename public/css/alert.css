@@ -1,0 +1,13 @@
+#alert-text {
+	text-align: center;
+	display: inline-block;
+}
+
+#blank-alert > .modal-header {
+	background-color: rgb(245, 214, 214);
+	border-radius: 5px;
+}
+
+#error-button { 
+	float: right;
+}

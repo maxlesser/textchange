@@ -256,7 +256,7 @@ function loadThreads(data){
 
     if (getFileSize() > 200000)
     {
-        alert("Please keep your images under 200kb. Thanks!");
+       alert("Please keep your images under 200kb. Thanks!");
         return;
     }
 
@@ -334,7 +334,8 @@ function loadThreads(data){
 function sell(){
     if (document.querySelector('meta[name=username]').content == "null")
     {
-        alert("You must be logged in to sell books");
+        document.getElementById('alert-text').innerHTML=("You must log in to sell books.");
+        $('#blank-alert').modal("show");
     }
     else{
     document.getElementById("buy").style.display = 'none';
