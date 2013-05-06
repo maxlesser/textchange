@@ -353,6 +353,7 @@ function search(text){
                 refreshBuy(data);
 
                 hackerList = new List('hacker-list', options);
+                console.log(data);
             } else {
                 //console.log("YOU SHOULD NOT BE HERE");
                 // something went wrong, check the request status

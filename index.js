@@ -288,6 +288,7 @@ app.get('/search/:query/books.json', function(request,response) {
   else
     var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
 
+  console.log(sql);
   conn.query(sql, query, function(error, result){
     response.json(result);
   });
@@ -564,7 +565,7 @@ io.sockets.on('connection', function(socket){
 
     });
 
-    socket.on('messages', function(threadID, callback){
+    socket.on('requestMessages', function(threadID, callback){
         var sql = 'SELECT * FROM messages WHERE threadID == $1 ORDER BY time ASC';
         var con = conn.query(sql, [threadID], function (error, result) {         
           callback(result);
@@ -591,6 +592,17 @@ io.sockets.on('connection', function(socket){
 
             });
           }
+        });
+       
+    });
+
+    socket.on('newMessageUpload', function(message, threadID, sender, sender_nickname){
+      
+
+        var d = new Date();
+        var sql = 'INSERT INTO messages (threadID, sender, time, nickname, content) VALUES ($1, $2, $3, $4, $5)';
+        conn.query(sql, [ threadID, sender, d.getTime()/1000, sender_nickname, message], function (error, result) {
+            io.sockets.in(roomName).emit('message', socket.nickname, message, d.getTime()/1000);
         });
        
     });
