@@ -332,8 +332,15 @@ var searchType = "/search/";
 
 function setSearchType(type)
 {
-    console.log(type);
-    searchType = type;
+    document.getElementById("search_type_span").innerHTML = type;
+    if(type == "All")
+        searchType = "/search/";
+    else if(type == "Class")
+        searchType = "/searchclass/";
+    else if(type == "Title")
+        searchType = "/searchtitle/";
+    else if(type == "Author")
+        searchType = "/searchauthor/";
 }
 
 function search(text){

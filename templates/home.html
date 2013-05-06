@@ -59,32 +59,31 @@
 
 <div id = "buy">
 
-    <div id = "book_search">
-
-      <form id="search_form" class="navbar-search pull-left" action="javascript:search()">
-      <input id="search" type="text" class="span4" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
-      <script type="text/javascript">
-        $('#search').change(function() 
-        {
-          $('#search_form').submit();
-        });
-          </script>
-      <select id="search_type" class="span2">
-        <option value="All">All</option>
-        <option value="Class">Class</option>
-        <option value="Title">Title</option>
-        <option value="Author">Author</option>
-      </select> 
-
+    <div id="book_search" class="input-append btn-group">
+      <form id="search_form" class="navbar-search" action="javascript:search()">
+        <input id="search" type="text" class="span4" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
+        <script type="text/javascript">
+          $('#search').change(function() 
+          {
+            $('#search_form').submit();
+          });
+        </script>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+            <span id="search_type_span">All</span>
+        </a>
+        <ul class="dropdown-menu pull-right">
+            <li><a onclick="setSearchType('All')">All</a></li>
+            <li><a onclick="setSearchType('Class')">Class</a></li>
+            <li><a onclick="setSearchType('Title')">Title</a></li>
+            <li><a onclick="setSearchType('Author')">Author</a></li>
+        </ul>
       </form>
+    </div>
       <input id="is_filtered" hidden="true">
       <input id="highlighter_filter" type="checkbox" value="" onclick="addFilters()">
       Contains No Highlighter
       <input id="writing_filter" type="checkbox" value="" onclick="addFilters()">
       Contains No Writing
-
-    </div>
-
 
     <div id="hacker-list" class="list_container">
       <span onclick="priceSortButton()" class="sort btn" data-sort="price">Sort by book price</span>
