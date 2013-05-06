@@ -332,9 +332,18 @@ function buy(){
 
 
 function search(text){
-    var highlighter = document.getElementById("highlighter_filter").checked ? 1 : 0;
-    var writing = document.getElementById("writing_filter").checked ? 1 : 0;
-    getText('/search/' + document.getElementById("search").value + highlighter + writing + '/books.json');
+
+    var highlighter = $('#highlighter_filter').hasClass('active') ? 1 : 0;
+    var writing = $('#writing_filter').hasClass('active') ? 1 : 0;
+    if(searchType == "/search/")
+    {
+        getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
+    }
+    else
+    {
+        getText(searchType + document.getElementById("search").value + '/books.json');
+    }
+
     hackerList = new List('hacker-list', options);
 }
 
