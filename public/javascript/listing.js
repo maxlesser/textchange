@@ -22,7 +22,7 @@ $.fn.typeahead.Constructor.prototype.render = function (items) {
 //Requests and displays a list of books dependent on a search term
   
 var options = {
-    valueNames: [ 'time', 'condition', 'price' ]
+    valueNames: [ 'time', 'condition', 'price', 'highlighter', 'writing' ]
 };
 
 var hackerList = new List('hacker-list', options);
@@ -426,8 +426,8 @@ function refreshBuy (data) {
 
               '<div class = "conditionList">' +
               '<p class="condition">Condition: <strong>' + c + 
-              '<br></strong>Highlighter Used: <strong>' + h +
-              '<br></strong>Written In: <strong>' + w +'</strong> &emsp;'+
+              '<br></strong>Highlighter Used: <strong><span class="highlighter">' + h +
+              '</span><br></strong>Written In: <strong><span class="writing">' + w +'</span></strong> &emsp;'+
               '<br><span data-toggle="collapse" data-target="#b'+ keeper +'">'+
               'More info <i class="icon-info-sign"></i>'+
               '</span></p>'+
@@ -606,6 +606,47 @@ function refreshSell (data) {
         }, false);
 
         request.send(null);
+    }
+
+    function addFilters()
+    {
+        if ($('#highlighter_filter').is(":checked") && $('#writing_filter').is(":checked"))
+        {
+            hackerList.filter();
+            hackerList.filter(function(item) {
+               if (item.values().highlighter == "Yes" && item.values().writing == "Yes") {
+                   return true;
+               } else {
+                   return false;
+               }
+            });
+        }
+        else if($('#highlighter_filter').is(":checked"))
+        {
+            hackerList.filter();
+            hackerList.filter(function(item) {
+               if (item.values().highlighter == "Yes") {
+                   return true;
+               } else {
+                   return false;
+               }
+            });
+        }
+        else if($('#writing_filter').is(":checked"))
+        {
+            hackerList.filter();
+            hackerList.filter(function(item) {
+               if (item.values().writing == "Yes") {
+                   return true;
+               } else {
+                   return false;
+               }
+            });
+        }
+        else
+        {
+            hackerList.filter();
+        }
     }
 
 
