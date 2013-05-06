@@ -393,8 +393,8 @@ function setSearchType(type)
 }
 
 function search(text){
-    var highlighter = document.getElementById("highlighter_filter").checked ? 1 : 0;
-    var writing = document.getElementById("writing_filter").checked ? 1 : 0;
+    var highlighter = $('#highlighter_filter').hasClass('active') ? 1 : 0;
+    var writing = $('#writing_filter').hasClass('active') ? 1 : 0;
     if(searchType == "/search/")
     {
         getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
@@ -664,7 +664,10 @@ function refreshSell (data) {
                 var data = JSON.parse(content);
                 //console.log(data);
                 if (data.ISBNdb.BookList[0].BookData == undefined)
-                    alert("invalid isbn");
+                {
+                    document.getElementById('alert-text').innerHTML=("Invalid ISBN.");
+                    $('#blank-alert').modal("show");
+                }
                 else
                 {
                     var author = data.ISBNdb.BookList[0].BookData[0].AuthorsText[0];
