@@ -46,7 +46,7 @@ window.addEventListener('load',function(){
 function newNotification(){
 
 	var a = document.getElementById('messaging-button');
-	a.style.backgroundColor= "#0C4CB9";
+	a.style.backgroundColor= "#BDCDE9";
 
 
 }
