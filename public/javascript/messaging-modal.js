@@ -75,14 +75,14 @@ function requestMessages(id){
 		            var li = document.createElement('li');
 		            var d = new Date(data.rows[i].time*1000);
 
+		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
+		            	li.className += ' senderMessage';
+		            }
+
 		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
 		            '<br><small class="pull-right">- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small><br>';
 
 		            li.innerHTML = newitem;
-
-		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
-		            	li.className += ' senderMessage';
-		            }
 
 		            ul.appendChild(li);
 
@@ -103,14 +103,14 @@ function requestMessages(id){
 		            var li = document.createElement('li');
 		            var d = new Date(data.rows[i].time*1000);
 
+		           	if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
+		            	li.className += ' senderMessage';
+		            }
+
 		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
 		            '<br><small>- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small>';
 
 		            li.innerHTML = newitem;
-
-		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
-		            	li.className += ' senderMessage';
-		            }
 		            
 		            ul.appendChild(li);
 		        } 
