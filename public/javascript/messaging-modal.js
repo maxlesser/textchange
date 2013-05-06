@@ -171,7 +171,8 @@ function updateThreads(data){
             newNotification();
 			$('#thread'+data+' input').val("no");
 			$('#thread'+data).click();
-			document.getElementById('messageField').value = "Hi " + threadInfo.rows[0].seller_nickname + ", I would love to purchase " + threadInfo.rows[0].title + ". Let me know when you're free. \n -" + document.querySelector('meta[name=nickname]').content;
+			if (threadInfo.rows[0].buyer_nickname =  myName)
+				document.getElementById('messageField').value = "Hi " + threadInfo.rows[0].seller_nickname + ", I would love to purchase " + threadInfo.rows[0].title + ". Let me know when you're free. \n -" + document.querySelector('meta[name=nickname]').content;
 
 
     	});

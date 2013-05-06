@@ -528,6 +528,7 @@ io.sockets.on('connection', function(socket){
           callback(result);
           console.log(io.sockets.manager.rooms);
           userMap[username] = socket;
+          console.log(username);
           socket.username = username;
 
         });
@@ -575,8 +576,15 @@ io.sockets.on('connection', function(socket){
             conn.query(insertsql, [title, username, nickname, seller_nickname, seller, post_id, d.getTime()/1000, 1], function (error, result) {
               conn.query(sql, [username, seller, post_id], function (error, result) {
                 userMap[username].join(result.rows[0].id);
-                if (!userMap[seller])
+                console.log("herhqweproiqewpruwepriueqwpriequwpriqw");
+
+                console.log(userMap["adf"]);
+                if (userMap[seller]!= null)
+                 { 
+                                  console.log(seller);
+
                   userMap[seller].join(result.rows[0].id);
+                  }
 
                 callback(result);
               });
