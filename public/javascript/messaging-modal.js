@@ -8,8 +8,8 @@ window.addEventListener('load',function(){
 		$('#messaging-modal').modal('toggle');
 
 		noNotifications();
-		//$('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
-		$("#its4amfuck").animate({ scrollTop: $('#its4amfuck')[0].scrollHeight}, 1000);
+		$('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
+
 
 
 
@@ -87,6 +87,7 @@ function requestMessages(id){
 		            ul.appendChild(li);
 
 		        } 
+		        $('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
 
 	});
 	}
@@ -114,6 +115,8 @@ function requestMessages(id){
 		            
 		            ul.appendChild(li);
 		        } 
+
+		         $('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
 
 		    thread.style.color="";
 			$('#thread'+id+' input').val('yes');
