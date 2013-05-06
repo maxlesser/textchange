@@ -505,64 +505,14 @@ io.sockets.on('connection', function(socket){
     console.log(io.sockets.manager.rooms);
     console.log("just connected");
     // clients emit this when they join new rooms
-    socket.on('join', function(username, callback){
+    socket.on('join', function(username){
 
         // get a list of messages currently in the room, then send it back
         var sql = 'SELECT * FROM messageThreads WHERE buyer=$1 OR seller=$1 ORDER BY time ASC';
+        console.log(username);
         var q = conn.query(sql, [username], function (error, result) {
           console.log(result);
-          for (var i = 0; i < result.rowCount; i++){
-            var buyer = result.rows[i].buyer;
-            var seller = result.rows[i].seller;
-            var seen = result.rows[i].seen;
-            var post_id = result.rows[i].post_id;
-
-
-            if (seen == 0)
-            {
-              result.rows[i].seen="true";
-            }
-            else if (buyer == username)
-            {
-              if (seen == 1)
-              {
-                result.rows[i].seen="true";
-              }
-              else if (seen == 2)
-              {
-                result.rows[i].seen="false";
-              }
-            }
-            else if (seller == username)
-            {
-              if (seen == 1)
-              {
-                result.rows[i].seen="false";
-              }
-              else if (seen == 2)
-              {
-                result.rows[i].seen="true";
-              }
-            }
-
-            var nickname;
-            if(username == buyer)
-            {
-              nickname = result.rows[i].seller_nickname;
-
-            }
-            else
-            {
-              nickname = result.rows[i].buyer_nickname;
-       
-            }
-
-            result.rows[i].other_name=nickname;
-
-               
-
-
-          }
+          result = fixMessageThreadResult(result, username);
           console.log(result);
           callback(result);
           console.log(io.sockets.manager.rooms);
@@ -619,6 +569,8 @@ io.sockets.on('connection', function(socket){
        
     });
 
+
+
 /*    // this gets emitted if a user changes their nickname
     socket.on('nickname', function(nickname){
         socket.nickname = nickname;
@@ -649,6 +601,79 @@ io.sockets.on('connection', function(socket){
 
     });
 });
+
+function fixMessageThreadResult(result, username)
+{
+console.log(result);
+          for (var i = 0; i < result.rowCount; i++){
+            var buyer = result.rows[i].buyer;
+            var seller = result.rows[i].seller;
+            var seen = result.rows[i].seen;
+            var post_id = result.rows[i].post_id;
+
+
+            if (seen == 0)
+            {
+              result.rows[i].seen="true";
+            }
+            else if (buyer == username)
+            {
+              if (seen == 1)
+              {
+                result.rows[i].seen="true";
+              }
+              else if (seen == 2)
+              {
+                result.rows[i].seen="false";
+              }
+            }
+            else if (seller == username)
+            {
+              if (seen == 1)
+              {
+                result.rows[i].seen="false";
+              }
+              else if (seen == 2)
+              {
+                result.rows[i].seen="true";
+              }
+            }
+
+            var nickname;
+            if(username == buyer)
+            {
+              nickname = result.rows[i].seller_nickname;
+
+            }
+            else
+            {
+              nickname = result.rows[i].buyer_nickname;
+       
+            }
+
+            result.rows[i].other_name=nickname;
+
+               
+
+
+          }
+          return result;
+}
+
+// function sendOutMessage(threadID) {
+//     // fetch all sockets in a room
+//     var sockets = io.sockets.clients(roomName);
+
+//     // pull the nicknames out of the socket objects using array.map(...)
+//     var nicknames = sockets.map(function(socket){
+//         return socket.nickname;
+//     });
+
+//     // send them out
+//     io.sockets.in(roomName).emit('membershipChanged', nicknames);
+// }
+
+
 
 
 
