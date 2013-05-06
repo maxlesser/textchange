@@ -29,3 +29,4 @@ conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nic
 
 conn.query('INSERT INTO users (email, password, name) VALUES (\'wheels@nyc.rr.com\', \'test\', \'Max Lesser\')');
 conn.query('INSERT INTO users (email, password, name) VALUES (\'andy@nyc.rr.com\', \'test\', \'Andy Lesser\')');
+conn.query('INSERT INTO users (email, password, name) VALUES (\'kappi@kappi.com\', \'test\', \'Kappi Lesser\')');
