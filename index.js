@@ -298,9 +298,9 @@ app.get('/search/:query/books.json', function(request,response) {
   else if(condition == 1)
     sort = "condition";
 
-  console.log(sql);
-  console.log(query);
-  console.log(sort);
+  // console.log(sql);
+  // console.log(query);
+  // console.log(sort);
   conn.query(sql, [query, sort], function(error, result){
     response.json(result);
   });
@@ -311,7 +311,7 @@ app.get('/searchtitle/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE title LIKE $1 AND sold=0 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     //console.log(result);
     response.json(result);
@@ -321,7 +321,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE AUTHOR LIKE $1 AND sold=0 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE sold=0 AND author LIKE $1 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     //console.log(result);
     response.json(result);
@@ -331,7 +331,7 @@ app.get('/searchclass/:query/books.json', function(request,response) {
 
   var query = request.params.query;
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
+  var sql = 'SELECT * FROM books WHERE sold=0 AND class LIKE $1 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
     //console.log(result);
     response.json(result);

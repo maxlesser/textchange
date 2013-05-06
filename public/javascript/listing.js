@@ -332,17 +332,28 @@ function buy(){
 function search(text){
     var highlighter = document.getElementById("highlighter_filter").checked ? 1 : 0;
     var writing = document.getElementById("writing_filter").checked ? 1 : 0;
-    var searchType = document.getElementById("search_type");
+    var searchType = document.getElementById("search_type").value;
     if(searchType == "Class")
+    {
         searchType = "/searchclass/";
+        getText(searchType + document.getElementById("search").value + '/books.json');
+    }
     else if(searchType == "Title")
+    {
         searchType = "/searchtitle/";
+        getText(searchType + document.getElementById("search").value + '/books.json');
+    }
     else if(searchType == "Author")
+    {
         searchType = "/searchauthor/";
+        getText(searchType + document.getElementById("search").value + '/books.json');
+    }
     else 
+    {
         searchType = "/search/";
+        getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
+    }
 
-    getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
     hackerList = new List('hacker-list', options);
 }
 
