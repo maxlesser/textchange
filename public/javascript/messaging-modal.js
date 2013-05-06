@@ -160,8 +160,8 @@ function updateThreads(data){
             '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden"  value="no"> </a>';
 
             li.innerHTML = newitem;
-
-            ul.insertBefore(li);
+            $("#threadList").prepend(li);
+            //ul.insertBefore(li);
 
             document.getElementById('thread'+data).style.color="#062691";
             newNotification();

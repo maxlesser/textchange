@@ -87,15 +87,16 @@
     <div id="hacker-list" class="list_container">
       <div id = "listSort">
         Sort by:
-        <div class="btn-group" data-toggle="buttons-checkbox">
+        <div class="btn-group" data-toggle="buttons-radio">
       <button onclick="priceSortButton()" type="button" class="btn sort filter " data-sort="price">price</button>
       <button onclick="conditionSortButton()" type="button" class="btn sort filter " data-sort="condition">condition</button>
       <button onclick="timeSortButton()" type="button" class="btn sort filter" data-sort="time">time</button>
-
-      <input id="is_filtered" hidden="true">
+      </div>
+      <div class="btn-group" data-toggle="buttons-checkbox">
+      
       <!-- <input id="highlighter_filter" > -->
       <button class="btn" type="button" value="" onclick="addFilters('hl')">No Highlighter</button>
-      <!-- <input id="writing_filter" > -->
+      <!-- <input id="writing_filter" > --><input id="is_filtered" hidden="true">
       <button class="btn" type="button" value="" onclick="addFilters('wr')">No Writing</button>
     </div>
   </div>
