@@ -22,6 +22,7 @@ div.navbar-inner {
 }
 
 #messageThread{
+  max-width: 420px;
   list-style: none;
   margin-left: 0px;
 }

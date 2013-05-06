@@ -46,7 +46,7 @@ window.addEventListener('load',function(){
 function newNotification(){
 
 	var a = document.getElementById('messaging-button');
-	a.style.color= "#0819A9";
+	a.style.backgroundColor= "#AEBAD0";
 
 
 }
@@ -130,7 +130,7 @@ function updateThreads(data){
 		var classes = li.classList;
 		if (classes.length == 1)
 		{
-			thread.style.color="blue";
+			thread.style.color="#062691";
 			$('#thread'+data+' input').val("no");
 
 		}    
@@ -163,7 +163,7 @@ function updateThreads(data){
 
             ul.insertBefore(li);
 
-            document.getElementById('thread'+data).style.color="blue";
+            document.getElementById('thread'+data).style.color="#062691";
             newNotification();
 			$('#thread'+data+' input').val("no");
 			$('#thread'+data).click();
@@ -229,7 +229,7 @@ function loadThreads(data){
             ul.appendChild(li);
 
             if (data.rows[i].seen == "false"){
-                document.getElementById('thread'+data.rows[i].id).style.color="blue";
+                document.getElementById('thread'+data.rows[i].id).style.color="#062691";
                 newNotification();
             }
         }  
