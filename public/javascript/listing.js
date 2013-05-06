@@ -171,7 +171,7 @@ function loadThreads(data){
 
     var newitem = '<li class="active"><a href="#" onClick= "';
     
-    if (data.rows[0].seen == "false"){ newitem += 'requestMessagesUNREAD(';} 
+    if (data.rows[0].seen == "false"){ newitem += 'requestMessages(';} 
     else{ newitem += 'requestMessages(';}
     
     newitem += topThreadID + ')" '+

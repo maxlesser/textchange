@@ -153,9 +153,9 @@ function updateThreads(data){
 
     	socket.emit('findOut', data, function(threadInfo){
 
+    		var nickname = threadInfo.rows[0].buyer_nickname;
 
-
-			var newitem = '<a href="#" id="thread'+ data+'" onClick= "requestMessagesUNREAD('+data+')"'+
+			var newitem = '<a href="#" id="thread'+ data+'" onClick= "requestMessages('+data+')"'+
             ' data-toggle="tab"><strong>'+threadInfo.rows[0].title + '</strong>'+
             '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden" name="read" value="no"> </a>';
 
@@ -167,6 +167,7 @@ function updateThreads(data){
             newNotification();
 			$('#thread'+data+' input').val("no");
 			$('#thread'+data).click();
+			document.getElementById('messageField').value = "Hi " + nickname + ", I would love to purchase " + threadInfo.rows[0].title + ". Let me know when you're free. \n -" + document.querySelector('meta[name=nickname]').content;
 
 
     	});
@@ -252,10 +253,12 @@ function sendMessage(e){
 
 function buy_button(input)
 {
-	socket.emit('buyClick','andy@nyc.rr.com', 'andy','wheels@nyc.rr.com' , 'max', "BeeweeeJBA", 1259, function(messages){
+	socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
+			input.seller.value , input.seller_nickname.value, input.seller.value, input.post_id.value, function(messages){
+		
 		updateThreads(messages.rows[0].id);
 		$('#messaging-modal').modal('toggle');
-
+		$('#thread'+messages.rows[0].id).click();
 
     });  
 }
