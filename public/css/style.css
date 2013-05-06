@@ -23,6 +23,8 @@ div.navbar-inner {
 
 #messageThread{
   max-width: 420px;
+  min-width: 420px;
+  min-height: 410px;
   list-style: none;
   margin-left: 0px;
 }
@@ -30,6 +32,10 @@ div.navbar-inner {
 #messageThread small{
 
   font-size: 10px;
+}
+
+#messageForm{
+  position: fixed;
 }
 
 #messageThread li{
