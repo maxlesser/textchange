@@ -393,8 +393,13 @@ function setSearchType(type)
 }
 
 function search(text){
-    var highlighter = $('#highlighter_filter').hasClass('active') ? 1 : 0;
-    var writing = $('#writing_filter').hasClass('active') ? 1 : 0;
+    var highlighter = 0;
+    var writing = 0;
+
+    if($('#writing_filter').is(":checked"))
+        writing = 1;
+    if($('#highlighter_filter').is(":checked"))
+        highlighter = 1;
     if(searchType == "/search/")
     {
         getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
@@ -685,49 +690,44 @@ function refreshSell (data) {
         request.send(null);
     }
 
-    var toggle1 = 0;
-    var toggle2 = 0;
+    function checkHighlighter()
+    {
+        $('#highlighter_filter').click();
+    }
+
+    function checkWriting()
+    {
+        $('#writing_filter').click();
+    }
 
     function addFilters(input)
     {
 
-        // if ($('#highlighter_filter').is(":checked") && $('#writing_filter').is(":checked"))
-        // {
-        //     hackerList.filter();
-        //     hackerList.filter(function(item) {
-        //        if (item.values().highlighter == "Yes" && item.values().writing == "Yes") {
-        //            return true;
-        //        } else {
-        //            return false;
-        //        }
-        //     });
-        // }
-        //else if($('#highlighter_filter').is(":checked"))
-            if (input=="hl")
+        if ($('#highlighter_filter').is(":checked") && $('#writing_filter').is(":checked"))
         {
-            if(toggle1 == 0){
-                hackerList.filter();
-                hackerList.filter(function(item) {
-               if (item.values().highlighter == "No") {
-                    toggle1=1;
+            hackerList.filter();
+            hackerList.filter(function(item) {
+               if (item.values().highlighter == "No" && item.values().writing == "No") {
                    return true;
                } else {
-                    toggle1=1;
                    return false;
                }
             });
-            }
-            else{
-                toggle1=0;
-                hackerList.filter();
-            }
-            
         }
-        //else if($('#writing_filter').is(":checked"))
-            else if (input=="wr")
+        else if($('#highlighter_filter').is(":checked"))
         {
-            if (toggle2 == 0){
-                hackerList.filter();
+            hackerList.filter();
+            hackerList.filter(function(item) {
+               if (item.values().highlighter == "No") {
+                   return true;
+               } else {
+                   return false;
+               }
+            });
+        }
+        else if($('#writing_filter').is(":checked"))
+        {
+            hackerList.filter();
             hackerList.filter(function(item) {
                if (item.values().writing == "No") {
                    return true;
@@ -735,13 +735,6 @@ function refreshSell (data) {
                    return false;
                }
             });
-            }
-
-            else{
-                toggle2=0;
-                hackerList.filter();
-            }
-            
         }
         else
         {

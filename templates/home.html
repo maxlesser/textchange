@@ -96,9 +96,11 @@
       <div class="btn-group" data-toggle="buttons-checkbox">
       
       <!-- <input id="highlighter_filter" > -->
-      <button class="btn" type="button" id="highlighter_filter" value="" onclick="addFilters('hl')">No Highlighter</button>
+      <input id="highlighter_filter" type="checkbox" value="" onclick="addFilters()" hidden="true">
+      <button class="btn" type="button" id="highlighter_filter" value="" onclick="checkHighlighter()">No Highlighter</button>
       <!-- <input id="writing_filter" > --><input id="is_filtered" hidden="true">
-      <button class="btn" type="button" id="writing_filter" value="" onclick="addFilters('wr')">No Writing</button>
+      <input id="writing_filter" type="checkbox" value="" onclick="addFilters()" hidden="true">
+      <button class="btn" type="button" id="writing_filter" value="" onclick="checkWriting()">No Writing</button>
     </div>
   </div>
       <div>

@@ -7,21 +7,21 @@ var engines = require('consolidate');
 var flash = require('connect-flash');
 
 
-var nodemailer = require("nodemailer");
-var smtpTransport = nodemailer.createTransport("SMTP",{
-    service: "Gmail",
-    auth: {
-        user: "textchangeemail@gmail.com",
-        pass: "thisistextchange"
-    }
-});
-var mailOptions = {
-    from: "Max Lesser", // sender address
-    to: "andy_chen@brown.edu", // list of receivers
-    subject: "suck me", // Subject line
-    text: "Hello world", // plaintext body
-    html: "<b>Hello world </b>" // html body
-}
+// var nodemailer = require("nodemailer");
+// var smtpTransport = nodemailer.createTransport("SMTP",{
+//     service: "Gmail",
+//     auth: {
+//         user: "textchangeemail@gmail.com",
+//         pass: "thisistextchange"
+//     }
+// });
+// var mailOptions = {
+//     from: "Max Lesser", // sender address
+//     to: "andy_chen@brown.edu", // list of receivers
+//     subject: "hi", // Subject line
+//     text: "Hello world", // plaintext body
+//     html: "<b>Hello world </b>" // html body
+// }
 
 var fs = require('fs');
 
