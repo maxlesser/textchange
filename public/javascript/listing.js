@@ -626,7 +626,7 @@ function refreshSell (data) {
         {
             hackerList.filter();
             hackerList.filter(function(item) {
-               if (item.values().highlighter == "Yes") {
+               if (item.values().highlighter == "No") {
                    return true;
                } else {
                    return false;
@@ -637,7 +637,7 @@ function refreshSell (data) {
         {
             hackerList.filter();
             hackerList.filter(function(item) {
-               if (item.values().writing == "Yes") {
+               if (item.values().writing == "No") {
                    return true;
                } else {
                    return false;
