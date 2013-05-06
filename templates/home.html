@@ -63,6 +63,12 @@
 
       <form class="navbar-search pull-left" action="javascript:search()">
       <input id="search" type="text" class="search-query" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
+      <select id="search_type">
+        <option value="All">All</option>
+        <option value="Class">Class</option>
+        <option value="Title">Title</option>
+        <option value="Author">Author</option>
+      </select> 
 
       </form>
       <input id="is_filtered" hidden="true">

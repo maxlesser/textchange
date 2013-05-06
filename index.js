@@ -327,6 +327,16 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
     response.json(result);
   });
 });
+app.get('/searchclass/:query/books.json', function(request,response) {
+
+  var query = request.params.query;
+  query = '%' + query + '%';
+  var sql = 'SELECT * FROM books WHERE class LIKE $1 AND sold=0 ORDER BY time DESC';
+  conn.query(sql, query, function(error, result){
+    //console.log(result);
+    response.json(result);
+  });
+});
 
 
 //search json response, can also use for autocomplete

@@ -332,7 +332,17 @@ function buy(){
 function search(text){
     var highlighter = document.getElementById("highlighter_filter").checked ? 1 : 0;
     var writing = document.getElementById("writing_filter").checked ? 1 : 0;
-    getText('/search/' + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
+    var searchType = document.getElementById("search_type");
+    if(searchType == "Class")
+        searchType = "/searchclass/";
+    else if(searchType == "Title")
+        searchType = "/searchtitle/";
+    else if(searchType == "Author")
+        searchType = "/searchauthor/";
+    else 
+        searchType = "/search/";
+
+    getText(searchType + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
     hackerList = new List('hacker-list', options);
 }
 
