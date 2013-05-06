@@ -64,35 +64,28 @@
       <form class="navbar-search pull-left" action="javascript:search()">
       <input id="search" type="text" class="search-query" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
 
-      <!--<button onclick="setFilter()" id="filter_button" class="btn" type="button" data-toggle="collapse" data-target="#filter_tab"><span id="signup_text">Filter</span></button>
-
-      <div id="filter_tab" class="collapse">
-        <input id="is_filtered" hidden="true">
-        <input id="highlighter_filter" type="checkbox" value="">
-        Highlighter
-        <input id="writing_filter" type="checkbox" value="">
-        Writing
-        <strong>Condition:</strong>
-        <input name="condition" type="text" class="span2" value="2" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="show" data-slider-id="condition_color" id="condition_filter">
-        <p type="number" class="span2" id="slider_display">OK<p>
-      </div>-->
-
       </form>
+      <input id="is_filtered" hidden="true">
+      <input id="highlighter_filter" type="checkbox" value="" onclick="document.forms[0].submit()">
+      Contains No Highlighter
+      <input id="writing_filter" type="checkbox" value="" onclick="document.forms[0].submit()">
+      Contains No Writing
 
     </div>
-      <br>
-      <br>
 
 
-    <div class="list_container">
+    <div id="hacker-list" class="list_container">
+      <span class="sort btn" data-sort="price">Sort by book price</span>
+      <span class="sort btn" data-sort="condition">Sort by book condition</span>
+      <span class="sort btn" data-sort="time">Sort by time</span>
 
-        <ul id="list_thumbnails_buy" class="unstyled">
+
+        <ul id="list_thumbnails_buy" class="list unstyled">
      
     </ul>
   </div>
 
 </div>
-
 
 <div id = "sell">
 

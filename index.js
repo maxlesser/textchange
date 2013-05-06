@@ -241,10 +241,29 @@ app.get('/search/recent.json', function(request,response) {
 app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
+  if(query.length >=2)
+  {
+    var writing = query.charAt(query.length-1);
+    var highlighter = query.charAt(query.length-2);
+    query = query.substring(0, query.length-2);
+  }
+  else
+  {
+    highlighter = 0;
+    writing = 0;
+  }
+  // console.log(query);
   query = '%' + query + '%';
-  var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+  if(writing == 1 && highlighter == 1)
+    var sql = 'SELECT * FROM books WHERE sold=0  AND writing=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+  else if(writing == 1)
+    var sql = 'SELECT * FROM books WHERE sold=0 AND writing=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+  else if(highlighter == 1)
+    var sql = 'SELECT * FROM books WHERE sold=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+  else
+    var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+
   conn.query(sql, query, function(error, result){
-    //console.log(result);
     response.json(result);
   });
 });
@@ -266,7 +285,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
   query = '%' + query + '%';
   var sql = 'SELECT * FROM books WHERE AUTHOR LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });
@@ -274,7 +293,7 @@ app.get('/searchauthor/:query/books.json', function(request,response) {
 
 //search json response, can also use for autocomplete
 app.get('/searchTypeAhead/:query/books.json', function(request,response) {
-console.log("unfiltered");
+//console.log("unfiltered");
   var query = request.params.query;
   query = '%' + query + '%';
 	var sql = 'SELECT DISTINCT title FROM books WHERE sold=0 AND title LIKE $1 UNION SELECT DISTINCT author FROM books WHERE sold=0 AND author LIKE $1 UNION SELECT DISTINCT class FROM books WHERE sold=0 AND class LIKE $1';
@@ -284,32 +303,30 @@ console.log("unfiltered");
 	});
 });
 
-//search json response, can also use for autocomplete
-app.get('/searchTypeAheadFiltered/:query/books.json', function(request,response) {
-console.log("filtered");
+// //search json response, can also use for autocomplete
+// app.get('/searchTypeAheadFiltered/:query/books.json', function(request,response) {
+// console.log("filtered");
 
-  var query = request.params.query;
-  if(query.length >=3)
-  {
-    var condition = query.charAt(query.length-1);
-    var writing = query.charAt(query.length-2);
-    var highlighter = query.charAt(query.length-3);
-    query = query.substring(0, query.length-3);
-  }
-  else
-  {
-    highlighter = 0;
-    writing = 0;
-    condition = 0;
-  }
-  console.log(query);
-  query = '%' + query + '%';
-  var sql = 'SELECT DISTINCT title FROM books WHERE sold=0 AND title LIKE $1 AND highlighter=$2 AND writing=$3 AND condition=$4 UNION SELECT DISTINCT author FROM books WHERE sold=0 AND author LIKE $1 UNION SELECT DISTINCT class FROM books WHERE sold=0 AND class LIKE $1';
-  conn.query(sql, [query, highlighter, writing, condition], function(error, result){
-    //console.log(result);
-    response.json(result);
-  });
-});
+//   var query = request.params.query;
+//   if(query.length >=3)
+//   {
+//     var writing = query.charAt(query.length-1);
+//     var highlighter = query.charAt(query.length-2);
+//     query = query.substring(0, query.length-2);
+//   }
+//   else
+//   {
+//     highlighter = 0;
+//     writing = 0;
+//   }
+//   console.log(query);
+//   query = '%' + query + '%';
+//   var sql = 'SELECT DISTINCT title FROM books WHERE sold=0 AND title LIKE $1 AND highlighter=$2 AND writing=$3 UNION SELECT DISTINCT author FROM books WHERE sold=0 AND author LIKE $1 UNION SELECT DISTINCT class FROM books WHERE sold=0 AND class LIKE $1';
+//   conn.query(sql, [query, highlighter, writing], function(error, result){
+//     //console.log(result);
+//     response.json(result);
+//   });
+// });
 
 //search json response, can also use for autocomplete
 app.get('/searchtitleTypeAhead/:query/books.json', function(request,response) {
@@ -328,7 +345,7 @@ app.get('/searchauthorTypeAhead/:query/books.json', function(request,response) {
   query = '%' + query + '%';
   var sql = 'SELECT DISTINCT author FROM books WHERE author LIKE $1 AND sold=0 ORDER BY time DESC';
   conn.query(sql, query, function(error, result){
-    console.log(result);
+    //console.log(result);
     response.json(result);
   });
 });
@@ -374,7 +391,7 @@ app.post('/addbook', function(request, response){
     var writing = request.body.writing;
     var highlighter = request.body.highlighter;
     var condition = request.body.condition;
-    console.log(path);
+    //console.log(path);
 
     //console.log(username);   
     var d = new Date();
