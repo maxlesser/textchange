@@ -266,42 +266,30 @@ app.get('/search/recent.json', function(request,response) {
 app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
-  if(query.length >=4)
+  if(query.length >=2)
   {
     var writing = query.charAt(query.length-1);
     var highlighter = query.charAt(query.length-2);
-    var price = query.charAt(query.length-3);
-    var condition = query.charAt(query.length-4);
-    query = query.substring(0, query.length-4);
+    query = query.substring(0, query.length-2);
   }
   else
   {
-    var price = 0;
-    var condition = 0;
-    var highlighter = 0;
-    var writing = 0;
+    highlighter = 0;
+    writing = 0;
   }
   // console.log(query);
   query = '%' + query + '%';
   if(writing == 1 && highlighter == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0  AND writing=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY $2 DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0  AND writing=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
   else if(writing == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0 AND writing=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0 AND writing=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
   else if(highlighter == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
   else
-    var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
-
-  var sort = "time";
-  if(price == 1)
-    sort = "price";
-  else if(condition == 1)
-    sort = "condition";
+    var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
 
   console.log(sql);
-  console.log(query);
-  console.log(sort);
-  conn.query(sql, [query, sort], function(error, result){
+  conn.query(sql, query, function(error, result){
     response.json(result);
   });
 });
@@ -505,7 +493,7 @@ io.sockets.on('connection', function(socket){
     console.log(io.sockets.manager.rooms);
     console.log("just connected");
     // clients emit this when they join new rooms
-    socket.on('join', function(username){
+    socket.on('join', function(username, callback){
 
         // get a list of messages currently in the room, then send it back
         var sql = 'SELECT * FROM messageThreads WHERE buyer=$1 OR seller=$1 ORDER BY time ASC';
