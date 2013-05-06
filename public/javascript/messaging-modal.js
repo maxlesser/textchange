@@ -281,14 +281,16 @@ function buy_button(input)
 {
 		if (document.querySelector('meta[name=username]').content == "null")
 		{
-			alert("Please sign in to buy books!");
-			return;
+	        document.getElementById('alert-text').innerHTML=("Please log in to buy books.");
+	        $('#blank-alert').modal("show");
+	        return;
 		}	
 
 		if (document.querySelector('meta[name=username]').content == input.seller.value)
 		{
-			alert("Silly duck, you can't buy your own book...");
-			return;
+	        document.getElementById('alert-text').innerHTML=("You can't buy your own book!");
+	        $('#blank-alert').modal("show");
+	        return;	
 		}	
 		socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
 			input.seller.value , input.seller_nickname.value, input.title.value, input.post_id.value, function(messages){
