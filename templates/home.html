@@ -44,7 +44,7 @@
                   <a id = "usernameDropdown" href="#" class="dropdown-toggle" data-toggle="dropdown">
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/logout" onClick="socket.disconnect();socket=null;">Logout</a></li>
                   </ul>
                 </li>
                 <li><a id="topRightLogin" href="/login">Login</a></li>

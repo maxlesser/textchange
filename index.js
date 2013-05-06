@@ -30,9 +30,16 @@ var request = require('request');
 
 var parseString = require('xml2js').parseString;
 
-var http = require('http'); // this is new
 
+
+
+var http = require('http'); // this is new
+var app = express();
+var server = http.createServer(app); // this is new
+
+// add socket.io
 var io = require('socket.io').listen(server);
+
 
 
 
@@ -59,10 +66,29 @@ function findById(id, fn) {
   });  
 }
 
+function getNickname(username, fn) {
+  sql = 'SELECT name FROM users WHERE email = $1';
+  conn.query(sql, username, function(error, result) {
+
+    if(result.rowCount === 1)
+    {
+      fn(null, result.rows[0]);
+    }
+    else
+    {
+      fn(new Error('User ' + username + ' does not exist'));
+    }
+  });  
+
+}
+
+
 function findByUsername(username, password, fn) {
   sql = 'SELECT * FROM users WHERE email = $1 AND password = $2';
 
   conn.query(sql, [username, password], function(error, result){
+    console.log("HEHEHEHHEHEHEHEHE");
+    console.log(result);
 
     if(result.rowCount === 1)
     {
@@ -110,8 +136,6 @@ passport.use(new LocalStrategy(
 
 
 var conn = anyDB.createConnection('sqlite3://books.db');
-var app = express();
-var server = http.createServer(app); // this is new
 
 
 app.configure(function() {
@@ -175,6 +199,7 @@ app.post('/login', function(req, res, next) {
 });
 
 app.get('/logout', function(req, res){
+
   req.logout();
   res.redirect('/');
 });
@@ -460,6 +485,145 @@ app.get('/isbn/:number', function(req, res){
         res.json(result);
       });
   });
+});
+
+
+io.sockets.on('connection', function(socket){
+    console.log(io.sockets.manager.rooms);
+    console.log("just connected");
+    // clients emit this when they join new rooms
+    socket.on('join', function(username, callback){
+
+        // get a list of messages currently in the room, then send it back
+        var sql = 'SELECT * FROM messageThreads WHERE buyer=$1 OR seller=$1 ORDER BY time ASC';
+        var q = conn.query(sql, [username], function (error, result) {
+          console.log(result);
+          for (var i = 0; i < result.rowCount; i++){
+            var buyer = result.rows[i].buyer;
+            var seller = result.rows[i].seller;
+            var seen = result.rows[i].seen;
+            var post_id = result.rows[i].post_id;
+
+
+            if (seen == 0)
+            {
+              result.rows[i].seen="true";
+            }
+            else if (buyer == username)
+            {
+              if (seen == 1)
+              {
+                result.rows[i].seen="true";
+              }
+              else if (seen == 2)
+              {
+                result.rows[i].seen="false";
+              }
+            }
+            else if (seller == username)
+            {
+              if (seen == 1)
+              {
+                result.rows[i].seen="false";
+              }
+              else if (seen == 2)
+              {
+                result.rows[i].seen="true";
+              }
+            }
+
+            var nickname;
+            if(username == buyer)
+            {
+              nickname = result.rows[i].seller_nickname;
+
+            }
+            else
+            {
+              nickname = result.rows[i].buyer_nickname;
+       
+            }
+
+            result.rows[i].other_name=nickname;
+
+               
+
+
+          }
+          console.log(result);
+          callback(result);
+          console.log(io.sockets.manager.rooms);
+
+        });
+
+        q.on('row', function(row){
+          console.log(row);
+          socket.join(row.id); // this is a socket.io method
+
+        });
+
+    });
+
+    socket.on('messages', function(threadID, callback){
+        var sql = 'SELECT * FROM messages WHERE threadID == $1 ORDER BY time ASC';
+        var con = conn.query(sql, [threadID], function (error, result) {         
+          callback(result);
+        });
+    });
+
+    socket.on('buyClick', function(username, nickname, seller, seller_nickname, title, post_id, callback){
+        var d = new Date();
+        var sql = 'SELECT * FROM messageThreads WHERE buyer = $1 AND seller = $2 AND post_id = $3';
+        conn.query(sql, [username, seller, post_id], function (error, result) {
+          console.log(result);
+          if(result.rowCount == 1)
+            callback(result);
+          else
+          {
+            console.log("newwwwwww");
+            var d = new Date();
+            var insertsql = 'INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+            conn.query(insertsql, [title, username, nickname, seller_nickname, seller, post_id, d.getTime()/1000, 1], function (error, result) {
+              conn.query(sql, [username, seller, post_id], function (error, result) {
+                console.log(result);
+                callback(result);
+              });
+
+            });
+          }
+        });
+       
+    });
+
+/*    // this gets emitted if a user changes their nickname
+    socket.on('nickname', function(nickname){
+        socket.nickname = nickname;
+        broadcastMembership(socket.roomName);
+    });
+
+     //the client emits this when they want to send a message
+    socket.on('message', function(message, roomName){
+      
+
+        var d = new Date();
+        var sql = 'INSERT INTO messages (room, nickname, body, time) VALUES ($1, $2, $3, $4)';
+        conn.query(sql, [roomName, socket.nickname, message, d.getTime()/1000], function (error, result) {
+            io.sockets.in(roomName).emit('message', socket.nickname, message, d.getTime()/1000);
+        });
+       
+    });
+    
+    socket.on('home', function(callback){
+        var sql = "SELECT DISTINCT room FROM messages;"
+        conn.query(sql, function (error, result) {
+            callback(result);
+        });
+    });
+*/
+    // the client disconnected/closed their browser window
+    socket.on('disconnect', function(){
+
+    });
 });
 
 

@@ -109,6 +109,9 @@ var hackerList = new List('hacker-list', options);
 
         document.getElementById("topRightLogin").style.display = 'none';
         socket = io.connect();
+        socket.emit('join',document.querySelector('meta[name=username]').content,function(messageThreads){
+            console.log(messageThreads);
+        });  
     }
 
     $('#isbn_info').popover({
@@ -416,7 +419,8 @@ function refreshBuy (data) {
               
               '<div class= "buy_btn">'+
                 '<p class="time">'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="price btn btn-large btn-primary pull-right" type="button">Buy for $'+ data.rows[i].price +'.00</button>'+
+                '<button class="price btn btn-large btn-primary pull-right" type="button"onClick="buy_button();">Buy for $'+ data.rows[i].price +'.00</button>'+
+
                 '</p>'+
               '</div>' +
 
