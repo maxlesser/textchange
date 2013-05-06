@@ -108,6 +108,10 @@ function requestMessages(id){
 
 		            li.innerHTML = newitem;
 
+		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
+		            	li.className += ' senderMessage';
+		            }
+		            
 		            ul.appendChild(li);
 		        } 
 
