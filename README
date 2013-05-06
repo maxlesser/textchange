@@ -1,0 +1,14 @@
+README
+
+Textchange
+
+Requirements: Node
+
+To build/run:
+unzip textchange-master.zip
+cd into /textchange
+run 'node loader.js' to create sql tables
+run 'node index.js' to start server
+
+To use website:
+start server, then navigate to 'localhost:8080'
