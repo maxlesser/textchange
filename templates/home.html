@@ -83,27 +83,27 @@
       </div>
       </form>
     </div>
-      
 
     <div id="hacker-list" class="list_container">
       <div id = "listSort">
         Sort by:
-      <span onclick="priceSortButton()" class="sort filter label label-success" data-sort="price">price</span>
-      <span onclick="conditionSortButton()" class="sort filter label label-warning" data-sort="condition">condition</span>
-      <span onclick="timeSortButton()" class="sort filter label label-info" data-sort="time">time</span>
+        <div class="btn-group" data-toggle="buttons-checkbox">
+      <button onclick="priceSortButton()" type="button" class="btn sort filter " data-sort="price">price</button>
+      <button onclick="conditionSortButton()" type="button" class="btn sort filter " data-sort="condition">condition</button>
+      <button onclick="timeSortButton()" type="button" class="btn sort filter" data-sort="time">time</button>
 
       <input id="is_filtered" hidden="true">
-      <input id="highlighter_filter" type="checkbox" value="" onclick="addFilters()">
-      <span class="label label-important">Contains No Highlighter</span>
-      <input id="writing_filter" type="checkbox" value="" onclick="addFilters()">
-      <span class="label">Contains No Writing</span>
-
-
+      <!-- <input id="highlighter_filter" > -->
+      <button class="btn" type="button" value="" onclick="addFilters('hl')">No Highlighter</button>
+      <!-- <input id="writing_filter" > -->
+      <button class="btn" type="button" value="" onclick="addFilters('wr')">No Writing</button>
+    </div>
+  </div>
       <div>
         <ul id="list_thumbnails_buy" class="list unstyled">
         </ul>
       </div>
-</div>
+
 </div>
 </div>
 

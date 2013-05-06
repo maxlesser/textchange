@@ -684,33 +684,49 @@ function refreshSell (data) {
         request.send(null);
     }
 
-    function addFilters()
+    var toggle1 = 0;
+    var toggle2 = 0;
+
+    function addFilters(input)
     {
-        if ($('#highlighter_filter').is(":checked") && $('#writing_filter').is(":checked"))
+
+        // if ($('#highlighter_filter').is(":checked") && $('#writing_filter').is(":checked"))
+        // {
+        //     hackerList.filter();
+        //     hackerList.filter(function(item) {
+        //        if (item.values().highlighter == "Yes" && item.values().writing == "Yes") {
+        //            return true;
+        //        } else {
+        //            return false;
+        //        }
+        //     });
+        // }
+        //else if($('#highlighter_filter').is(":checked"))
+            if (input=="hl")
         {
-            hackerList.filter();
-            hackerList.filter(function(item) {
-               if (item.values().highlighter == "Yes" && item.values().writing == "Yes") {
-                   return true;
-               } else {
-                   return false;
-               }
-            });
-        }
-        else if($('#highlighter_filter').is(":checked"))
-        {
-            hackerList.filter();
-            hackerList.filter(function(item) {
+            if(toggle1 == 0){
+                hackerList.filter();
+                hackerList.filter(function(item) {
                if (item.values().highlighter == "No") {
+                    toggle1=1;
                    return true;
                } else {
+                    toggle1=1;
                    return false;
                }
             });
+            }
+            else{
+                toggle1=0;
+                hackerList.filter();
+            }
+            
         }
-        else if($('#writing_filter').is(":checked"))
+        //else if($('#writing_filter').is(":checked"))
+            else if (input=="wr")
         {
-            hackerList.filter();
+            if (toggle2 == 0){
+                hackerList.filter();
             hackerList.filter(function(item) {
                if (item.values().writing == "No") {
                    return true;
@@ -718,6 +734,13 @@ function refreshSell (data) {
                    return false;
                }
             });
+            }
+
+            else{
+                toggle2=0;
+                hackerList.filter();
+            }
+            
         }
         else
         {
