@@ -130,6 +130,7 @@ function requestMessages(id){
 function updateThreads(data){
 
 	var thread = document.getElementById('thread'+ data);
+	document.getElementById('messageForm').style.visibility='visible' ; 
 
 	if (thread){
 		//remember to check if current thread!!!! and refresh accordingly: requestMessages(id);
