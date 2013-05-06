@@ -215,6 +215,11 @@ function loadThreads(data){
 
     ul.appendChild(li);
 
+    if (data.rows[0].seen == "false"){
+                document.getElementById('thread'+data.rows[0].id).style.color="#062691";
+                newNotification();
+            }
+
     requestMessages(topThreadID);
 
 
