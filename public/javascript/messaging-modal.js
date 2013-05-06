@@ -6,12 +6,15 @@ window.addEventListener('load',function(){
 		e.preventDefault();
 
 		$('#messaging-modal').modal('toggle');
-		noNotifications();
 
 
 		// socket.emit('messages',1,function(messages){
   //           console.log(messages);
   //       });  
+	});
+
+	$('#messaging-modal').on('hidden', function () {
+    	noNotifications();
 	});
 
 	document.getElementById('messageForm').addEventListener('submit',sendMessage, false);
@@ -21,7 +24,7 @@ window.addEventListener('load',function(){
  		socket = io.connect();
  		socket.on('newMessage',  function(data){
 			console.log(data);
-			//updateThreads(data);
+			updateThreads(data);
 		});
         socket.emit('join',document.querySelector('meta[name=username]').content,function(messageThreads){
         console.log(messageThreads);
@@ -107,37 +110,61 @@ function requestMessages(id){
 	}
 }
 
-// function updateThreads(data){
+function updateThreads(data){
 
-// 	var thread = document.getElementById('thread'+ ID OF THREAD);
+	var thread = document.getElementById('thread'+ data);
 
-// 	if (thread){
-// 		//remember to check if current thread!!!! and refresh accordingly: requestMessages(id);
-// 		thread.style.color="blue";
-//         newNotification();
-//         thread.read.value = "no";
-// 	}
+	if (thread){
+		//remember to check if current thread!!!! and refresh accordingly: requestMessages(id);
+		var li = thread.parentNode;
+		var classes = li.classList;
+		if (classes.length == 1)
+		{
+			thread.style.color="blue";
+			$('#thread'+data+' input').val("no");
 
-// 	else{
-// 		var ul = document.getElementById('threadList');
-// 		var li = document.createElement('li');
+		}    
+		else
+		{
+			requestMessages(data);	
+		}
 
-//             newitem = '<a href="#" id="thread'+CHANGE TO ID OF THREAD+'" onClick= "requestMessagesUNREAD('+CHANGE TO ID OF THREAD+')"'+
-//             ' data-toggle="tab"><strong>'+Bookname + '</strong>'+'
-//             <br>'+ sender +' <input type="hidden" name="read" value="no"> </a>';
+        newNotification();
+	}
 
-//             li.innerHTML = newitem;
+	else{
+		var ul = document.getElementById('threadList');
+		var li = document.createElement('li');
+	    li.setAttribute("class","messages");
 
-//             ul.insertBefore(li);
 
-//             document.getElementById('thread'+ID OF THREAD).style.color="blue";
-//             newNotification();
-//             thread.read.value = "no";
-		    
-// 	}
+		var myName = document.querySelector('meta[name=username]').content
+		
+
+    	socket.emit('findOut', data, function(threadInfo){
+
+
+
+			var newitem = '<a href="#" id="thread'+ data+'" onClick= "requestMessagesUNREAD('+data+')"'+
+            ' data-toggle="tab"><strong>'+threadInfo.rows[0].title + '</strong>'+
+            '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden" name="read" value="no"> </a>';
+
+            li.innerHTML = newitem;
+
+            ul.insertBefore(li);
+
+            document.getElementById('thread'+data).style.color="blue";
+            newNotification();
+			$('#thread'+data+' input').val("no");
+			$('#thread'+data).click();
+
+
+    	});
+
+	}
 	
 
-// }
+}
 
 
 
@@ -150,7 +177,8 @@ function loadThreads(data){
 
 
     var li = document.createElement('li');
-    li.setAttribute("class","active");
+    li.setAttribute("class","active messages");
+
 
     var newitem = '<a href="#" id="thread'+data.rows[0].id+'" onClick= "requestMessages(' + topThreadID + ')" '+
     'data-toggle="tab"><strong>'+ data.rows[0].title + '</strong><br>'+ data.rows[0].other_name +' <input type="hidden" value="';
@@ -170,6 +198,7 @@ function loadThreads(data){
     for (var i =1; i < data.rowCount; i ++){
 
             var li = document.createElement('li');
+    		li.setAttribute("class","messages");
 
             newitem = '<a href="#" id="thread'+data.rows[i].id+'" onClick= "requestMessages('+ data.rows[i].id+')" data-toggle="tab"><strong>'+data.rows[i].title + '</strong>'+
             '<br>'+ data.rows[i].other_name +' <input type="hidden" value="';
@@ -193,8 +222,9 @@ function loadThreads(data){
 
 function parseId(str)
 {
-	var idNumber = id.substring(7);
-	idNumber = parseInt(idNumber); 
+	var idNumber = str.substring(6);
+	var intIdNumber = parseInt(idNumber); 
+	return intIdNumber;
 }
 
 
@@ -202,17 +232,20 @@ function sendMessage(e){
 	e.preventDefault();
 
     var text = document.getElementById('messageField').value;
-    var id = $('#active input').attr('id');
+    var id = parseId($('li.active.messages a').attr('id'));
 
-    socket.emit('newMessageUpload', idNumber, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
+    socket.emit('newMessageUpload', text, id, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
 }
 
 
 
 
-function buy_button()
+function buy_button(input)
 {
-	socket.emit('buyClick','andy@nyc.rr.com', 'andy','wheels@nyc.rr.com' , 'max', "Test0", 1, function(messages){
-            console.log(messages);
-        });  
+	socket.emit('buyClick','andy@nyc.rr.com', 'andy','wheels@nyc.rr.com' , 'max', "BeeweeeJBA", 1259, function(messages){
+		updateThreads(messages.rows[0].id);
+		$('#messaging-modal').modal('toggle');
+
+
+    });  
 }

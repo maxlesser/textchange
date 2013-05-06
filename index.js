@@ -581,6 +581,11 @@ io.sockets.on('connection', function(socket){
 
     socket.on('newMessageUpload', function(message, threadID, sender, sender_nickname){
       
+        console.log(message);
+                console.log(threadID);
+        console.log(sender);
+        console.log(sender_nickname);
+
 
         var d = new Date();
         var sql = 'INSERT INTO messages (threadID, sender, time, nickname, content) VALUES ($1, $2, $3, $4, $5)';
@@ -590,17 +595,17 @@ io.sockets.on('connection', function(socket){
             console.log(result);
             var updateSeen = "UPDATE messageThreads SET seen = $1 WHERE id = $2 ";
 
-            if(result[0].buyer == sender)
+            if(result.rows[0].buyer == sender)
             {
               conn.query(updateSeen, [1, threadID], function (error, result) {
-                io.sockets.in(roomName).emit('newMessage', threadID);
+                io.sockets.in(threadID).emit('newMessage', threadID);
               });
 
             }
             else
             {
               conn.query(updateSeen, [2, threadID], function (error, result) {
-                io.sockets.in(roomName).emit('newMessage', threadID);
+                io.sockets.in(threadID).emit('newMessage', threadID);
               });
             }
           });
@@ -610,7 +615,13 @@ io.sockets.on('connection', function(socket){
     });
 
 
-
+  socket.on('findOut', function(threadID, callback){
+        var sql = 'SELECT * FROM messageThreads WHERE id = $1';
+        conn.query(sql, [threadID], function (error, result) {
+          callback(result);
+        });
+       
+    });
 /*    // this gets emitted if a user changes their nickname
     socket.on('nickname', function(nickname){
         socket.nickname = nickname;
