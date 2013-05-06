@@ -157,7 +157,7 @@ function updateThreads(data){
 
 			var newitem = '<a href="#" id="thread'+ data+'" onClick= "requestMessages('+data+')"'+
             ' data-toggle="tab"><strong>'+threadInfo.rows[0].title + '</strong>'+
-            '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden" name="read" value="no"> </a>';
+            '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden"  value="no"> </a>';
 
             li.innerHTML = newitem;
 
@@ -183,6 +183,11 @@ function loadThreads(data){
 
     var ul = document.getElementById('threadList');
     ul.innerHTML = " ";
+
+    if (data.rowCount == 0)
+    {
+    	return;
+    }
 
     var topThreadID = data.rows[0].id;
 
@@ -246,6 +251,7 @@ function sendMessage(e){
     var id = parseId($('li.active.messages a').attr('id'));
 
     socket.emit('newMessageUpload', text, id, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
+
 }
 
 
@@ -254,7 +260,7 @@ function sendMessage(e){
 function buy_button(input)
 {
 	socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
-			input.seller.value , input.seller_nickname.value, input.seller.value, input.post_id.value, function(messages){
+			input.seller.value , input.seller_nickname.value, input.title.value, input.post_id.value, function(messages){
 		
 		updateThreads(messages.rows[0].id);
 		$('#messaging-modal').modal('toggle');
