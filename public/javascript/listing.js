@@ -286,7 +286,7 @@ var hackerList = new List('hacker-list', options);
 function sell(){
     if (document.querySelector('meta[name=username]').content == "null")
     {
-        alert("you must be logged in to sell books");
+        alert("You must be logged in to sell books");
     }
     else{
     document.getElementById("buy").style.display = 'none';
