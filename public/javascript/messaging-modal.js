@@ -7,6 +7,11 @@ window.addEventListener('load',function(){
 
 		$('#messaging-modal').modal('toggle');
 
+		noNotifications();
+		//$('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
+		$("#its4amfuck").animate({ scrollTop: $('#its4amfuck')[0].scrollHeight}, 1000);
+
+
 
 		// socket.emit('messages',1,function(messages){
   //           console.log(messages);
@@ -71,11 +76,16 @@ function requestMessages(id){
 		            var d = new Date(data.rows[i].time*1000);
 
 		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
-		            '<br><small>- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small>';
+		            '<br><small class="pull-right">- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small><br>';
 
 		            li.innerHTML = newitem;
 
+		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
+		            	li.className += ' senderMessage';
+		            }
+
 		            ul.appendChild(li);
+
 		        } 
 
 	});

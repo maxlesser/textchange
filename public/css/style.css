@@ -7,12 +7,38 @@ div.navbar-inner {
   min-width: 501px;
 }
 
+#message-form{
+  margin-top: -10px;
+  padding-top: 10px;
+}
+
 #price_input {
   width: 48px;
 }
 
 #messageThread{
   list-style: none;
+  margin-left: 0px;
+}
+
+#messageThread small{
+
+  font-size: 10px;
+}
+
+#messageThread li{
+  padding: 5px;
+  border-width: 1px;
+  border-top-style: solid;
+  border-color: rgb(200,200,200);
+}
+
+.senderMessage{
+  background-color: #DCE1EF;
+}
+
+#threadList{
+  width: 220px;
 }
 
 #description-alert {
@@ -30,11 +56,19 @@ div.navbar-inner {
 
 .constrict{
   width: 700px;
-  height: 600px;
+  height: 620px;
 }
 
 .constrictBody{
  height: 500px;
+}
+
+.filter{
+
+}
+
+#listSort{
+  padding-left: 20px;
 }
 
 .division{

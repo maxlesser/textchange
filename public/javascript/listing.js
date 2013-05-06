@@ -490,8 +490,13 @@ function refreshBuy (data) {
               
               '<div class= "buy_btn">'+
                 '<p class="time">'+ 'Posted at:'+ '<small> '+ d.toLocaleTimeString()+', '+ d.toLocaleDateString()+'</small>' +'<br><br>'+
-                '<button class="price btn btn-large btn-primary pull-right" type="button"onClick="buy_button();">Buy for $'+ data.rows[i].price +'.00</button>'+
-
+                '<form id="hiddenInfo">'+
+                '<input type="hidden" name="seller" value="'+data.rows[i].seller+'">'+
+                '<input type="hidden" name="seller_nickname" value="'+data.rows[i].seller_nickname+'">'+
+                '<input type="hidden" name="title" value="'+data.rows[i].title+'">'+
+                '<input type="hidden" name="post_id" value="'+data.rows[i].id+'">'+
+                '<button class="price btn btn-large btn-primary pull-right" type="button"onClick="buy_button(this.form);">Buy for $'+ data.rows[i].price +'.00</button>'+
+                '</form>'+
                 '</p>'+
               '</div>' +
 

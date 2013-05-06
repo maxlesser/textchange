@@ -80,17 +80,20 @@
         </ul>
       </form>
     </div>
+      
+
+    <div id="hacker-list" class="list_container">
+      <div id = "listSort">
+      <span onclick="priceSortButton()" class="sort filter" data-sort="price">Sort by book price</span>
+      <span onclick="conditionSortButton()" class="sort filter" data-sort="condition">Sort by book condition</span>
+      <span onclick="timeSortButton()" class="sort filter" data-sort="time">Sort by time</span>
+
       <input id="is_filtered" hidden="true">
       <input id="highlighter_filter" type="checkbox" value="" onclick="addFilters()">
       Contains No Highlighter
       <input id="writing_filter" type="checkbox" value="" onclick="addFilters()">
       Contains No Writing
-
-    <div id="hacker-list" class="list_container">
-      <span onclick="priceSortButton()" class="sort btn" data-sort="price">Sort by book price</span>
-      <span onclick="conditionSortButton()" class="sort btn" data-sort="condition">Sort by book condition</span>
-      <span onclick="timeSortButton()" class="sort btn" data-sort="time">Sort by time</span>
-
+      <div>
 
         <ul id="list_thumbnails_buy" class="list unstyled">
      
@@ -179,25 +182,23 @@
     <div class="modal-body constrictBody">
             <div class="tabbable tabs-left">
               <ul class="nav nav-tabs" id="threadList">
-                <li class="active"><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">Calculus this is so long omg <br>Textbook</a></li>
-                <li><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">History Book</a></li>
-                <li><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">Science Book</a></li>
-                
               </ul>
 
               <div class="tab-content">
                 <div class="tab-pane active fixstate">
-                  <form id = "messageForm" class="form-inline" action = "/sendMessage" method = "post">
-                  <textarea id = "messageField" class="reply-message" rows="3" placeholder="Send a reply message..."></textarea>
-                  <button class="btn btn-primary" type="submit">Send</button>
-                  </form>
-                  <div class="logged-message" >
+                  
+                  <div class="logged-message" id="its4amfuck" >
                     <ul id="messageThread">
 
                     </ul>
                     
                   </div>
-                  
+                  <br>
+
+                  <form id = "messageForm" class="form-inline" action = "/sendMessage" method = "post">
+                  <textarea id = "messageField" class="reply-message" rows="3" placeholder="Send a reply message..."></textarea>
+                  <button class="btn btn-primary" type="submit">Send</button>
+                  </form>
                 </div>
             </div>
             </div> <!-- /tabbable -->
