@@ -332,7 +332,7 @@ function buy(){
 function search(text){
     var highlighter = document.getElementById("highlighter_filter").checked ? 1 : 0;
     var writing = document.getElementById("writing_filter").checked ? 1 : 0;
-    getText('/search/' + document.getElementById("search").value + highlighter + writing + '/books.json');
+    getText('/search/' + document.getElementById("search").value + conditionButton + priceButton + highlighter + writing + '/books.json');
     hackerList = new List('hacker-list', options);
 }
 
@@ -650,4 +650,34 @@ function refreshSell (data) {
         }
     }
 
+var priceButton = 0;
+var conditionButton = 0;
+var timeButton = 0;
 
+    function priceSortButton()
+    {
+        if(priceButton == 0)
+        {
+            priceButton = 1;
+            conditionButton = 0;
+            timeButton = 0;
+        }
+    }
+    function conditionSortButton()
+    {
+        if(conditionButton == 0)
+        {
+            conditionButton = 1;
+            priceButton = 0;
+            timeButton = 0;
+        }
+    }
+    function timeSortButton()
+    {
+        if(timeButton == 0)
+        {
+            timeButton = 1;
+            conditionButton = 0;
+            priceButton = 0;
+        }
+    }

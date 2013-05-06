@@ -266,30 +266,42 @@ app.get('/search/recent.json', function(request,response) {
 app.get('/search/:query/books.json', function(request,response) {
 
   var query = request.params.query;
-  if(query.length >=2)
+  if(query.length >=4)
   {
     var writing = query.charAt(query.length-1);
     var highlighter = query.charAt(query.length-2);
-    query = query.substring(0, query.length-2);
+    var price = query.charAt(query.length-3);
+    var condition = query.charAt(query.length-4);
+    query = query.substring(0, query.length-4);
   }
   else
   {
-    highlighter = 0;
-    writing = 0;
+    var price = 0;
+    var condition = 0;
+    var highlighter = 0;
+    var writing = 0;
   }
   // console.log(query);
   query = '%' + query + '%';
   if(writing == 1 && highlighter == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0  AND writing=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY time DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0  AND writing=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1 ORDER BY $2 DESC';
   else if(writing == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0 AND writing=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0 AND writing=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
   else if(highlighter == 1)
-    var sql = 'SELECT * FROM books WHERE sold=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0 AND highlighter=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
   else
-    var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY time DESC';
+    var sql = 'SELECT * FROM books WHERE sold=0 AND title LIKE $1 OR author LIKE $1 OR class LIKE $1  ORDER BY $2 DESC';
+
+  var sort = "time";
+  if(price == 1)
+    sort = "price";
+  else if(condition == 1)
+    sort = "condition";
 
   console.log(sql);
-  conn.query(sql, query, function(error, result){
+  console.log(query);
+  console.log(sort);
+  conn.query(sql, [query, sort], function(error, result){
     response.json(result);
   });
 });
