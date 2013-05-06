@@ -251,6 +251,7 @@ function sendMessage(e){
     var id = parseId($('li.active.messages a').attr('id'));
 
     socket.emit('newMessageUpload', text, id, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
+    $("#messageField").val("");
 
 }
 
@@ -259,7 +260,18 @@ function sendMessage(e){
 
 function buy_button(input)
 {
-	socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
+		if (document.querySelector('meta[name=username]').content == "null")
+		{
+			alert("Please sign in to buy books!");
+			return;
+		}	
+
+		if (document.querySelector('meta[name=username]').content == input.seller.value)
+		{
+			alert("Silly duck, you can't buy your own book...");
+			return;
+		}	
+		socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
 			input.seller.value , input.seller_nickname.value, input.title.value, input.post_id.value, function(messages){
 		
 		updateThreads(messages.rows[0].id);
