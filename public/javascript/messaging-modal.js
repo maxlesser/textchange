@@ -46,7 +46,7 @@ window.addEventListener('load',function(){
 function newNotification(){
 
 	var a = document.getElementById('messaging-button');
-	a.style.backgroundColor= "#AEBAD0";
+	a.style.backgroundColor= "#0C4CB9";
 
 
 }
@@ -54,7 +54,7 @@ function newNotification(){
 function noNotifications(){
 
 	var a = document.getElementById('messaging-button');
-	a.style.color = "";
+	a.style.backgroundColor = "";
 }
 
 function requestMessages(id){
