@@ -7,6 +7,15 @@ div.navbar-inner {
   min-width: 501px;
 }
 
+#description-alert {
+  color: rgb(134,77,45);
+  background-color: rgb(248, 233, 221);
+  border-color: rgb(196,181,155);
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
 .division{
   display: block;
   border-top-style: solid;

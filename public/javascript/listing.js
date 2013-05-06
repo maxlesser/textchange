@@ -113,7 +113,7 @@ $.fn.typeahead.Constructor.prototype.render = function (items) {
 
         placement: 'right',
         trigger: 'manual',
-        content : 'Please upload an image, how else will we know how pretty it is?'
+        content : 'Please upload an image. How else will we know how pretty your book is?'
 
             });
 
@@ -396,7 +396,7 @@ function refreshBuy (data) {
                 w = "Yes";
             }
 
-            var newitem = '<div class="list_thumbnail">' +
+            var newitem = '<div class="list_thumbnail"><div id="thumbnail_top">' +
                 '<div class="bookPic">' +
               '<img src="../'+ data.rows[i].image + '" alt=""  class="list_image">' + '</div>' + '<div class=\"info1\">' +
 
@@ -416,9 +416,9 @@ function refreshBuy (data) {
               '<br><span data-toggle="collapse" data-target="#b'+ keeper +'">'+
               'More info <i class="icon-info-sign"></i>'+
               '</span></p>'+
-              '</div>' +
+              '</div></div>' +
               
-              '<div id="b'+keeper+'" class="collapse" style="padding-left:10px;">'+ data.rows[i].description +'</div>'+
+              '<div id="b'+keeper+'" class="collapse" style="padding-left:10px; display: inline-block"><div class="alert" id="description-alert"><strong>Description: </strong>'+ data.rows[i].description +'</div></div>'+
             '</div>' ;
 
             li.innerHTML = newitem;
@@ -496,7 +496,7 @@ function refreshSell (data) {
                 w = "Yes";
             }
 
-            var newitem = '<div class="list_thumbnail">' +
+            var newitem = '<div class="list_thumbnail"><div id="thumbnail_top">' +
 
                 '<div class=\"bookPic\">' +
               '<img src="../'+ data.rows[i].image + '" alt="" class="list_image" >' + '</div>' + '<div class="info1">' +
@@ -537,11 +537,10 @@ function refreshSell (data) {
               '<br><span data-toggle="collapse" data-target="#'+ keeper2 +'">'+
               'More info <i class="icon-info-sign"></i>'+
               '</span></p>'+
-              '</div>' +
+              '</div></div>' +
               
-              '<div id="'+keeper2+'" class="collapse" style="padding-left:`0px;">'+ data.rows[i].description +'</div>'+
+              '<div id="'+keeper2+'" class="collapse" style="padding-left:10px; display: inline-block"><div class="alert" id="description-alert"><strong>Description: </strong>'+ data.rows[i].description +'</div></div>'+
             '</div>' ;
-
 
               keeper2 +=1;
 
