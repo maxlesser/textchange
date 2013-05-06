@@ -515,7 +515,7 @@ io.sockets.on('connection', function(socket){
     console.log(io.sockets.manager.rooms);
     console.log("just connected");
     // clients emit this when they join new rooms
-    socket.on('join', function(username){
+    socket.on('join', function(username,callback){
 
         // get a list of messages currently in the room, then send it back
         var sql = 'SELECT * FROM messageThreads WHERE buyer=$1 OR seller=$1 ORDER BY time ASC';
@@ -574,7 +574,7 @@ io.sockets.on('connection', function(socket){
         var d = new Date();
         var sql = 'INSERT INTO messages (threadID, sender, time, nickname, content) VALUES ($1, $2, $3, $4, $5)';
         conn.query(sql, [ threadID, sender, d.getTime()/1000, sender_nickname, message], function (error, result) {
-            io.sockets.in(roomName).emit('message', socket.nickname, message, d.getTime()/1000);
+          
         });
        
     });
