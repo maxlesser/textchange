@@ -60,7 +60,8 @@
 
 <div id = "buy">
 
-    <div id="book_search" class="input-append btn-group">
+
+    <div id="book_search" class="input-append ">
       <form id="search_form" class="navbar-search" action="javascript:search()">
         <input id="search" type="text" class="span4" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
         <script type="text/javascript">
@@ -69,8 +70,9 @@
             $('#search_form').submit();
           });
         </script>
-        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-            <span id="search_type_span">All</span>
+        <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <span id="search_type_span">All</span> <span class="caret"></span>
         </a>
         <ul class="dropdown-menu pull-right">
             <li><a onclick="setSearchType('All')">All</a></li>
@@ -78,28 +80,31 @@
             <li><a onclick="setSearchType('Title')">Title</a></li>
             <li><a onclick="setSearchType('Author')">Author</a></li>
         </ul>
+      </div>
       </form>
     </div>
       
 
     <div id="hacker-list" class="list_container">
       <div id = "listSort">
-      <span onclick="priceSortButton()" class="sort filter" data-sort="price">Sort by book price</span>
-      <span onclick="conditionSortButton()" class="sort filter" data-sort="condition">Sort by book condition</span>
-      <span onclick="timeSortButton()" class="sort filter" data-sort="time">Sort by time</span>
+        Sort by:
+      <span onclick="priceSortButton()" class="sort filter label label-success" data-sort="price">price</span>
+      <span onclick="conditionSortButton()" class="sort filter label label-warning" data-sort="condition">condition</span>
+      <span onclick="timeSortButton()" class="sort filter label label-info" data-sort="time">time</span>
 
       <input id="is_filtered" hidden="true">
       <input id="highlighter_filter" type="checkbox" value="" onclick="addFilters()">
-      Contains No Highlighter
+      <span class="label label-important">Contains No Highlighter</span>
       <input id="writing_filter" type="checkbox" value="" onclick="addFilters()">
-      Contains No Writing
+      <span class="label">Contains No Writing</span>
+
+
       <div>
-
         <ul id="list_thumbnails_buy" class="list unstyled">
-     
-    </ul>
-  </div>
-
+        </ul>
+      </div>
+</div>
+</div>
 </div>
 
 <div id = "sell">
