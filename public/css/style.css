@@ -20,6 +20,19 @@ div.navbar-inner {
   margin-right: 10px;
 }
 
+.fixstate{
+  position: fixed;
+}
+
+.constrict{
+  width: 700px;
+  height: 600px;
+}
+
+.constrictBody{
+ height: 500px;
+}
+
 .division{
   display: block;
   border-top-style: solid;
@@ -141,9 +154,8 @@ textarea {
   resize: none;
 }
 
-#logged-message {
-  max-height: 200px;
-  margin-bottom: 15px;
+.logged-message {
+  max-height: 420px;
   overflow-y: auto;
 }
 

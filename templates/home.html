@@ -39,7 +39,7 @@
 				      <li id = "sellTab"><a href ="#" onClick="return sell()" >Sell</a></li>
               </ul>
               <ul class = "nav pull-right">
-                <li><a id= "messaging-button"><i class="icon-envelope"></i> Messaging</a></li>
+                <li id="messagesBar"><a href="#" id= "messaging-button"><i class="icon-envelope"></i> Messages</a></li>
                 <li class="dropdown">
                   <a id = "usernameDropdown" href="#" class="dropdown-toggle" data-toggle="dropdown">
                   </a>
@@ -171,21 +171,36 @@
   </div>
 </div>
 
-<div id="messaging-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="messaging-modal" class="modal hide fade constrict" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">Messaging</h3>
     </div>
-    <div class="modal-body">
+    <div class="modal-body constrictBody">
             <div class="tabbable tabs-left">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#lA" data-toggle="tab">Calculus Textbook</a></li>
-                <li><a href="#lB" data-toggle="tab">History Book</a></li>
-                <li><a href="#lC" data-toggle="tab">Science Book</a></li>
+              <ul class="nav nav-tabs" id="threadList">
+                <li class="active"><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">Calculus this is so long omg <br>Textbook</a></li>
+                <li><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">History Book</a></li>
+                <li><a href="#" onClick= "loadMessages(CHANGE TO ID OF THREAD)" data-toggle="tab">Science Book</a></li>
+                
               </ul>
+
               <div class="tab-content">
-                <div class="tab-pane active" id="lA">
-                  <div id="logged-message">
+                <div class="tab-pane active fixstate">
+                  <form id = "messageForm" class="form-inline" action = "/sendMessage" method = "post">
+                  <textarea id = "messageField" class="reply-message" rows="3" placeholder="Send a reply message..."></textarea>
+                  <button class="btn btn-primary" type="submit">Send</button>
+                  </form>
+                  <div class="logged-message" >
+                    <ul id="messageThread">
+
+                    </ul>
+                    <p><strong>Seller: </strong>I'm selling for 4 dollars.</p>
+                    <p><strong>Me: </strong>Sounds good. Meet at Jo's?</p>
+                    <p><strong>Seller: </strong>Sure. 5:20?</p>
+                    <p><strong>Seller: </strong>I'm selling for 4 dollars.</p>
+                    <p><strong>Me: </strong>Sounds good. Meet at Jo's?</p>
+                    <p><strong>Seller: </strong>Sure. 5:20?</p>
                     <p><strong>Seller: </strong>I'm selling for 4 dollars.</p>
                     <p><strong>Me: </strong>Sounds good. Meet at Jo's?</p>
                     <p><strong>Seller: </strong>Sure. 5:20?</p>
@@ -199,21 +214,25 @@
                     <p><strong>Me: </strong>Sounds good. Meet at Jo's?</p>
                     <p><strong>Seller: </strong>Sure. 5:20?</p>
                   </div>
-                  <textarea class="reply-message" rows="3" placeholder="Send a reply message..."></textarea>
-                  <button class="btn btn-primary" type="button">Send</button>
+                  
                 </div>
-                <div class="tab-pane" id="lB">
-                  <p>Howdy, I'm in Section B.</p>
-                </div>
-                <div class="tab-pane" id="lC">
-                  <p>What up girl, this is Section C.</p>
-                </div>
-              </div>
+            </div>
             </div> <!-- /tabbable -->
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
+
+
+        
 </div>
+
+
+
+      
+
+
+
+</div>
+
+
+
 
 
 
