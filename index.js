@@ -510,6 +510,7 @@ app.get('/isbn/:number', function(req, res){
   });
 });
 
+var userMap = {};
 
 io.sockets.on('connection', function(socket){
     console.log(io.sockets.manager.rooms);
@@ -526,6 +527,8 @@ io.sockets.on('connection', function(socket){
           console.log(result);
           callback(result);
           console.log(io.sockets.manager.rooms);
+          userMap[username] = socket;
+          socket.username = username;
 
         });
 
@@ -536,6 +539,8 @@ io.sockets.on('connection', function(socket){
         });
 
     });
+
+
 
     socket.on('requestMessages', function(threadID, callback){
         var sql = 'SELECT * FROM messages WHERE threadID == $1 ORDER BY time ASC';
@@ -569,7 +574,10 @@ io.sockets.on('connection', function(socket){
             var insertsql = 'INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
             conn.query(insertsql, [title, username, nickname, seller_nickname, seller, post_id, d.getTime()/1000, 1], function (error, result) {
               conn.query(sql, [username, seller, post_id], function (error, result) {
-                console.log(result);
+                userMap[username].join(result.rows[0].id);
+                if (!userMap[seller])
+                  userMap[seller].join(result.rows[0].id);
+
                 callback(result);
               });
 
@@ -649,7 +657,7 @@ io.sockets.on('connection', function(socket){
 */
     // the client disconnected/closed their browser window
     socket.on('disconnect', function(){
-
+      userMap[socket.username] = undefined;
     });
 });
 
