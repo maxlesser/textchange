@@ -21,9 +21,9 @@ conn.query('INSERT INTO books (title, author, class, seller, seller_nickname, im
 
 }
 
-conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title",  \'andy@nyc.rr.com\',"Andy","Max",\'wheels@nyc.rr.com\',1, 1000, 1)');
-conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title", \'wheels@nyc.rr.com\', "Max", "Andy", \'andy@nyc.rr.com\', 2, 1001, 0)');
-conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title", \'wheels@nyc.rr.com\',"Max", "Andy", \'andy@nyc.rr.com\', 3, 1002, 2)');
+conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title",  \'andy@nyc.rr.com\',"Andy Lesser","Max Lesser",\'wheels@nyc.rr.com\',1, 1000, 1)');
+conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title", \'wheels@nyc.rr.com\', "Max Lesser", "Andy Lesser", \'andy@nyc.rr.com\', 2, 1001, 0)');
+conn.query('INSERT INTO messageThreads (title, buyer, buyer_nickname, seller_nickname, seller, post_id, time, seen) VALUES ("Im a title", \'wheels@nyc.rr.com\',"Max Lesser", "Andy Lesser", \'andy@nyc.rr.com\', 3, 1002, 2)');
 
 
 
