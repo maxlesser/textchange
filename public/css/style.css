@@ -7,6 +7,10 @@ div.navbar-inner {
   min-width: 501px;
 }
 
+#price_input {
+  width: 48px;
+}
+
 #description-alert {
   color: rgb(134,77,45);
   background-color: rgb(248, 233, 221);
