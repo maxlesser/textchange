@@ -8049,6 +8049,7 @@ function processAll(query, callback)
 	            var data = JSON.parse(content);
 	            var allRows = [];
 	            var x;
+	            allRows.push(query);
 	            for(x = 0; x < data.rowCount; x++)
 	            {
 	            	allRows.push(data.rows[x].title);
