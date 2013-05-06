@@ -11,6 +11,12 @@ div.navbar-inner {
   width: 48px;
 }
 
+#search_type {
+  display: inline-block;
+  margin-left: -5px;
+  margin-top: -9px;
+}
+
 #description-alert {
   color: rgb(134,77,45);
   background-color: rgb(248, 233, 221);

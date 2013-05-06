@@ -62,14 +62,14 @@
     <div id = "book_search">
 
       <form id="search_form" class="navbar-search pull-left" action="javascript:search()">
-      <input id="search" type="text" class="search-query" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
+      <input id="search" type="text" class="span4" placeholder="Search by Book, Class or Author..."  data-provide="typeahead" autocomplete="off">
       <script type="text/javascript">
         $('#search').change(function() 
         {
           $('#search_form').submit();
         });
           </script>
-      <select id="search_type">
+      <select id="search_type" class="span2">
         <option value="All">All</option>
         <option value="Class">Class</option>
         <option value="Title">Title</option>
