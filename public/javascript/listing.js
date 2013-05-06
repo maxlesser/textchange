@@ -108,10 +108,6 @@ var hackerList = new List('hacker-list', options);
         $('#usernameDropdown').html(username + " "+"<b class=\"caret\"></b>");
 
         document.getElementById("topRightLogin").style.display = 'none';
-        socket = io.connect();
-        socket.emit('join',document.querySelector('meta[name=username]').content,function(messageThreads){
-            console.log(messageThreads);
-        });  
     }
 
     $('#isbn_info').popover({
@@ -162,6 +158,58 @@ var hackerList = new List('hacker-list', options);
  //    // start the request, optionally with a request body for POST requests
  //    request.send(null);
  // }
+function loadThreads(data){
+
+    var ul = document.getElementById('threadList');
+    ul.innerHTML = " ";
+
+    var topThreadID = data.rows[0].id;
+
+    requestMessages(topThreadID);
+
+    var li = document.createElement('li');
+
+    var newitem = '<li class="active"><a href="#" onClick= "';
+    
+    if (data.rows[0].seen == "false"){ newitem += 'requestMessagesUNREAD(';} 
+    else{ newitem += 'requestMessages(';}
+    
+    newitem += topThreadID + ')" '+
+    'data-toggle="tab"><strong>'+ bookname + '</strong><br>'+ sender +' <input type="hidden" name="read" value="';
+
+    if (data.rows[0].seen == "false"){ newitem += 'no';} 
+    else{ newitem += 'yes';}
+
+    newitem += '"> </a></li>';
+
+    li.innerHTML = newitem;
+
+    ul.appendChild(li);
+
+    for (var i =1; i < data.rowCount; i ++){
+
+            var li = document.createElement('li');
+
+            newitem = '<a href="#" id="thread'+data.rows[i].id+'" onClick= "requestMessages('+ data.rows[i].id+')" data-toggle="tab"><strong>'+data.rows[i].title + '</strong>'+
+            '<br>'+ sender +' <input type="hidden" name="read" value="';
+
+            if (data.rows[i].seen == "false"){ newitem += 'no';} 
+            else{ newitem += 'yes';}
+
+            newitem += '"> </a></li>';
+
+            li.innerHTML = newitem;
+
+            ul.appendChild(li);
+
+            if (data.rows[i].seen == "false"){
+                document.getElementById('thread'+data.rows[i].id).style.color="blue";
+                newNotification();
+            }
+        }  
+
+}
+
 
  function getFileSize() {
 

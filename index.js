@@ -544,10 +544,10 @@ io.sockets.on('connection', function(socket){
         });
     });
 
-    socket.on('requestMessagesUNREAD', function(threadID, callback){
+    socket.on('requestMessagesUnread', function(threadID, callback){
     
     var update = 'UPDATE messageThreads SET seen=0 WHERE id=$1';
-      conn.query(sql, [threadID], function (error, result) {  
+      conn.query(update, [threadID], function (error, result) {  
       var sql = 'SELECT * FROM messages WHERE threadID == $1 ORDER BY time ASC';
       var con = conn.query(sql, [threadID], function (error, result) { 
         callback(result);

@@ -1,11 +1,35 @@
-var socket = io.connect();
+var socket;
 
 window.addEventListener('load',function(){
+
+	$("#messaging-button").click(function (e) {
+		e.preventDefault();
+
+		$('#messaging-modal').modal('toggle');
+		noNotifications();
+
+
+		// socket.emit('messages',1,function(messages){
+  //           console.log(messages);
+  //       });  
+	});
+
 	document.getElementById('messageForm').addEventListener('submit',sendMessage, false);
 
-	socket.on('newMessage',  function(data){
-		updateThreads(data);
-	});
+
+	if (document.querySelector('meta[name=nickname]').content != "null"){
+ 		socket = io.connect();
+ 		socket.on('newMessage',  function(data){
+			console.log(data);
+			//updateThreads(data);
+		});
+        socket.emit('join',document.querySelector('meta[name=username]').content,function(messageThreads){
+        console.log(messageThreads);
+        loadThreads(messageThreads);
+
+    	});  
+	}
+
 
 	//all the socket.ons and the join go in here
 });
@@ -13,28 +37,26 @@ window.addEventListener('load',function(){
 
 function newNotification(){
 
-	var li = document.getElementById('messagesBar');
+	var a = document.getElementById('messaging-button');
+	a.style.color= "#0819A9";
 
-	var newMessage = '<a href="#" id= "messaging-button" style="background-color:#0819A9"><i class="icon-envelope"></i>New messages!</a>';
-	
-	li.innerHTML = newMessage;
 
 }
 
 function noNotifications(){
 
-	var li = document.getElementById('messagesBar');
-
-	var newMessage = '<a href="#" id= "messaging-button"><i class="icon-envelope"></i>Messages</a>';
-	
-	li.innerHTML = newMessage;
+	var a = document.getElementById('messaging-button');
+	a.style.color = "";
 }
 
 function requestMessages(id){
 
-	var thread = document.getElementById('thread'+id);
+	// var idNumber = id.substring(7);
+	// idNumber = parseInt(idNumber); 
 
-	if (thread.read.value == "yes"){
+	var thread = document.getElementById('thread'+id);
+	var read = $('#thread'+id+' input').val();
+	if (read == "yes"){
 		socket.emit('requestMessages',id, function(data){
 
 			var ul = document.getElementById('messageThread');
@@ -45,7 +67,7 @@ function requestMessages(id){
 		            var li = document.createElement('li');
 		            var d = new Date(data.rows[i].time*1000);
 
-		            var newitem = '<strong>' + data.rows[i].sender + ': </strong> ' + data.rows[i].content + 
+		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
 		            '<br><small>- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small>';
 
 		            li.innerHTML = newitem;
@@ -68,7 +90,7 @@ function requestMessages(id){
 		            var li = document.createElement('li');
 		            var d = new Date(data.rows[i].time*1000);
 
-		            var newitem = '<strong>' + data.rows[i].sender + ': </strong> ' + data.rows[i].content + 
+		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
 		            '<br><small>- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small>';
 
 		            li.innerHTML = newitem;
@@ -77,121 +99,116 @@ function requestMessages(id){
 		        } 
 
 		    thread.style.color="";
-		    thread.read.value = "yes";
-
+			$('#thread'+id+' input').val('yes');
 		 	//remove notifications if applicable
-
 
 
 	});
 	}
 }
 
-function updateThreads(data){
+// function updateThreads(data){
 
-	var thread = document.getElementById('thread'+ ID OF THREAD);
+// 	var thread = document.getElementById('thread'+ ID OF THREAD);
 
-	if (thread){
-		//remember to check if current thread!!!! and refresh accordingly: requestMessages(id);
-		thread.style.color="blue";
-        newNotification();
-        thread.read.value = "no";
-	}
+// 	if (thread){
+// 		//remember to check if current thread!!!! and refresh accordingly: requestMessages(id);
+// 		thread.style.color="blue";
+//         newNotification();
+//         thread.read.value = "no";
+// 	}
 
-	else{
-		var ul = document.getElementById('threadList');
-		var li = document.createElement('li');
+// 	else{
+// 		var ul = document.getElementById('threadList');
+// 		var li = document.createElement('li');
 
-            newitem = '<a href="#" id="thread'+CHANGE TO ID OF THREAD+'" onClick= "requestMessagesUNREAD('+CHANGE TO ID OF THREAD+')"'+
-            ' data-toggle="tab"><strong>'+Bookname + '</strong>'+'
-            <br>'+ sender +' <input type="hidden" name="read" value="no"> </a>';
+//             newitem = '<a href="#" id="thread'+CHANGE TO ID OF THREAD+'" onClick= "requestMessagesUNREAD('+CHANGE TO ID OF THREAD+')"'+
+//             ' data-toggle="tab"><strong>'+Bookname + '</strong>'+'
+//             <br>'+ sender +' <input type="hidden" name="read" value="no"> </a>';
 
-            li.innerHTML = newitem;
+//             li.innerHTML = newitem;
 
-            ul.insertBefore(li);
+//             ul.insertBefore(li);
 
-            document.getElementById('thread'+ID OF THREAD).style.color="blue";
-            newNotification();
-            thread.read.value = "no";
+//             document.getElementById('thread'+ID OF THREAD).style.color="blue";
+//             newNotification();
+//             thread.read.value = "no";
 		    
-	}
+// 	}
 	
 
-}
+// }
 
 
 
 function loadThreads(data){
 
-	var ul = document.getElementById('threadList');
+    var ul = document.getElementById('threadList');
     ul.innerHTML = " ";
 
-    var topThreadID = ID OF TOP THREAD;
+    var topThreadID = data.rows[0].id;
 
-    requestMessages(topThreadID);
 
     var li = document.createElement('li');
+    li.setAttribute("class","active");
 
-    var newitem = '<li class="active"><a href="#" onClick= "';
-    
-    if (UNREAD MESSAGE){ newitem += 'requestMessagesUNREAD(';} 
-    else{ newitem += 'requestMessages(';}
-    
-    newitem += topThreadID + ')" '+
-    'data-toggle="tab"><strong>'+ bookname + '</strong><br>'+ sender +' <input type="hidden" name="read" value="';
+    var newitem = '<a href="#" id="thread'+data.rows[0].id+'" onClick= "requestMessages(' + topThreadID + ')" '+
+    'data-toggle="tab"><strong>'+ data.rows[0].title + '</strong><br>'+ data.rows[0].other_name +' <input type="hidden" value="';
 
-    if (UNREAD MESSAGE){ newitem += 'no';} 
+    if (data.rows[0].seen == "false"){ newitem += 'no';} 
     else{ newitem += 'yes';}
 
-    newitem += '"> </a></li>';
+    newitem += '"> </a>';
 
     li.innerHTML = newitem;
 
     ul.appendChild(li);
 
+    requestMessages(topThreadID);
+
+
     for (var i =1; i < data.rowCount; i ++){
 
             var li = document.createElement('li');
 
-            newitem = '<a href="#" id="thread'+CHANGE TO ID OF THREAD+'" onClick= "requestMessages('+ CHANGE TO ID OF THREAD+')" data-toggle="tab"><strong>'+Bookname + '</strong>'+
-			'<br>'+ sender +' <input type="hidden" name="read" value="';
+            newitem = '<a href="#" id="thread'+data.rows[i].id+'" onClick= "requestMessages('+ data.rows[i].id+')" data-toggle="tab"><strong>'+data.rows[i].title + '</strong>'+
+            '<br>'+ data.rows[i].other_name +' <input type="hidden" value="';
 
-		    if (UNREAD MESSAGE){ newitem += 'no';} 
-		    else{ newitem += 'yes';}
+            if (data.rows[i].seen == "false"){ newitem += 'no';} 
+            else{ newitem += 'yes';}
 
-		    newitem += '"> </a></li>';
+            newitem += '"> </a>';
 
             li.innerHTML = newitem;
 
             ul.appendChild(li);
 
-            if (UNREAD){
-            	document.getElementById('thread'+ID OF THREAD).style.color="blue";
-            	newNotification();
+            if (data.rows[i].seen == "false"){
+                document.getElementById('thread'+data.rows[i].id).style.color="blue";
+                newNotification();
             }
         }  
 
 }
 
+function parseId(str)
+{
+	var idNumber = id.substring(7);
+	idNumber = parseInt(idNumber); 
+}
+
+
 function sendMessage(e){
 	e.preventDefault();
 
     var text = document.getElementById('messageField').value;
-    socket.emit('message', text);
+    var id = $('#active input').attr('id');
+
+    socket.emit('newMessageUpload', idNumber, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
 }
 
 
 
-$(document).ready(function() {
-	$("#messaging-button").click(function () {
-		$('#messaging-modal').modal('toggle');
-		socket.emit('messages',1,function(messages){
-            console.log(messages);
-        });  
-	});
-
-	
-});
 
 function buy_button()
 {
