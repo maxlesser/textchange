@@ -8,10 +8,6 @@
 	border-radius: 5px;
 }
 
-#blank-alert.fade.in {
-	top: 25%;
-}
-
 #error-button { 
 	float: right;
 }
