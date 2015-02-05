@@ -29,7 +29,7 @@ var transporter = nodemailer.createTransport({
 // setup e-mail data with unicode symbols
 var mailOptions = {
     from: "Textchange", // sender address
-    to: "max_lesser@brown.edu", // list of receivers
+    to: "", // list of receivers
     subject: "Textchange Confirmation Email", // Subject line
     text: "", // plaintext body
     html: "" // html body
@@ -38,7 +38,7 @@ var mailOptions = {
 // Sends the specified email a confirmation link with generated code
 function sendMail(code, email)
 {
-  mailOptions.text = "Hey there! Thanks for signing up on Textchange. Follow this link to activate your account: http://textchange.jit.su/confirm_signup?code=" + code + "&email=" + email + "\nHappy hunting!\n\n-Textchange Staff (Max)";
+  mailOptions.text = "Hey there! Thanks for signing up on Textchange. Follow this link to activate your account: http://localhost:8080/confirm_signup?code=" + code + "&email=" + email + "\nHappy hunting!\n\n-Textchange Staff (Max)";
   mailOptions.to = email;
 
   console.log(email);
