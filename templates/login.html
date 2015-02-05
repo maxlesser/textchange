@@ -37,11 +37,17 @@
           
       </div>
       <div class="alert alert-error" id="unauthorized" style="display:none;">
-            Invalid username or password
-          </div>
+            Invalid email or password
+      </div>
       <div class="alert alert-error" id="used_email" style="display:none;">
             Your email is already in use
-          </div>
+      </div>
+      <div class="alert alert-error" id="invalid_email" style="display:none;">
+            You email address is invalid - it must be an @brown.edu email
+      </div>
+      <div class="alert alert-error" id="invalid_password" style="display:none;">
+            Your password is invalid - it must be between 8 and 15 characters long
+      </div>
     </div>
     
     </form>
@@ -112,23 +118,40 @@ $("#signup_button").click(function(event) {
         console.log("in here");
         var content1 = req.responseText;
         var data1= JSON.parse(content1);
-        document.getElementById("login_form").reset();
         if (data1=="authorized")
         {
           window.location.replace("/");
         }
-        else 
+        else if(data1 == 'signed_up')
         {
+          window.location.replace("/thanks_signup");
+        }
+        else if(data1 == 'email_invalid')
+        {
+          document.getElementById("login_form").reset();
+          $("#inputEmail").focus();
+          document.getElementById("invalid_email").style.display = 'block';
+        }
+        else if(data1 == 'password_invalid')
+        {
+          $("#inputPassword").val('');
+          $("#inputPassword").focus();
+          document.getElementById("invalid_password").style.display = 'block';
+        }
+        else if(data1 == 'email_used')
+        {
+          document.getElementById("login_form").reset();
+          $("#inputEmail").focus();
+          document.getElementById("used_email").style.display = 'block';
+        }
+        else if(data1 == 'unauthorized')
+        {
+          document.getElementById("login_form").reset();
+          $("#inputEmail").focus();
           if (login == true)
           {
             document.getElementById("unauthorized").style.display = 'block';
           }
-          else
-          {
-            document.getElementById("used_email").style.display = 'block';
-
-          }
-
         }
 
     }, false);

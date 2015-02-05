@@ -226,9 +226,9 @@ function loadThreads(data){
 
      if (document.getElementById("uploadBox").value == "")
     {
+        console.log("hi there");
         $('#uploadBox').popover('show');
         return;
-
     }
 
     //Make sure to VERFIFY SHIZZ HERE
@@ -254,9 +254,9 @@ function loadThreads(data){
         fd.append("writing", 0);
     }
 
-    if (getFileSize() > 200000)
+    if (getFileSize() > 500000)
     {
-       alert("Please keep your images under 200kb. Thanks!");
+       alert("Please keep your images under 500kb. Thanks!");
         return;
     }
 

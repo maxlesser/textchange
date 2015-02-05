@@ -23,8 +23,6 @@
     <script src="/public/bootstrap/js/bootstrap-tooltip.js"></script>
     <script src="/public/bootstrap/js/bootstrap-popover.js"></script>
 
-    <script src="/socket.io/socket.io.js"></script>
-
     <script src="/public/javascript/listing.js"></script>
     <script src="/public/javascript/classStringList.js"></script>
     <script src="/public/javascript/messaging-modal.js"></script>
@@ -125,7 +123,7 @@
                 <div class="fileupload-new thumbnail" style="width: 80px; height: 100px;"><img src="../public/assets/noimage.gif" /></div>
                 <div class="fileupload-preview fileupload-exists thumbnail" id="thumbnail_preview" style="width:80px; height: 100px; line-height: 20px;"></div>
                 <div>
-                  <span class="btn btn-file"><span class="fileupload-new shoveOver">Upload</span><span class="fileupload-exists"><i class="icon-edit" style="margin-left:2px; margin-right:1px;"></i></span><input name = "photo" id="uploadBox" type="file" /></span>
+                  <span class="btn btn-file"><span class="fileupload-new shoveOver">Upload</span><span class="fileupload-exists"><i class="icon-edit" style="margin-left:2px; margin-right:1px;"></i></span><input name = "photo" id="uploadBox" type="file" required/></span>
                   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><i class="icon-trash" style="margin-left:2px; margin-right:1px;"></i></a>
                 </div>
               </div>
@@ -142,11 +140,11 @@
                 </div>
                 <br>
                 <div id = "infoInput">
-                <input name = "title_name" id="title_input" type="text" class="input-medium input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off" required>
-                <input name = "author" id="author_input" type="text" class="input-medium input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" required>
-                <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-mini input_buffer" placeholder="Class" autocomplete="off" required>
+                <input name = "title_name" id="title_input" type="text" class="input-large input_buffer" id="titleSearch" placeholder="Book Title" data-provide="typeahead" autocomplete="off" required>
+                <input name = "author" id="author_input" type="text" class="input-large input_buffer" id="authorSearch" placeholder="Author" data-provide="typeahead" autocomplete="off" required>
+                <input name = "class_name" id="classSearch" type="text" data-provide="typeahead" class="input-medium input_buffer" placeholder="Class" autocomplete="off" required>
                 
-                <textarea name = "description" style= "margin-top:-30px;"class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="3"></textarea>
+                <textarea name = "description" style= "margin-top:-30px;"class = "input_buffer" placeholder = "Extra information... ex: condition, marks, age etc" rows="4"></textarea>
                 </div>
 
                  <div class= "post_btn">
@@ -158,16 +156,16 @@
                 </div>
 
                 <div id="conditionReport">
-                <label class="checkbox">
-                <input id="highlighter_check" type="checkbox" value="">
-                Highlighter
-                </label><br>
-                <label class="checkbox">
-                <input id="writing_check" type="checkbox" value="">
-                Writing
-                </label><br><strong>Condition:</strong><br>
-                <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide" data-slider-id="condition_color" id="condition_slider">
-                <p type="number" class="span2" id="slider_display">OK<p>
+                  <label class="checkbox">
+                  <input id="highlighter_check" type="checkbox" value="">
+                  Highlighter
+                  </label><br>
+                  <label class="checkbox">
+                  <input id="writing_check" type="checkbox" value="">
+                  Writing
+                  </label><br><strong>Condition:</strong><br>
+                  <input name="condition" type="text" class="span2" value="3" data-slider-min="1" data-slider-max="3" data-slider-step="1" data-slider-value="2" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide" data-slider-id="condition_color" id="condition_slider">
+                  <p type="number" class="span2" id="slider_display">OK<p>
                 </div>
 
               </div>

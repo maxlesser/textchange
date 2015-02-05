@@ -1,4 +1,3 @@
-var socket;
 
 window.addEventListener('load',function(){
 
@@ -9,13 +8,6 @@ window.addEventListener('load',function(){
 
 		noNotifications();
 		$('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
-
-
-
-
-		// socket.emit('messages',1,function(messages){
-  //           console.log(messages);
-  //       });  
 	});
 
 	$('#messaging-modal').on('hidden', function () {
@@ -26,22 +18,14 @@ window.addEventListener('load',function(){
 
 
 	if (document.querySelector('meta[name=nickname]').content != "null"){
- 		socket = io.connect();
- 		socket.on('newMessage',  function(data){
-			console.log(data);
-			updateThreads(data);
-		});
-        socket.emit('join',document.querySelector('meta[name=username]').content,function(messageThreads){
-        console.log(messageThreads);
-        loadThreads(messageThreads);
 
-    	});  
+    	ajax.get('/messages/requestAllThreads', {}, function(threads) {
+    		var parsed = JSON.parse(threads);
+    		loadThreads(parsed);
+    	});
+        ajax.get('/messages/requestUnreadThreads', {}, updateUnreadThreads);
 	}
-
-
-	//all the socket.ons and the join go in here
 });
-
 
 function newNotification(){
 
@@ -57,6 +41,7 @@ function noNotifications(){
 	a.style.backgroundColor = "";
 }
 
+// Requests all messages for given thread by ID
 function requestMessages(id){
 
 	// var idNumber = id.substring(7);
@@ -64,72 +49,50 @@ function requestMessages(id){
 
 	var thread = document.getElementById('thread'+id);
 	var read = $('#thread'+id+' input').val();
-	if (read == "yes"){
-		socket.emit('requestMessages',id, function(data){
 
-			var ul = document.getElementById('messageThread');
-		    ul.innerHTML = " ";
+	ajax.get('/messages/requestThread', {'threadID': id}, function(data) 
+	{
+		data = JSON.parse(data);
+		var ul = document.getElementById('messageThread');
+	    ul.innerHTML = " ";
 
-		    for (var i =0; i < data.rowCount; i ++){
+	    for (var i =0; i < data.rowCount; i ++)
+	    {
 
-		            var li = document.createElement('li');
-		            var d = new Date(data.rows[i].time*1000);
+            var li = document.createElement('li');
+            var d = new Date(data.rows[i].time*1000);
 
-		            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
-		            	li.className += ' senderMessage';
-		            }
+            if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
+            	li.className += ' senderMessage';
+            }
 
-		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
-		            '<br><small class="pull-right">- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small><br>';
+            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
+            '<br><small class="pull-right">- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small><br>';
 
-		            li.innerHTML = newitem;
+            li.innerHTML = newitem;
 
-		            ul.appendChild(li);
+            ul.appendChild(li);
 
-		        } 
-		        $('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
+        } 
 
-	});
-	}
-	
-
-	else{
-			socket.emit('requestMessagesUnread',id, function(data){
-
-			var ul = document.getElementById('messageThread');
-		    ul.innerHTML = " ";
-
-		    for (var i =0; i < data.rowCount; i ++){
-
-		            var li = document.createElement('li');
-		            var d = new Date(data.rows[i].time*1000);
-
-		           	if (document.querySelector('meta[name=nickname]').content != data.rows[i].nickname ){
-		            	li.className += ' senderMessage';
-		            }
-
-		            var newitem = '<strong>' + data.rows[i].nickname + ': </strong> ' + data.rows[i].content + 
-		            '<br><small>- ' + d.toLocaleTimeString()+', '+ d.toLocaleDateString()+ '</small>';
-
-		            li.innerHTML = newitem;
-		            
-		            ul.appendChild(li);
-		        } 
-
-		         $('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
-
-		    thread.style.color="";
-			$('#thread'+id+' input').val('yes');
-		 	//remove notifications if applicable
-
+        $('#its4amfuck').scrollTop($('#its4amfuck')[0].scrollHeight);
 
 	});
+
+	if (read != "yes")
+	{
+		ajax.post('/messages/threadRead', {'threadID': id}, null);
+
+	    thread.style.color="";
+		$('#thread'+id+' input').val('yes');
 	}
 }
 
-function updateThreads(data){
+// updates Thread of threadID
+// If none exists, creates the thread
+function updateThread(threadID){
 
-	var thread = document.getElementById('thread'+ data);
+	var thread = document.getElementById('thread'+ threadID);
 	document.getElementById('messageForm').style.visibility='visible' ; 
 
 	if (thread){
@@ -139,12 +102,12 @@ function updateThreads(data){
 		if (classes.length == 1)
 		{
 			thread.style.color="#062691";
-			$('#thread'+data+' input').val("no");
+			$('#thread'+threadID+' input').val("no");
 
 		}    
 		else
 		{
-			requestMessages(data);	
+			requestMessages(threadID);	
 		}
 
         newNotification();
@@ -158,12 +121,12 @@ function updateThreads(data){
 
 		var myName = document.querySelector('meta[name=username]').content
 		
-
-    	socket.emit('findOut', data, function(threadInfo){
-
+		ajax.get('/messages/threadInfo', {'threadID': threadID}, function(threads) 
+		{
+			threadInfo = JSON.parse(threads);
     		var nickname = threadInfo.rows[0].buyer_nickname;
 
-			var newitem = '<a href="#" id="thread'+ data+'" onClick= "requestMessages('+data+')"'+
+			var newitem = '<a href="#" id="thread'+ threadID+'" onClick= "requestMessages('+threadID+')"'+
             ' data-toggle="tab"><strong>'+threadInfo.rows[0].title + '</strong>'+
             '<br>'+ threadInfo.rows[0].buyer_nickname +' <input type="hidden"  value="no"> </a>';
 
@@ -171,25 +134,19 @@ function updateThreads(data){
             $("#threadList").prepend(li);
             //ul.insertBefore(li);
 
-            document.getElementById('thread'+data).style.color="#062691";
+            document.getElementById('thread'+threadID).style.color="#062691";
             newNotification();
-			$('#thread'+data+' input').val("no");
-			$('#thread'+data).click();
+			$('#thread'+threadID+' input').val("no");
+			$('#thread'+threadID).click();
 			if (threadInfo.rows[0].buyer ==  myName)
 			{
 				document.getElementById('messageField').value = "Hi " + threadInfo.rows[0].seller_nickname + ", I would love to purchase " + threadInfo.rows[0].title + ". Let me know when you're free. \n -" + document.querySelector('meta[name=nickname]').content;
 			}
-
-
     	});
-
 	}
-	
-
 }
 
-
-
+// Creates a 'thread' area for each thread (not populated with actual messages yet)
 function loadThreads(data){
 
     var ul = document.getElementById('threadList');
@@ -252,7 +209,20 @@ function loadThreads(data){
                 newNotification();
             }
         }  
+}
 
+// given json of the threads which are unread, updates their unread status
+function updateUnreadThreads(unreadThreads) {
+    if(unreadThreads)
+    {
+        var parsed = JSON.parse(unreadThreads); 
+        if(parsed.rowCount > 0)
+        {        
+            for (index = 0; index < parsed.rowCount; ++index) {
+                updateThread(parsed.rows[index].id);
+            }
+        }
+    }
 }
 
 function parseId(str)
@@ -269,9 +239,10 @@ function sendMessage(e){
     var text = document.getElementById('messageField').value;
     var id = parseId($('li.active.messages a').attr('id'));
 
-    socket.emit('newMessageUpload', text, id, document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content);
-    $("#messageField").val("");
+    ajax.post('/messages/post', {'threadID': id, 'message': text}, function() {});
+    updateThread(id);
 
+    $("#messageField").val("");
 }
 
 
@@ -279,25 +250,88 @@ function sendMessage(e){
 
 function buy_button(input)
 {
-		if (document.querySelector('meta[name=username]').content == "null")
-		{
-			document.getElementById('alert-text').innerHTML=("Please log in to buy books.");
-	        $('#blank-alert').modal("show");
-			return;
-		}	
+	if (document.querySelector('meta[name=username]').content == "null")
+	{
+		document.getElementById('alert-text').innerHTML=("Please log in to buy books.");
+        $('#blank-alert').modal("show");
+		return;
+	}	
 
-		if (document.querySelector('meta[name=username]').content == input.seller.value)
-		{
-			document.getElementById('alert-text').innerHTML=("You can't buy your own book.");
-	        $('#blank-alert').modal("show");
-			return;
-		}	
-		socket.emit('buyClick',document.querySelector('meta[name=username]').content, document.querySelector('meta[name=nickname]').content,
-			input.seller.value , input.seller_nickname.value, input.title.value, input.post_id.value, function(messages){
-		
-		updateThreads(messages.rows[0].id);
+	if (document.querySelector('meta[name=username]').content == input.seller.value)
+	{
+		document.getElementById('alert-text').innerHTML=("You can't buy your own book.");
+        $('#blank-alert').modal("show");
+		return;
+	}
+
+	ajax.post('/messages/buyClick', {'seller': input.seller.value, 'seller_nickname': input.seller_nickname.value, 'title': input.title.value, 'post_id': input.post_id.value}, function(messages){
+		var parsed = JSON.parse(messages);
+		updateThread(parsed.rows[0].id);
 		$('#messaging-modal').modal('toggle');
-		$('#thread'+messages.rows[0].id).click();
-
-    });  
+		$('#thread'+parsed.rows[0].id).click();
+	});  
 }
+
+
+
+
+var ajax = {};
+ajax.x = function() {
+    if (typeof XMLHttpRequest !== 'undefined') {
+        return new XMLHttpRequest();  
+    }
+    var versions = [
+        "MSXML2.XmlHttp.5.0",   
+        "MSXML2.XmlHttp.4.0",  
+        "MSXML2.XmlHttp.3.0",   
+        "MSXML2.XmlHttp.2.0",  
+        "Microsoft.XmlHttp"
+    ];
+
+    var xhr;
+    for(var i = 0; i < versions.length; i++) {  
+        try {  
+            xhr = new ActiveXObject(versions[i]);  
+            break;  
+        } catch (e) {
+        }  
+    }
+    return xhr;
+};
+
+ajax.send = function(url, callback, method, data, sync) {
+    var x = ajax.x();
+    x.open(method, url, sync);
+    x.onreadystatechange = function() {
+        if (x.readyState == 4) {
+            callback(x.responseText)
+        }
+    };
+    if (method == 'POST') {
+        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    }
+    x.send(data)
+};
+
+ajax.get = function(url, data, callback, sync) {
+    var query = [];
+    for (var key in data) {
+        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    }
+    ajax.send(url + '?' + query.join('&'), callback, 'GET', null, sync)
+};
+
+ajax.post = function(url, data, callback, sync) {
+    var query = [];
+    for (var key in data) {
+        query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+    }
+    ajax.send(url, callback, 'POST', query.join('&'), sync)
+};
+
+
+// periodically calls for unread threads, and for each one updates that thread's read status
+window.setInterval(function() 
+{
+	ajax.get('/messages/requestUnreadThreads', {}, updateUnreadThreads);
+}, 2000);

@@ -1,10 +1,11 @@
 {
   "name": "textchange",
-  "version": "0.0.0",
+  "version": "0.0.0-10",
   "description": "132 project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -16,9 +17,18 @@
     "hogan.js": "2.0.x",
     "consolidate": "0.7.x",
     "sqlite3": "2.1.x",
-    "socket.io": "0.9.x"
+    "socket.io": "0.9.x",
+    "xml2js": "0.2.6",
+    "sha1": "1.1.0",
+    "nodemailer": "1.3.0",
+    "passport": "0.1.16",
+    "passport-local": "0.1.6"
   },
   "author": "",
   "license": "BSD",
-  "gitHead": "8e207d06c41c506c72129c9f8302101d4ee03ce2"
+  "gitHead": "8e207d06c41c506c72129c9f8302101d4ee03ce2",
+  "subdomain": "textchange",
+  "engines": {
+    "node": "0.10.x"
+  }
 }

@@ -130,14 +130,14 @@ div.navbar-inner {
 .conditionListSell{
   margin-top: 10px;
   margin-right: 40px;
-  float: right;
+  /*float: right;*/
   display: inline-block;
 }
 
 .conditionList{
   margin-top: 10px;
   margin-right: 150px;
-  float: right;
+  /*float: right;*/
   display: inline-block;
 }
 
@@ -145,6 +145,12 @@ div.navbar-inner {
   float: right;
   margin-right: 10px;
   display: inline-block;
+}
+
+#uploadBox {
+  transform: scale(1);
+  width: 75px;
+  right: 0px;
 }
 
 #isbnForm{
@@ -160,11 +166,10 @@ div.navbar-inner {
 
 #conditionReport{
   display: inline-block;
-  float: right;
+  /*float: right;*/
   margin-right: 100px;
-  margin-top: -30px;
+  margin-left: 20px;
   width: 150px;
-
 }
 
 #infoInput{
@@ -196,7 +201,7 @@ div.navbar-inner {
 
 #sell{
 	display: none;
-  min-width: 1260px;
+  min-width: 1000px;
   margin: 0 auto;
 }
 
@@ -234,18 +239,21 @@ textarea {
 	width: 100%;
   list-style: none;
   *zoom: 1;
+  min-width: 1000px;
 }
 
 #list_thumbnails_buy {
 	width: 100%;
   list-style: none;
   *zoom: 1;
+  min-width: 1000px;
 }
 
 #list_thumbnails_input {
 	width: 100%;
   list-style: none;
   *zoom: 1;
+  min-width: 1000px;
 }
 
 .list_thumbnails:before,
